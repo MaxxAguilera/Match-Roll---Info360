@@ -1,47 +1,62 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MatchandRoll</title>
-    <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MatchandRoll.styles.css" asp-append-version="true" />
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MatchandRoll</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+<body class="landing-page-body">
+    <header class="top-header">
+        <div class="header-inner">
+            <div class="brand-block">
+                <img class="brand-logo" src="~/Img/image-removebg-preview.png" alt="Match and Roll" />
+                <span class="brand-name">match</span>
+                <span class="brand-name brand-separator">|</span>
+                <span class="brand-name">salas</span>
+            </div>
+
+            <div class="header-actions">
+                <button class="header-btn match-btn">match</button>
+                <button class="header-btn salas-btn">salas</button>
+                <div class="user-avatar" aria-label="Iniciar sesión">
+                    <img src="~/Img/image-removebg-preview (1).png" alt="Logo de login" />
                 </div>
             </div>
-        </nav>
+        </div>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - MatchandRoll - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <main role="main" class="landing-main">
+        @RenderBody()
+    </main>
+
+    <footer class="bottom-footer">
+        <div class="footer-inner">
+            <div class="footer-column">
+                <p>Sobre nosotros</p>
+                <p>Contacto</p>
+                <p>Accesibilidad</p>
+            </div>
+
+            <div class="footer-brand">
+                <img class="footer-logo" src="~/Img/image-removebg-preview.png" alt="Match and Roll" />
+                <div class="footer-logo-text">match &amp; roll</div>
+                <div class="socials">
+                    <img src="~/Img/download-removebg-preview.png" alt="X" />
+                    <img src="~/Img/download-removebg-preview (1).png" alt="Facebook" />
+                    <img src="~/Img/ImagenIG.png.png" alt="Instagram" />
+                </div>
+            </div>
+
+            <div class="footer-column right-column">
+                <p>Qué hacemos</p>
+                <p>Ayuda</p>
+                <p>Cookies</p>
+            </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
