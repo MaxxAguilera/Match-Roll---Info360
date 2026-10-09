@@ -2,13 +2,13 @@ namespace MatchandRoll.Models;
 
 public class Reserva
 {
-    public int IdReserva { get; set; }
-    public int IdSala { get; set; }
-    public int IdUsuario { get; set; }
-    public DateTime FechaHoraInicio { get; set; }
-    public DateTime FechaHoraFin { get; set; }
-    public decimal MontoTotal { get; set; }
-    public string EstadoReserva { get; set; } = "Pendiente";
-    public string? ResenaComentario { get; set; }
-    public int? PuntajeResena { get; set; }
+    public int idReserva { get; set; }
+    public int idSala { get; set; }
+    public int idUsuario { get; set; }
+    public DateTime fechaHoraInicio { get; set; }
+    public DateTime fechaHoraFin { get; set; }
+    public double montoTotal { get; set; }
+    public string estadoReserva { get; set; } = "Pendiente";
+    public string? resenaComentario { get; set; }
+    public int? puntajeResena { get; set; }
 }

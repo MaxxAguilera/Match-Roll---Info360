@@ -2,9 +2,9 @@ namespace MatchandRoll.Models;
 
 public class ProyectoMusical
 {
-    public int IdProyecto { get; set; }
-    public int IdUsuarioCreador { get; set; }
-    public string NombreProyecto { get; set; } = string.Empty;
-    public string? Descripcion { get; set; }
-    public string? EnlaceDemostracion { get; set; }
+    public int idProyecto { get; set; }
+    public int idUsuarioCreador { get; set; }
+    public string nombreProyecto { get; set; } = string.Empty;
+    public string? descripcion { get; set; }
+    public string? enlaceDemostracion { get; set; }
 }

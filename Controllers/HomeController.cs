@@ -53,7 +53,7 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    public IActionResult RegistrarDatos(string nombreUsuario, string contraseña, string nombre, string apellido, string tipoUsuario, string genero){
+    public IActionResult RegistrarDatos(string email, string contraseña, string apodo, string edad, string genero, ){
         BD bd = new BD();
         if (bd.ValidarNombreUsuario(nombreUsuario)){
             Usuario user = new Usuario(nombreUsuario, contraseña, nombre, apellido, tipoUsuario, 0, int.Parse(genero));

@@ -14,8 +14,18 @@ namespace Match-Roll--info360.Models
         public string instrumentoPrincipal {get;set;}
         public string nivelExperiencia {get; set;}
         public string genero {get; set;}
+        public int edad { get; set; }
+        public List<ProyectoMusical> proyectos { get; set; } = new List<ProyectoMusical>();
+        public List<Match> matchesSolicitante { get; set; } = new List<Match>();
+        public List<Match> matchesReceptor { get; set; } = new List<Match>();
+        public Ubicacion ubicacion { get; set; } = new Ubicacion();
+        public List<string> etiquetas { get; set; } = new List<string>();
 
-        public Usuario(string nombre, string apellido, string email, string contraseña,  string tipoUsuario, string biografia, string instrumentoPrincipal, string nivelExperiencia, int idUbicacion, string genero, string apodo)
+        public Usuario()
+        {
+        }
+
+        public Usuario(string nombre, string apellido, string email, string contraseña,  string tipoUsuario, string biografia, string instrumentoPrincipal, string nivelExperiencia, int idUbicacion, string genero, string apodo, int edad)
         {
             this.nombre = nombre;
             this.apellido = apellido;
@@ -28,6 +38,7 @@ namespace Match-Roll--info360.Models
             this.genero = genero;
             this.idUbicacion = idUbicacion;
             this.apodo = apodo;
+            this.edad = edad;
         }
     }
 }

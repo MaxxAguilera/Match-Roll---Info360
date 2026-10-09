@@ -2,9 +2,9 @@ namespace MatchandRoll.Models;
 
 public class Match
 {
-    public int IdMatch { get; set; }
-    public int IdUsuarioSolicitante { get; set; }
-    public int IdUsuarioReceptor { get; set; }
-    public DateTime FechaMatch { get; set; }
-    public string EstadoMatch { get; set; } = "Pendiente";
+    public int idMatch { get; set; }
+    public int idUsuarioSolicitante { get; set; }
+    public int idUsuarioReceptor { get; set; }
+    public DateTime fechaMatch { get; set; }
+    public string estadoMatch { get; set; } = "Pendiente";
 }

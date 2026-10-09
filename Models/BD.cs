@@ -21,21 +21,13 @@ namespace Match-Roll--info360.Models
 
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    string resultado = connection.QueryFirstOrDefault<string>(
-                        query,
-                        new
-                        {
-                            Email = email,
-                            Contrasena = contrasena
-                        }
-                    );
+                    string resultado = connection.QueryFirstOrDefault<string>(query, new{Email = email,Contrasena = contrasena});
 
                     if (resultado != null)
                     {
                         id = resultado;
                     }
                 }
-
                 return id;
             }
 
@@ -43,17 +35,11 @@ namespace Match-Roll--info360.Models
             {
                 Usuario user = null;
 
-                string query = @"
-                    SELECT *
-                    FROM Usuarios
-                    WHERE idUsuario = @Id";
+                string query = "SELECT * FROM Usuarios WHERE idUsuario = @Id";
 
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    user = connection.QueryFirstOrDefault<Usuario>(
-                        query,
-                        new { Id = id }
-                    );
+                    user = connection.QueryFirstOrDefault<Usuario>(query, new { Id = id });
                 }
 
                 return user;
@@ -166,8 +152,8 @@ namespace Match-Roll--info360.Models
                 {
                     using var connection = new SqlConnection(_connectionString);
                     var sql = @"
-                        INSERT INTO Usuarios (Nombre, Apellido, Email, Contrasena, TipoUsuario, Biografia, InstrumentoPrincipal, NivelExperiencia, IdUbicacion)
-                        VALUES (@Nombre, @Apellido, @Email, @Contrasena, @TipoUsuario, @Biografia, @InstrumentoPrincipal, @NivelExperiencia, @IdUbicacion);
+                        INSERT INTO Usuarios (Nombre, Apellido, Email, Contrasena, TipoUsuario, Biografia, InstrumentoPrincipal, NivelExperiencia, IdUbicacion, Genero, Apodo, Edad)
+                        VALUES (@Nombre, @Apellido, @Email, @Contrasena, @TipoUsuario, @Biografia, @InstrumentoPrincipal, @NivelExperiencia, @IdUbicacion, @Genero, @Apodo, @Edad);
                         SELECT CAST(SCOPE_IDENTITY() AS int);";
 
                     return connection.QuerySingle<int>(sql, usuario);
@@ -197,4 +183,3 @@ namespace Match-Roll--info360.Models
             }
 
         }
-           
