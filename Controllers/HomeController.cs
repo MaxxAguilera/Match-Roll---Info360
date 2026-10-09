@@ -48,17 +48,18 @@ public class HomeController : Controller
     }
 
     public IActionResult Registrarse(){
+
         ViewBag.msj = null;
         return View();
     }
 
     [HttpPost]
-    public IActionResult RegistrarDatos(string email, string contraseña, string apodo, string edad, string genero, ){
+    public IActionResult RegistrarDatos(string email, string contraseña, string apodo, int edad, string genero, List<string> etiquetasSeleccionadas){
         BD bd = new BD();
-        if (bd.ValidarNombreUsuario(nombreUsuario)){
-            Usuario user = new Usuario(nombreUsuario, contraseña, nombre, apellido, tipoUsuario, 0, int.Parse(genero));
+        if (bd.ValidarNombreUsuario(apodo)){
+            Usuario user = new Usuario(email, contraseña, apodo, edad, genero, "", "", "", 0);
             bd.CrearUsuario(user);
-            HttpContext.Session.SetString("id", bd.BuscarSesion(nombreUsuario, contraseña));
+            HttpContext.Session.SetString("id", bd.BuscarSesion(apodo, contraseña));
             return RedirectToAction("Index");
         }
         ViewBag.msj = "El nombre de usuario ya existe, por favor elija otro";
