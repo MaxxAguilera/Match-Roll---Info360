@@ -1,4 +1,4 @@
-namespace MatchandRoll.Models
+namespace MatchRollInfo360.Models
 {
     public class Usuario
     {
@@ -19,10 +19,20 @@ namespace MatchandRoll.Models
         public List<Match> matchesSolicitante { get; set; } = new List<Match>();
         public List<Match> matchesReceptor { get; set; } = new List<Match>();
         public Ubicacion ubicacion { get; set; } = new Ubicacion();
-        public List<string> etiquetas { get; set; } = new List<string>();
+        public string etiqueta { get; set; } = string.Empty; /*Preventivmente es tipo string, luego se va acambiar a List<Etiqueta>*/
 
         public Usuario()
         {
+        }
+
+        public Usuario(string email, string contraseña, string apodo, int edad, string genero, string etiqueta)
+        {
+            this.email = email;
+            this.contraseña = contraseña;
+            this.apodo = apodo;
+            this.edad = edad;
+            this.genero = genero;
+            this.etiqueta = etiqueta;
         }
 
         public Usuario(string email, string contraseña, string apodo, int edad, string genero, string biografia, string instrumentoPrincipal, string nivelExperiencia, int idUbicacion)

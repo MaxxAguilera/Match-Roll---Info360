@@ -1,4 +1,4 @@
-namespace MatchandRoll.Models;
+namespace MatchRollInfo360.Models;
 
 public class SalaEnsayo
 {

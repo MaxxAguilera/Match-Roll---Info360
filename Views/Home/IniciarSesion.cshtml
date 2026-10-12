@@ -17,10 +17,10 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     }
-                    <form asp-action="IniciarSesion" method="post">
+                     <form action="@Url.Action("IniciarSesion", "Home")" method="post">
                         <div class="mb-3">
-                            <label for="nombreUsuario" class="form-label">Nombre de usuario</label>
-                            <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" required>
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
                         </div>
                         <div class="mb-3">
                             <label for="contraseña" class="form-label">Contraseña</label>

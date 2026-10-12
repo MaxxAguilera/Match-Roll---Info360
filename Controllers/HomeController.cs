@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using MatchandRoll.Models;
+using MatchRollInfo360.Models;
 
-namespace MatchandRoll.Controllers;
+namespace MatchRollInfo360.Controllers;
 
 public class HomeController : Controller
 {
@@ -29,10 +29,10 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    public IActionResult IniciarSesion(string nombreUsuario, string contraseña)
+    public IActionResult IniciarSesion(string email, string contraseña)
     {
         BD bd = new BD();
-        HttpContext.Session.SetString("id", bd.BuscarSesion(nombreUsuario, contraseña));
+        HttpContext.Session.SetString("id", bd.BuscarSesion(email, contraseña));
         if (HttpContext.Session.GetString("id") == "-1"){
             ViewBag.msj = "No existe ese usuario :)";
             return View();
@@ -54,12 +54,12 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    public IActionResult RegistrarDatos(string email, string contraseña, string apodo, int edad, string genero, List<string> etiquetasSeleccionadas){
+    public IActionResult RegistrarDatosPrincipales(string email, string contraseña, string apodo, int edad, string genero, string etiqueta){
         BD bd = new BD();
         if (bd.ValidarNombreUsuario(apodo)){
-            Usuario user = new Usuario(email, contraseña, apodo, edad, genero, "", "", "", 0);
-            bd.CrearUsuario(user);
-            HttpContext.Session.SetString("id", bd.BuscarSesion(apodo, contraseña));
+            Usuario user = new Usuario(email, contraseña, apodo, edad, genero, etiqueta);
+            bd.CrearUsuarioNoCompleto(user);
+            HttpContext.Session.SetString("id", bd.BuscarSesion(email, contraseña));
             return RedirectToAction("Index");
         }
         ViewBag.msj = "El nombre de usuario ya existe, por favor elija otro";

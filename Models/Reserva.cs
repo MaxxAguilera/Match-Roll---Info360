@@ -1,4 +1,4 @@
-namespace MatchandRoll.Models;
+namespace MatchRollInfo360.Models;
 
 public class Reserva
 {
@@ -7,7 +7,7 @@ public class Reserva
     public int idUsuario { get; set; }
     public DateTime fechaHoraInicio { get; set; }
     public DateTime fechaHoraFin { get; set; }
-    public double montoTotal { get; set; }
+    public int montoTotal { get; set; }
     public string estadoReserva { get; set; } = "Pendiente";
     public string? resenaComentario { get; set; }
     public int? puntajeResena { get; set; }

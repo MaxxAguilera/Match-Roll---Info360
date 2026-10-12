@@ -1,13 +1,12 @@
 using Dapper;
 using Microsoft.Data.SqlClient;
-
-namespace MatchandRoll.Models
+namespace MatchRollInfo360.Models
 {
     public class BD
     {
         private static string _connectionString = @"Server=localhost;DataBase=MatchAndRoll;Integrated Security=True;TrustServerCertificate=True;";
 
-        public string BuscarSesion(string email, string contrasena)
+        public string BuscarSesion(string email, string contraseña)
         {
             string id = "-1";
 
@@ -15,11 +14,11 @@ namespace MatchandRoll.Models
                     SELECT idUsuario
                     FROM Usuarios
                     WHERE email = @Email
-                    AND contrasena = @Contrasena";
+                    AND contraseña = @contraseña";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string resultado = connection.QueryFirstOrDefault<string>(query, new { Email = email, Contrasena = contrasena });
+                string resultado = connection.QueryFirstOrDefault<string>(query, new { Email = email, contraseña = contraseña });
 
                 if (resultado != null)
                 {
@@ -30,14 +29,15 @@ namespace MatchandRoll.Models
         }
         public bool ValidarNombreUsuario(string apodo){
             string query = "SELECT COUNT(apodo) FROM Usuarios WHERE apodo = @apodo";
+            int count = 0;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                int count = connection.QueryFirstOrDefault<int>(query, new { apodo = apodo });
-                if (count > 0)
-                {
-                    return false;
-                }  
+                count = connection.QueryFirstOrDefault<int>(query, new { apodo = apodo }); 
             }
+            if (count > 0)
+            {
+                return false;
+            } 
             return true;
         }
 
@@ -61,68 +61,83 @@ namespace MatchandRoll.Models
                     SELECT COUNT(email)
                     FROM Usuarios
                     WHERE email = @Email";
+            int count = 0;
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                int count = connection.QueryFirstOrDefault<int>(
-                    query,
-                    new { Email = email }
-                );
-
-                if (count > 0)
-                {
-                    return false;
-                }
+                count = connection.QueryFirstOrDefault<int>(query, new { Email = email });
             }
-
+            if (count > 0)
+            {
+                return false;
+            }
             return true;
         }
 
         public List<Usuario> ObtenerUsuarios()
         {
+            List<Usuario> usuarios = new List<Usuario>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                return connection.Query<Usuario>("SELECT * FROM Usuarios").ToList();
+                usuarios = connection.Query<Usuario>("SELECT * FROM Usuarios").ToList();
             }
+            return usuarios;
         }
 
         public List<SalaEnsayo> ObtenerSalas()
         {
+            List<SalaEnsayo> salas = new List<SalaEnsayo>();
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                return connection.Query<SalaEnsayo>("SELECT * FROM SalasEnsayo").ToList();
+                salas = connection.Query<SalaEnsayo>("SELECT * FROM SalasEnsayo").ToList();
             }
+            return salas;
         }
 
         public List<Reserva> ObtenerReservas()
         {
+            List<Reserva> reservas = new List<Reserva>();
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                return connection.Query<Reserva>("SELECT * FROM Reservas").ToList();
+                reservas = connection.Query<Reserva>("SELECT * FROM Reservas").ToList();
             }
+            return reservas;
         }
 
         public Usuario? ObtenerUsuarioPorId(int idUsuario)
         {
+            Usuario? user = null;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                return connection.QueryFirstOrDefault<Usuario>(
-                    "SELECT * FROM Usuarios WHERE IdUsuario = @IdUsuario",
-                    new { IdUsuario = idUsuario }
-                );
+                user = connection.QueryFirstOrDefault<Usuario>("SELECT * FROM Usuarios WHERE IdUsuario = @IdUsuario", new { IdUsuario = idUsuario });
             }
+            return user;
         }
-
-        public int CrearUsuario(Usuario usuario)
+        public void CrearUsuarioNoCompleto(Usuario usuario)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 var sql = @"
-                            INSERT INTO Usuarios (Nombre, Apellido, Email, Contrasena, TipoUsuario, Biografia, InstrumentoPrincipal, NivelExperiencia, IdUbicacion, Genero, Apodo, Edad)
-                            VALUES (@Nombre, @Apellido, @Email, @Contrasena, @TipoUsuario, @Biografia, @InstrumentoPrincipal, @NivelExperiencia, @IdUbicacion, @Genero, @Apodo, @Edad);
-                            SELECT CAST(SCOPE_IDENTITY() AS int);";
+                    INSERT INTO Usuarios (email, contraseña, apodo, edad, genero, etiqueta)
+                    VALUES (@email, @contraseña, @apodo, @edad, @genero, @etiqueta);";
 
-                return connection.QuerySingle<int>(sql, usuario);
+                connection.Execute(sql, usuario);
+            }
+        }
+
+
+
+        public void CrearUsuarioCompleto(Usuario usuario)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var sql = @"
+                    INSERT INTO Usuarios (apodo, contraseña, nombre, apellido, tipoUsuario, idUbicacion, email, biografia, instrumentoPrincipal, nivelExperiencia, genero, edad)
+                    VALUES (@apodo, @contraseña, @nombre, @apellido, @tipoUsuario, @idUbicacion, @email, @biografia, @instrumentoPrincipal, @nivelExperiencia, @genero, @edad);";
+
+                connection.Execute(sql, usuario);
             }
         }
 
@@ -140,20 +155,25 @@ namespace MatchandRoll.Models
 
         public List<ProyectoMusical> ObtenerProyectos()
         {
+            List<ProyectoMusical> proyectos = new List<ProyectoMusical>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                return connection.Query<ProyectoMusical>("SELECT * FROM ProyectosMusicales").ToList();
+                proyectos = connection.Query<ProyectoMusical>("SELECT * FROM ProyectosMusicales").ToList();
             }
+            return proyectos;
         }
 
         public List<Match> ObtenerMatches()
         {
+            List<Match> matches = new List<Match>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                return connection.Query<Match>("SELECT * FROM Matches").ToList();
+                matches = connection.Query<Match>("SELECT * FROM Matches").ToList();
             }
+            return matches;
         }
 
+        /*   Para más tarde
         public List<Etiqueta> MostrarEtiquetas()
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -161,5 +181,6 @@ namespace MatchandRoll.Models
                 return connection.Query<Etiqueta>("SELECT * FROM Etiquetas").ToList();
             }
         }
+        */
     }
 }
