@@ -2,7 +2,7 @@ namespace MatchRollInfo360.Models
 {
     public class Usuario
     {
-        public int id { get; set; }
+        public int idUsuario { get; set; }
         public string apodo { get; set; } = string.Empty;
         public string contraseña { get; set; } = string.Empty;
         public string nombre { get; set; } = string.Empty;
@@ -19,20 +19,20 @@ namespace MatchRollInfo360.Models
         public List<Match> matchesSolicitante { get; set; } = new List<Match>();
         public List<Match> matchesReceptor { get; set; } = new List<Match>();
         public Ubicacion ubicacion { get; set; } = new Ubicacion();
-        public string etiqueta { get; set; } = string.Empty; /*Preventivmente es tipo string, luego se va acambiar a List<Etiqueta>*/
+        public List<Etiqueta> etiquetas { get; set; } = new List<Etiqueta>(); 
 
         public Usuario()
         {
         }
 
-        public Usuario(string email, string contraseña, string apodo, int edad, string genero, string etiqueta)
+        public Usuario(string email, string contraseña, string apodo, int edad, string genero, List<Etiqueta> etiquetas)
         {
             this.email = email;
             this.contraseña = contraseña;
             this.apodo = apodo;
             this.edad = edad;
             this.genero = genero;
-            this.etiqueta = etiqueta;
+            this.etiquetas = etiquetas;
         }
 
         public Usuario(string email, string contraseña, string apodo, int edad, string genero, string biografia, string instrumentoPrincipal, string nivelExperiencia, int idUbicacion)

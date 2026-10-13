@@ -46,13 +46,29 @@
                                 <option value="3">Otro</option>
                             </select>
                         </div>
-
-
                         <div class="mb-3">
-                            <label for="etiqueta" id="msjEtiqueta"></label>
-                            <label for="etiqueta" class="form-label">Etiqueta</label>
-                            <input type="text" class="form-control" id="etiqueta" name="etiqueta" required>
-                        </div>   
+                            <label class="form-label">
+                                ¿Cómo describirías tu personalidad?
+                            </label>
+
+                            @foreach (var etiqueta in ViewBag.etiquetas)
+                            {
+                                <div class="form-check">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        name="idsEtiquetas"
+                                        value="@etiqueta.idEtiqueta"
+                                        id="etiqueta_@etiqueta.idEtiqueta">
+
+                                    <label
+                                        class="form-check-label"
+                                        for="etiqueta_@etiqueta.idEtiqueta">
+                                        @etiqueta.nombreEtiqueta
+                                    </label>
+                                </div>
+                            }
+                        </div>  
                         <button type="submit" class="btn btn-success w-100 mb-3">Registrarse</button>
                     </form>
                     <hr>

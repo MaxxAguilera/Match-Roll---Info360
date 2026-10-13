@@ -120,15 +120,28 @@ namespace MatchRollInfo360.Models
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 var sql = @"
-                    INSERT INTO Usuarios (email, contraseña, apodo, edad, genero, etiqueta)
-                    VALUES (@email, @contraseña, @apodo, @edad, @genero, @etiqueta);";
+                    INSERT INTO Usuarios (email, contraseña, apodo, edad, genero)
+                    VALUES (@email, @contraseña, @apodo, @edad, @genero); SELECT SCOPE_IDENTITY();";
 
-                connection.Execute(sql, usuario);
+                usuario.idUsuario = connection.QueryFirstOrDefault<int>(sql, usuario);
             }
         }
 
 
+        public void CrearUsuarioEtiquetas(int id, List<int> IdsEtiquetas)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                foreach (var idEtiqueta in IdsEtiquetas)
+                {
+                    var sql = @"
+                        INSERT INTO UsuarioEtiquetas (idUsuario, idEtiqueta)
+                        VALUES (@id, @idEtiqueta);";
 
+                    connection.Execute(sql, new {idEtiqueta = idEtiqueta, id = id});
+                }
+            }
+        }
         public void CrearUsuarioCompleto(Usuario usuario)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -173,14 +186,26 @@ namespace MatchRollInfo360.Models
             return matches;
         }
 
-        /*   Para más tarde
         public List<Etiqueta> MostrarEtiquetas()
         {
+            List<Etiqueta> etiquetas = new List<Etiqueta>();
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                return connection.Query<Etiqueta>("SELECT * FROM Etiquetas").ToList();
+                etiquetas = connection.Query<Etiqueta>("SELECT * FROM Etiquetas").ToList();
             }
+            return etiquetas;
         }
-        */
+
+        public List<Etiqueta> DevolverEtiquetasPorIds(List<int> ids)
+        {
+            List<Etiqueta> etiquetas = new List<Etiqueta>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                etiquetas = connection.Query<Etiqueta>("SELECT * FROM Etiquetas WHERE idEtiqueta IN @ids", new { ids }).ToList();
+            }
+            return etiquetas;
+        }
     }
 }
