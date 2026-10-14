@@ -54,6 +54,14 @@ public class HomeController : Controller
         return View();
     }
 
+    
+    public IActionResult VistaRegistrarseConMensaje(){
+        BD bd = new BD();
+        ViewBag.etiquetas = bd.MostrarEtiquetas();
+        ViewBag.msj = "El nombre de usuario o el email ya están en uso, por favor elija otros.";
+        return View("Registrarse");
+    }
+
     [HttpPost]
     public IActionResult RegistrarDatosPrincipales(string email, string contraseña, string apodo, int edad, string genero, List<int> IdsEtiquetas){
         BD bd = new BD();
@@ -65,8 +73,7 @@ public class HomeController : Controller
             bd.CrearUsuarioEtiquetas(user.idUsuario, IdsEtiquetas);
             return RedirectToAction("Index");
         }
-        ViewBag.msj = "El nombre de usuario ya existe, por favor elija otro";
-        return View("Registrarse");
+        return RedirectToAction("VistaRegistrarseConMensaje");
     }
 
     public IActionResult Privacy()

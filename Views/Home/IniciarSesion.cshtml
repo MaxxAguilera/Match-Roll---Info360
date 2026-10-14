@@ -10,14 +10,15 @@
                     <h3 class="mb-0">Iniciar Sesión</h3>
                 </div>
                 <div class="card-body p-4">
-                    @if(!string.IsNullOrEmpty(ViewBag.msj))
+                    @if (!string.IsNullOrWhiteSpace(ViewBag.msj as string))
                     {
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             @ViewBag.msj
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     }
-                     <form action="@Url.Action("IniciarSesion", "Home")" method="post">
+
+                    <form action="@Url.Action("IniciarSesion", "Home")" method="post">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" name="email" required>

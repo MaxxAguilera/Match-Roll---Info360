@@ -10,9 +10,9 @@
                     <h3 class="mb-0">Crear Nueva Cuenta</h3>
                 </div>
                 <div class="card-body p-4">
-                    @if(!string.IsNullOrEmpty(ViewBag.msj))
+                    @if (!string.IsNullOrWhiteSpace(ViewBag.msj as string))
                     {
-                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             @ViewBag.msj
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
@@ -68,7 +68,7 @@
                                     </label>
                                 </div>
                             }
-                        </div>  
+                        </div>
                         <button type="submit" class="btn btn-success w-100 mb-3">Registrarse</button>
                     </form>
                     <hr>
