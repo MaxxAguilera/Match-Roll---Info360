@@ -562,4 +562,4 @@ C:\Users\50256921\Match-Roll---Info360\obj\Debug\net9.0\refint\MatchandRoll.dll
 C:\Users\50256921\Match-Roll---Info360\obj\Debug\net9.0\MatchandRoll.pdb
 C:\Users\50256921\Match-Roll---Info360\obj\Debug\net9.0\MatchandRoll.genruntimeconfig.cache
 C:\Users\50256921\Match-Roll---Info360\obj\Debug\net9.0\ref\MatchandRoll.dll
-C:\Users\50256921\Match-Roll---Info360\obj\Debug\net9.0\compressed\g9x36t2s72-px3no1wb6x.gz
+C:\Users\50256921\Match-Roll---Info360\obj\Debug\net9.0\compressed\g9x36t2s72-rh12v4bah9.gz
