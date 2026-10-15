@@ -566,7 +566,7 @@ C:\Users\50233806\Match-Roll---Info360\bin\Debug\net9.0\runtimes\unix\lib\net9.0
 C:\Users\50233806\Match-Roll---Info360\bin\Debug\net9.0\runtimes\win\lib\net9.0\Microsoft.Data.SqlClient.dll
 C:\Users\50233806\Match-Roll---Info360\bin\Debug\net9.0\runtimes\win\lib\net9.0\System.Diagnostics.EventLog.dll
 C:\Users\50233806\Match-Roll---Info360\bin\Debug\net9.0\runtimes\win\lib\net9.0\System.Security.Cryptography.Pkcs.dll
-C:\Users\50233806\Match-Roll---Info360\obj\Debug\net9.0\compressed\g9x36t2s72-vp2lma8akj.gz
 C:\Users\50233806\Match-Roll---Info360\obj\Debug\net9.0\compressed\pve3ai9yn9-mak3zpoy81.gz
 C:\Users\50233806\Match-Roll---Info360\obj\Debug\net9.0\compressed\ywx8zuid6f-eqy36i3omo.gz
 C:\Users\50233806\Match-Roll---Info360\obj\Debug\net9.0\compressed\3r10o3q01m-eqy36i3omo.gz
+C:\Users\50233806\Match-Roll---Info360\obj\Debug\net9.0\compressed\g9x36t2s72-8evro4zhpc.gz

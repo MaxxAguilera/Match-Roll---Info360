@@ -39,6 +39,13 @@ body {
 main {
     flex: 1;
     display: block;
+    padding-bottom: 28px;
+}
+
+
+main > .container {
+    margin-bottom: 14px;
+    padding-top: 24px;
 }
 
 
@@ -627,5 +634,153 @@ a { color: inherit; }
         min-width: 120px;
         padding: 10px 18px;
     }
+}
+
+/* ---------- Estilos para encabezados de autenticación ---------- */
+.auth-header-pink {
+    background: #FF4D6D !important;
+    color: #FFFFFF !important;
+    border-bottom: 2px solid #111111;
+}
+
+.auth-header-cyan {
+    background: #00CFE3 !important;
+    color: #111111 !important;
+    border-bottom: 2px solid #111111;
+}
+
+.auth-header-purple {
+    background: #A855F7 !important;
+    color: #FFFFFF !important;
+    border-bottom: 2px solid #111111;
+}
+
+.auth-header-orange {
+    background: #FF9F1C !important;
+    color: #111111 !important;
+    border-bottom: 2px solid #111111;
+}
+
+.auth-card {
+    border: 2px solid #111111;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(17, 17, 17, 0.08);
+}
+
+/* ---------- Etiquetas simples ---------- */
+.etiquetas-simple {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.etiqueta-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 8px 14px;
+    border: 2px solid #000;
+    border-radius: 999px;
+    background: #f5f5f5;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #111;
+    text-transform: capitalize;
+    box-shadow: 0 2px 0 #000;
+}
+
+.form-check-etiqueta {
+    margin: 0;
+    padding: 0;
+}
+
+.form-check-etiqueta .form-check-input {
+    display: none;
+}
+
+.form-check-etiqueta .form-check-label {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form-check-etiqueta .form-check-input:checked + .form-check-label {
+    background: #B0E3E8;
+    border-color: #000;
+    box-shadow: 0 2px 0 #000;
+}
+
+/* ---------- Estilos de registro ---------- */
+.registro-wrap {
+    max-width: 540px;
+    margin: 0 auto;
+}
+
+.registro-card {
+    border: 2px solid #3a5bff;
+    border-radius: 0;
+    box-shadow: none;
+    background: #f5f5f5;
+}
+
+.registro-header {
+    background: #9b5de5 !important;
+    color: #fff !important;
+    border-bottom: 2px solid #3a5bff;
+    padding: 18px 20px;
+}
+
+.registro-form .form-control,
+.registro-form .form-select {
+    background: #d9d9d9;
+    border: 1px solid #d9d9d9;
+    border-radius: 0;
+    min-height: 44px;
+    color: #111;
+}
+
+.registro-form .form-control:focus,
+.registro-form .form-select:focus {
+    background: #d9d9d9;
+    border-color: #3a5bff;
+    box-shadow: 0 0 0 0.2rem rgba(58, 91, 255, 0.15);
+}
+
+.registro-form .form-label {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #111;
+}
+
+.registro-form .btn {
+    background: #ff5a5f;
+    border: none;
+    border-radius: 0;
+    min-height: 48px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: lowercase;
+}
+
+.registro-form .btn:hover {
+    background: #f04d52;
+}
+
+.registro-form .link-success {
+    color: #7b4af5;
+    font-weight: 600;
+}
+
+.registro-form .etiquetas-simple {
+    gap: 8px;
+}
+
+.registro-form .etiqueta-chip {
+    background: #ffffff;
+    border: 1px solid #b7b7b7;
+    border-radius: 0;
+    box-shadow: none;
 }
 

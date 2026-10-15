@@ -5,8 +5,8 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card shadow-sm">
-                <div class="card-header bg-success text-white">
+            <div class="card shadow-sm registro-card registro-wrap">
+                <div class="card-header registro-header">
                     <h3 class="mb-0">Crear Nueva Cuenta</h3>
                 </div>
                 <div class="card-body p-4">
@@ -17,59 +17,50 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     }
-                    <form action="@Url.Action("RegistrarDatosPrincipales", "Home")" method="post" id="formRegistro">
+                    <form action="@Url.Action("RegistrarDatosPrincipales", "Home")" method="post" id="formRegistro" class="registro-form">
+                        <div class="mb-3">
+                            <label for="apodo" class="form-label">Nombre de usuario</label>
+                            <input type="text" class="form-control" id="apodo" name="apodo" required>
+                        </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Correo electrónico</label>
                             <input type="email" class="form-control" id="email" name="email" required>
                         </div>
                         <div class="mb-3">
-                            <label for="contraseña" id="msjContraseña"></label>
                             <label for="contraseña" class="form-label">Contraseña</label>
                             <input type="password" class="form-control" id="contraseña" name="contraseña" required>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="apodo" class="form-label">Apodo</label>
-                                <input type="text" class="form-control" id="apodo" name="apodo" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="edad" class="form-label">Edad</label>
-                                <input type="number" class="form-control" id="edad" name="edad" min="1" max="100" required>
-                            </div>
+                        <div class="mb-3">
+                            <label for="confirmarContraseña" class="form-label">Confirmar contraseña</label>
+                            <input type="password" class="form-control" id="confirmarContraseña" name="confirmarContraseña" required>
                         </div>
                         <div class="mb-3">
-                            <label for="genero" class="form-label">Género</label>
-                            <select class="form-select" id="genero" name="genero" required>
-                                <option value="">Selecciona tu género</option>
-                                <option value="1">Masculino</option>
-                                <option value="2">Femenino</option>
-                                <option value="3">Otro</option>
-                            </select>
+                            <label for="edad" class="form-label">Edad</label>
+                            <input type="number" class="form-control" id="edad" name="edad" min="1" max="100" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">
-                                ¿Cómo describirías tu personalidad?
-                            </label>
+                            <label class="form-label">Etiquetas</label>
+                            <div class="etiquetas-simple">
+                                @foreach (var etiqueta in ViewBag.etiquetas)
+                                {
+                                    <div class="form-check form-check-etiqueta">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            name="idsEtiquetas"
+                                            value="@etiqueta.idEtiqueta"
+                                            id="etiqueta_@etiqueta.idEtiqueta">
 
-                            @foreach (var etiqueta in ViewBag.etiquetas)
-                            {
-                                <div class="form-check">
-                                    <input
-                                        class="form-check-input"
-                                        type="checkbox"
-                                        name="idsEtiquetas"
-                                        value="@etiqueta.idEtiqueta"
-                                        id="etiqueta_@etiqueta.idEtiqueta">
-
-                                    <label
-                                        class="form-check-label"
-                                        for="etiqueta_@etiqueta.idEtiqueta">
-                                        @etiqueta.nombreEtiqueta
-                                    </label>
-                                </div>
-                            }
+                                        <label
+                                            class="form-check-label etiqueta-chip"
+                                            for="etiqueta_@etiqueta.idEtiqueta">
+                                            @etiqueta.nombreEtiqueta
+                                        </label>
+                                    </div>
+                                }
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-success w-100 mb-3">Registrarse</button>
+                        <button type="submit" class="btn w-100 mb-3">Crear cuenta</button>
                     </form>
                     <script>
                         document.getElementById('formRegistro')?.addEventListener('submit', function (event) {
@@ -83,8 +74,6 @@
                             }
                         });
                     </script>
-                    <hr>
-                    <p class="text-center mb-0">¿Ya tienes una cuenta? <a href="@Url.Action("VistaIniciarSesion", "Home")" class="link-success">Inicia sesión aquí</a></p>
                 </div>
             </div>
         </div>
