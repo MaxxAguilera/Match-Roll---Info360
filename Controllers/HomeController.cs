@@ -15,11 +15,18 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        if (HttpContext.Session.GetString("id") == null){
-            return RedirectToAction("VistaIniciarSesion");
+        int id = int.Parse(HttpContext.Session.GetString("id") ?? "0");
+        if (id == 0)
+        {
+            return RedirectToAction("IndexSinCuenta");
         }
+
         BD bd = new BD();
-        ViewBag.user = bd.MostrarUsuario(int.Parse(HttpContext.Session.GetString("id")));
+        ViewBag.user = bd.MostrarUsuario(id);
+        return View();
+    }
+
+    public IActionResult IndexSinCuenta(){
         return View();
     }
 
@@ -65,6 +72,13 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult RegistrarDatosPrincipales(string email, string contraseña, string apodo, int edad, string genero, List<int> IdsEtiquetas){
         BD bd = new BD();
+
+        if (edad < 1 || edad > 100){
+            ViewBag.etiquetas = bd.MostrarEtiquetas();
+            ViewBag.msj = "La edad debe estar entre 1 y 100 años.";
+            return View("Registrarse");
+        }
+
         if (bd.ValidarNombreUsuario(apodo) && bd.ValidarEmail(email)){
             List<Etiqueta> etiquetas = bd.DevolverEtiquetasPorIds(IdsEtiquetas);
             Usuario user = new Usuario(email, contraseña, apodo, edad, genero, etiquetas);
