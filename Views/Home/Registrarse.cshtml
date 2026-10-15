@@ -17,7 +17,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     }
-                    <form action="@Url.Action("RegistrarDatosPrincipales", "Home")" method="post">
+                    <form action="@Url.Action("RegistrarDatosPrincipales", "Home")" method="post" id="formRegistro">
                         <div class="mb-3">
                             <label for="email" class="form-label">Correo electrónico</label>
                             <input type="email" class="form-control" id="email" name="email" required>
@@ -34,7 +34,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="edad" class="form-label">Edad</label>
-                                <input type="text" class="form-control" id="edad" name="edad" required>
+                                <input type="number" class="form-control" id="edad" name="edad" min="1" max="100" required>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -71,6 +71,18 @@
                         </div>
                         <button type="submit" class="btn btn-success w-100 mb-3">Registrarse</button>
                     </form>
+                    <script>
+                        document.getElementById('formRegistro')?.addEventListener('submit', function (event) {
+                            const edadInput = document.getElementById('edad');
+                            const edad = Number(edadInput.value);
+
+                            if (edad < 1 || edad > 100) {
+                                event.preventDefault();
+                                alert('La edad debe estar entre 1 y 100 años.');
+                                edadInput.focus();
+                            }
+                        });
+                    </script>
                     <hr>
                     <p class="text-center mb-0">¿Ya tienes una cuenta? <a href="@Url.Action("VistaIniciarSesion", "Home")" class="link-success">Inicia sesión aquí</a></p>
                 </div>

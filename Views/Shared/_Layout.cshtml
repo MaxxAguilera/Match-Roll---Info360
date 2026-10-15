@@ -7,54 +7,50 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-<body class="landing-page-body">
-    <header class="top-header">
-        <div class="header-inner">
-            <div class="brand-block">
-                <img class="brand-logo" src="~/Img/image-removebg-preview.png" alt="Match and Roll" />
-                <span class="brand-name">match</span>
-                <span class="brand-name brand-separator">|</span>
-                <span class="brand-name">salas</span>
-            </div>
+<body>
+    <header class="navbar">
+        <a href="/" class="navbar__logo">
+            <img src="~/img/LOGO.png" alt="Match&Roll" />
+        </a>
 
-            <div class="header-actions">
-                <button class="header-btn match-btn">match</button>
-                <button class="header-btn salas-btn">salas</button>
-                <div class="user-avatar" aria-label="Iniciar sesión">
-                    <img src="~/Img/image-removebg-preview (1).png" alt="Logo de login" />
-                </div>
-            </div>
-        </div>
+        <nav class="navbar__nav">
+            <a href="/Match" class="navbar__btn">match</a>
+            <a href="/Salas" class="navbar__btn">salas</a>
+            <a href="/Perfil" class="navbar__avatar" aria-label="Mi perfil">
+                <svg viewBox="0 0 52 52" aria-hidden="true">
+                    <circle cx="26" cy="19" r="8" />
+                    <path d="M9 52c0-11 7.5-17 17-17s17 6 17 17z" />
+                </svg>
+            </a>
+        </nav>
     </header>
 
-    <main role="main" class="landing-main">
+    <main>
         @RenderBody()
     </main>
 
-    <footer class="bottom-footer">
-        <div class="footer-inner">
-            <div class="footer-column">
-                <p>Sobre nosotros</p>
-                <p>Contacto</p>
-                <p>Accesibilidad</p>
-            </div>
+    <footer class="site-footer">
+        <ul class="site-footer__links site-footer__links--left">
+            <li><a href="/Sobre-nosotros">Sobre nosotros</a></li>
+            <li><a href="/Contacto">Contacto</a></li>
+            <li><a href="/Accesibilidad">Accesibilidad</a></li>
+        </ul>
 
-            <div class="footer-brand">
-                <img class="footer-logo" src="~/Img/image-removebg-preview.png" alt="Match and Roll" />
-                <div class="footer-logo-text">match &amp; roll</div>
-                <div class="socials">
-                    <img src="~/Img/download-removebg-preview.png" alt="X" />
-                    <img src="~/Img/download-removebg-preview (1).png" alt="Facebook" />
-                    <img src="~/Img/ImagenIG.png.png" alt="Instagram" />
-                </div>
+        <div class="site-footer__center">
+            <img src="~/img/LOGO.png" alt="Match&Roll" class="site-footer__logo" />
+            <div class="site-footer__social">
+                <a href="#" aria-label="X"><img src="~/img/x.png" alt="" /></a>
+                <a href="#" aria-label="Facebook"><img src="~/img/facebook.png" alt="" /></a>
+                <a href="#" aria-label="Instagram"><img src="~/img/instagram.png" alt="" /></a>
             </div>
-
-            <div class="footer-column right-column">
-                <p>Qué hacemos</p>
-                <p>Ayuda</p>
-                <p>Cookies</p>
-            </div>
+            <small>Copyright &copy; @DateTime.Now.Year Match&amp;Roll</small>
         </div>
+
+        <ul class="site-footer__links site-footer__links--right">
+            <li><a href="/Que-hacemos">Que hacemos</a></li>
+            <li><a href="/Aviso-legal">Aviso legal y privacidad</a></li>
+            <li><a href="/Cookies">Cookies</a></li>
+        </ul>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
