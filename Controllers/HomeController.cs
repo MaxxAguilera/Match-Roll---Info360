@@ -15,11 +15,18 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        if (HttpContext.Session.GetString("id") == null){
-            return RedirectToAction("VistaIniciarSesion");
+        int id = int.Parse(HttpContext.Session.GetString("id") ?? "0");
+        if (id == 0)
+        {
+            return RedirectToAction("IndexSinCuenta");
         }
+
         BD bd = new BD();
-        ViewBag.user = bd.MostrarUsuario(int.Parse(HttpContext.Session.GetString("id")));
+        ViewBag.user = bd.MostrarUsuario(id);
+        return View();
+    }
+
+    public IActionResult IndexSinCuenta(){
         return View();
     }
 

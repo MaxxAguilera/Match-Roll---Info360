@@ -1,0 +1,182 @@
+@{
+    Layout = null;
+    ViewData["Title"] = "Match&Roll";
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Outfit:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/matchroll.css" asp-append-version="true" />
+</head>
+<body>
+
+
+    <!-- ================= HEADER ================= -->
+    <header class="navbar">
+        <a href="/" class="navbar__logo">
+           
+             <img src="~/img/LOGO.png" alt="Match&Roll" >
+        </a>
+
+        <a href='@Url.Action("Registrarse","Home")' class="navbar__btn">Crear cuenta</a>
+    </header>
+
+
+    <main>
+
+
+        <!-- ================= HERO ================= -->
+        <section class="hero">
+            <div class="card hero-card">
+                <img src="~/img/landing1foto.png" class="card-img" alt="primera foto landing">
+                <div class="card-img-overlay hero-card__overlay">
+                    <h4 class="card-title">Formá tu banda.<br />Matchéa</h4>
+                    <a href="#" class="hero-card__btn">Empeza ahora</a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= QUÉ HACEMOS ================= -->
+        <section class="que-hacemos">
+            <h2>Qué hacemos</h2>
+
+
+            <div class="que-hacemos__content">
+                <div class="que-hacemos__gallery">
+                    <div id="carouselStackedBottom" class="carousel slide">
+                        <div class="carousel-inner rounded-5">
+                            <div class="carousel-item active">
+                                <img src="~/img/fototano1.jpg" class="d-block w-100" alt="Banda tocando en vivo">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="~/img/fotos/banda-bar.jpg" class="d-block w-100" alt="Banda en un bar">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="~/img/fotos/banda-grupo.jpg" class="d-block w-100" alt="Banda posando">
+                            </div>
+                        </div>
+                        <div class="carousel-controls">
+                            <button class="btn-icon btn-sm" type="button" data-bs-target="#carouselStackedBottom" data-bs-slide="prev">
+                                <span class="carousel-icon-prev" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="btn-icon btn-sm" type="button" data-bs-target="#carouselStackedBottom" data-bs-slide="next">
+                                <span class="carousel-icon-next" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="photo-caption">Fotos de resultados</p>
+                </div>
+
+
+                <p class="que-hacemos__text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum leo sit amet lectus
+                    porttitor vulputate. Vestibulum sollicitudin tortor eget orci suscipit varius. Fusce efficitur
+                    fringilla sodales. Vestibulum ac nisl vel lacus porttitor lobortis sed eu nibh. Aliquam non
+                    venenatis mi. Duis consequat augue eu risus convallis,
+                </p>
+            </div>
+        </section>
+
+
+        <!-- ================= LOGO + FOTO ================= -->
+        <section class="brand-photo">
+            <img class="deco deco--headphones-right" src="~/img/deco/auriculares.svg" alt="" />
+            <img class="deco deco--mic-left" src="~/img/deco/microfono.svg" alt="" />
+            <img class="deco deco--bolt-mic" src="~/img/deco/rayo.svg" alt="" />
+
+
+            <p class="brand-photo__wordmark">MATCH&amp;ROLL</p>
+            <img class="brand-photo__logo" src="~/img/logo-matchroll.png" alt="Match&Roll" />
+
+
+            <figure class="photo-frame photo-frame--wide">
+                <img src="~/img/patioort.jpg" alt="Banda en un bar" />
+                <figcaption>Fotos de resultados</figcaption>
+            </figure>
+        </section>
+
+
+        <!-- ================= CREÁ TU CUENTA ================= -->
+        <section class="crear-cuenta">
+            <img class="deco deco--squiggle-purple-left" src="~/img/deco/garabato-violeta.svg" alt="" />
+            <img class="deco deco--vinyl-left-2" src="~/img/deco/vinilo.svg" alt="" />
+            <img class="deco deco--guitar-right-2" src="~/img/deco/guitarra-linea.svg" alt="" />
+            <img class="deco deco--bolt-right-3" src="~/img/deco/rayo.svg" alt="" />
+
+
+            <h2>Creá tu cuenta</h2>
+
+
+            <div class="crear-cuenta__content">
+                <figure class="photo-frame photo-frame--portrait">
+                    <img src="~/img/fotos/banda-grupo.jpg" alt="Banda posando" />
+                    <figcaption>Fotos de resultados</figcaption>
+                </figure>
+
+
+                <div class="crear-cuenta__box">
+                    <a href="/Cuenta/Login" class="mr-btn mr-btn--xs">inicia sesion</a>
+                    <a href="/Cuenta/Crear" class="mr-btn mr-btn--xs">crea tu cuenta</a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= POR QUÉ ================= -->
+        <section class="por-que">
+            <h2>Por qué deberías usar Match&amp;Roll</h2>
+            <div class="por-que__cols">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum leo sit amet lectus porttitor vulputate. Vestibulum</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum leo sit amet lectus porttitor vulputate. Vestibulum</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum leo sit amet lectus porttitor vulputate. Vestibulum</p>
+            </div>
+        </section>
+
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="site-footer">
+        <ul class="site-footer__links site-footer__links--left">
+            <li><a href="/Sobre-nosotros">Sobre nosotros</a></li>
+            <li><a href="/Contacto">Contacto</a></li>
+            <li><a href="/Accesibilidad">Accesibilidad</a></li>
+        </ul>
+
+
+        <div class="site-footer__center">
+            <img src="~/img/LOGO.png" alt="Match&Roll" class="site-footer__logo" />
+            <div class="site-footer__social">
+                <a href="#" aria-label="X"><img src="~/img/x.png" alt="" /></a>
+                <a href="#" aria-label="Facebook"><img src="~/img/facebook.png" alt="" /></a>
+                <a href="#" aria-label="Instagram"><img src="~/img/instagram.png" alt="" /></a>
+            </div>
+            <small>Copyright &copy; @DateTime.Now.Year Match&amp;Roll</small>
+        </div>
+
+
+        <ul class="site-footer__links site-footer__links--right">
+            <li><a href="/Que-hacemos">Que hacemos</a></li>
+            <li><a href="/Aviso-legal">Aviso legal y privacidad</a></li>
+            <li><a href="/Cookies">Cookies</a></li>
+        </ul>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+

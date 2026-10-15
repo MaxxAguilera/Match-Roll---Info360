@@ -61,29 +61,27 @@
 
             <div class="que-hacemos__content">
                 <div class="que-hacemos__gallery">
-                    <div id="carouselStackedBottom" class="carousel slide">
-                        <div class="carousel-inner rounded-5">
-                            <div class="carousel-item active">
-                                <img src="~/img/fototano1.jpg" class="d-block w-100" alt="Banda tocando en vivo">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="~/img/fotos/banda-bar.jpg" class="d-block w-100" alt="Banda en un bar">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="~/img/fotos/banda-grupo.jpg" class="d-block w-100" alt="Banda posando">
-                            </div>
-                        </div>
-                        <div class="carousel-controls">
-                            <button class="btn-icon btn-sm" type="button" data-bs-target="#carouselStackedBottom" data-bs-slide="prev">
-                                <span class="carousel-icon-prev" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="btn-icon btn-sm" type="button" data-bs-target="#carouselStackedBottom" data-bs-slide="next">
-                                <span class="carousel-icon-next" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                    </div>
+                    <div id="carouselExampleInterval" class="carousel slide" data-bs-autoplay="true">
+  <div class="carousel-inner rounded-5">
+    <div class="carousel-item active" data-bs-interval="2000">
+      <img src="~/img/fototano1.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item" data-bs-interval="4000">
+      <img src="~/img/fototano1.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item" data-bs-interval="6000">
+      <img src="~/img/fototano1.jpg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <div class="d-flex justify-content-between align-items-center mt-3">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+   
+  </div>
+</div>  
                     <p class="photo-caption">Fotos de resultados</p>
                 </div>
 
@@ -106,7 +104,7 @@
 
 
             <p class="brand-photo__wordmark">MATCH&amp;ROLL</p>
-            <img class="brand-photo__logo" src="~/img/logo-matchroll.png" alt="Match&Roll" />
+            <img class="brand-photo__logo" src="~/img/logo.png" alt="Match&Roll" />
 
 
             <figure class="photo-frame photo-frame--wide">
@@ -118,10 +116,10 @@
 
         <!-- ================= CREÁ TU CUENTA ================= -->
         <section class="crear-cuenta">
-            <img class="deco deco--squiggle-purple-left" src="~/img/deco/garabato-violeta.svg" alt="" />
-            <img class="deco deco--vinyl-left-2" src="~/img/deco/vinilo.svg" alt="" />
-            <img class="deco deco--guitar-right-2" src="~/img/deco/guitarra-linea.svg" alt="" />
-            <img class="deco deco--bolt-right-3" src="~/img/deco/rayo.svg" alt="" />
+            <img class="deco deco--squiggle-purple-left" src="~/img/violeta.png" alt="" />
+            <img class="deco deco--vinyl-left-2" src="~/img/disco.png" alt="" />
+            <img class="deco deco--guitar-right-2" src="~/img/guitarra.png" alt="" />
+            <img class="deco deco--bolt-right-3" src="~/img//rayo.png" alt="" />
 
 
             <h2>Creá tu cuenta</h2>
@@ -168,9 +166,9 @@
         <div class="site-footer__center">
             <img src="~/img/LOGO.png" alt="Match&Roll" class="site-footer__logo" />
             <div class="site-footer__social">
-                <a href="#" aria-label="X"><img src="~/img/x.png" alt="" /></a>
-                <a href="#" aria-label="Facebook"><img src="~/img/facebook.png" alt="" /></a>
-                <a href="#" aria-label="Instagram"><img src="~/img/instagram.png" alt="" /></a>
+                <a href="#" aria-label="X"><img src="~/img/x.png" alt="x" /></a>
+                <a href="#" aria-label="Facebook"><img src="~/img/facebook.png" alt="facebook" /></a>
+                <a href="#" aria-label="Instagram"><img src="~/img/instagram.png" alt="instagram" /></a>
             </div>
             <small>Copyright &copy; @DateTime.Now.Year Match&amp;Roll</small>
         </div>
