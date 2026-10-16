@@ -29,9 +29,14 @@ public class HomeController : Controller
     public IActionResult IndexSinCuenta(){
         return View();
     }
+    public IActionResult salas(){
+        return View();
+    }
+    
 
     public IActionResult VistaIniciarSesion(){
         ViewBag.msj = "";
+        ViewData["HideNav"] = true;
         return View("IniciarSesion");
     }
 
@@ -42,6 +47,7 @@ public class HomeController : Controller
         HttpContext.Session.SetString("id", bd.BuscarSesion(email, contraseña));
         if (HttpContext.Session.GetString("id") == "-1"){
             ViewBag.msj = "No existe ese usuario :)";
+            ViewData["HideNav"] = true;
             return View();
         }
         else{
@@ -58,6 +64,7 @@ public class HomeController : Controller
         BD bd = new BD();
         ViewBag.etiquetas = bd.MostrarEtiquetas();
         ViewBag.msj = null;
+        ViewData["HideNav"] = true;
         return View();
     }
 
@@ -66,19 +73,28 @@ public class HomeController : Controller
         BD bd = new BD();
         ViewBag.etiquetas = bd.MostrarEtiquetas();
         ViewBag.msj = "El nombre de usuario o el email ya están en uso, por favor elija otros.";
+        ViewData["HideNav"] = true;
         return View("Registrarse");
     }
 
     [HttpPost]
-    public IActionResult RegistrarDatosPrincipales(string email, string contraseña, string apodo, int edad, string genero, List<int> IdsEtiquetas){
+    public IActionResult RegistrarDatosPrincipales(string email, string contraseña, string contraseñaConfirmacion, string apodo, int edad, string genero, List<int> IdsEtiquetas){
         BD bd = new BD();
 
         if (edad < 1 || edad > 100){
             ViewBag.etiquetas = bd.MostrarEtiquetas();
             ViewBag.msj = "La edad debe estar entre 1 y 100 años.";
+            ViewData["HideNav"] = true;
             return View("Registrarse");
         }
 
+        if (contraseña != contraseñaConfirmacion){
+            ViewBag.etiquetas = bd.MostrarEtiquetas();
+            ViewBag.msj = "Las contraseñas no coinciden.";
+            ViewData["HideNav"] = true;
+            return View("Registrarse");
+        }
+    
         if (bd.ValidarNombreUsuario(apodo) && bd.ValidarEmail(email)){
             List<Etiqueta> etiquetas = bd.DevolverEtiquetasPorIds(IdsEtiquetas);
             Usuario user = new Usuario(email, contraseña, apodo, edad, genero, etiquetas);

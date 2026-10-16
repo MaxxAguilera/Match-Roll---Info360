@@ -1,5 +1,6 @@
 @{
     ViewData["Title"] = "Registrarse";
+    ViewData["HideNav"] = true;
 }
 
 <div class="container mt-5">
@@ -31,12 +32,21 @@
                             <input type="password" class="form-control" id="contraseña" name="contraseña" required>
                         </div>
                         <div class="mb-3">
-                            <label for="confirmarContraseña" class="form-label">Confirmar contraseña</label>
-                            <input type="password" class="form-control" id="confirmarContraseña" name="confirmarContraseña" required>
+                            <label for="contraseñaConfirmacion" class="form-label">Confirmar contraseña</label>
+                            <input type="password" class="form-control" id="contraseñaConfirmacion" name="contraseñaConfirmacion" required>
                         </div>
                         <div class="mb-3">
                             <label for="edad" class="form-label">Edad</label>
                             <input type="number" class="form-control" id="edad" name="edad" min="1" max="100" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="genero" class="form-label">Género</label>
+                            <select class="form-select" id="genero" name="genero" required>
+                                <option value="">Selecciona tu género</option>
+                                <option value="1">Masculino</option>
+                                <option value="2">Femenino</option>
+                                <option value="3">Otro</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Etiquetas</label>
