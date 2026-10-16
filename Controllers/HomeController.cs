@@ -112,4 +112,17 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+    public IActionResult VistaMatch(){
+        BD bd = new BD();
+        List<Usuario> usuarios = bd.ObtenerUsuarios();
+        ViewBag.usuarios = usuarios;
+        return View("Match");
+    }
+    public IActionResult VistaSalas(){
+        return View("Salas");
+    }
+    public IActionResult VistaPerfil(){
+        return View("Perfil");
+    }
 }

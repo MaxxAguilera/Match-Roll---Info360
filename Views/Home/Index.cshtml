@@ -27,9 +27,9 @@
 
 
         <nav class="navbar__nav">
-            <a href="/Match" class="navbar__btn">match</a>
-            <a href="/Salas" class="navbar__btn">salas</a>
-            <a href="/Perfil" class="navbar__avatar" aria-label="Mi perfil">
+            <a href='@Url.Action("VistaMatch", "Home")' class="navbar__btn">match</a>
+            <a href='@Url.Action("VistaSalas", "Home")' class="navbar__btn">salas</a>
+            <a href='@Url.Action("VistaPerfil", "Home")' class="navbar__avatar" aria-label="Mi perfil">
                 <svg viewBox="0 0 52 52" aria-hidden="true">
                     <circle cx="26" cy="19" r="8" />
                     <path d="M9 52c0-11 7.5-17 17-17s17 6 17 17z" />
@@ -133,8 +133,8 @@
 
 
                 <div class="crear-cuenta__box">
-                    <a href="/Cuenta/Login" class="mr-btn mr-btn--xs">inicia sesion</a>
-                    <a href="/Cuenta/Crear" class="mr-btn mr-btn--xs">crea tu cuenta</a>
+                    <a href='@Url.Action("VistaIniciarSesion", "Home")' class="mr-btn mr-btn--xs">inicia sesion</a>
+                    <a href='@Url.Action("Registrarse", "Home")' class="mr-btn mr-btn--xs">crea tu cuenta</a>
                 </div>
             </div>
         </section>
