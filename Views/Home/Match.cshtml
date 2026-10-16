@@ -1,0 +1,268 @@
+@using MatchRollInfo360.Models
+@using System.Text.Json
+
+@{
+    ViewData["Title"] = "Match";
+
+    List<Usuario> usuarios = ViewBag.usuarios ?? new List<Usuario>();
+
+    var opciones = usuarios.Select(u => new
+    {
+        idUsuario = u.idUsuario,
+        apodo = u.apodo,
+        edad = u.edad,
+        biografia = u.biografia,
+        instrumentoPrincipal = u.instrumentoPrincipal,
+
+        etiquetas = u.etiquetas == null
+            ? new List<string>()
+            : u.etiquetas.Select(e => e.nombreEtiqueta).ToList(),
+
+        videos = u.videos == null
+            ? new List<string>()
+            : u.videos.Select(v => v.urlVideo).ToList()
+    });
+
+    string usuariosJson = JsonSerializer.Serialize(opciones);
+}
+
+<div class="match-page">
+
+    <main class="match-layout">
+
+        <!-- PERFIL Y VIDEOS -->
+        <section class="perfil-seccion">
+
+            <div class="perfil-card">
+
+                <div class="video-area">
+
+                    <div class="video-frame">
+                        <video id="videoPerfil"
+                               controls
+                               autoplay
+                               muted
+                               playsinline>
+                        </video>
+
+                        <div id="sinVideo" hidden class="no-video">
+                            Este usuario todavía no tiene videos.
+                        </div>
+
+                        <button id="videoAnterior"
+                                type="button"
+                                aria-label="Video anterior"
+                                class="video-nav video-prev">
+                            &#9664;
+                        </button>
+
+                        <button id="videoSiguiente"
+                                type="button"
+                                aria-label="Video siguiente"
+                                class="video-nav video-next">
+                            &#9654;
+                        </button>
+
+                    </div>
+
+                    <div class="video-meta">
+                        <div class="meta-top">
+                            <h2 id="nombrePerfil"></h2>
+                            <div id="etiquetasPerfil" class="etiquetas"></div>
+                        </div>
+                        <p id="biografiaPerfil" class="bio"></p>
+                        <p id="instrumentoPerfil" class="inst"></p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- BOTONES DE LIKE Y DISLIKE -->
+            <div class="acciones">
+                <div class="acciones-inner">
+                    <button id="btnLike" type="button" aria-label="Me gusta" class="accion-like">👍</button>
+                    <button id="btnComentario" type="button" aria-label="Comentar" class="accion-coment">💬</button>
+                    <button id="btnDislike" type="button" aria-label="Pasar perfil" class="accion-dislike">👎</button>
+                </div>
+            </div>
+
+            <p id="mensajeFinal" hidden>
+                ¡Ya viste todos los perfiles disponibles!
+            </p>
+
+        </section>
+
+        <!-- FILTROS -->
+        <aside class="filtros">
+
+            <div class="filtros-box">
+                <h2>Filtros</h2>
+
+                <input id="buscarPerfil"
+                       type="search"
+                       placeholder="Buscar usuario..." />
+
+                <div class="filtros-list">
+                    <details>
+                        <summary>Edad</summary>
+                    </details>
+
+                    <details>
+                        <summary>Instrumentos</summary>
+                    </details>
+
+                    <details>
+                        <summary>Ubicación</summary>
+                    </details>
+
+                    <details>
+                        <summary>Géneros</summary>
+                    </details>
+                </div>
+            </div>
+
+        </aside>
+
+    </main>
+
+</div>
+
+<script id="datosUsuarios" type="application/json">
+    @Html.Raw(usuariosJson)
+</script>
+
+<script>
+    const usuarios = JSON.parse(
+        document.getElementById("datosUsuarios").textContent
+    );
+
+    const video = document.getElementById("videoPerfil");
+    const sinVideo = document.getElementById("sinVideo");
+    const nombre = document.getElementById("nombrePerfil");
+    const biografia = document.getElementById("biografiaPerfil");
+    const instrumento = document.getElementById("instrumentoPerfil");
+    const etiquetas = document.getElementById("etiquetasPerfil");
+
+    const btnLike = document.getElementById("btnLike");
+    const btnComentario = document.getElementById("btnComentario");
+    const btnDislike = document.getElementById("btnDislike");
+    const btnAnterior = document.getElementById("videoAnterior");
+    const btnSiguiente = document.getElementById("videoSiguiente");
+
+    const contadorVideos = document.getElementById("contadorVideos");
+    const mensajeFinal = document.getElementById("mensajeFinal");
+    const perfilSeccion = document.querySelector(".perfil-seccion");
+    const buscador = document.getElementById("buscarPerfil");
+
+    let indiceUsuario = 0;
+    let indiceVideo = 0;
+    let listaFiltrada = [...usuarios];
+
+    function mostrarVideo() {
+        const usuario = listaFiltrada[indiceUsuario];
+        const videos = usuario?.videos || [];
+
+        if (videos.length === 0) {
+            video.pause();
+            video.removeAttribute("src");
+            video.load();
+
+            video.hidden = true;
+            sinVideo.hidden = false;
+            contadorVideos.textContent = "0 videos";
+
+            btnAnterior.hidden = true;
+            btnSiguiente.hidden = true;
+
+            return;
+        }
+
+        indiceVideo = (indiceVideo + videos.length) % videos.length;
+
+        video.src = videos[indiceVideo];
+        video.hidden = false;
+        sinVideo.hidden = true;
+
+        contadorVideos.textContent = `${indiceVideo + 1} / ${videos.length}`;
+
+        btnAnterior.hidden = videos.length <= 1;
+        btnSiguiente.hidden = videos.length <= 1;
+
+        video.load();
+        video.play().catch(() => {});
+    }
+
+    function mostrarUsuario() {
+        if (indiceUsuario >= listaFiltrada.length) {
+            video.pause();
+            video.removeAttribute("src");
+            video.load();
+
+            perfilSeccion.hidden = true;
+            mensajeFinal.hidden = false;
+
+            return;
+        }
+
+        const usuario = listaFiltrada[indiceUsuario];
+
+        nombre.textContent = `${usuario.apodo || "Usuario"} (${usuario.edad ?? "Edad no indicada"})`;
+
+        biografia.textContent = usuario.biografia || "Sin descripción";
+
+        instrumento.textContent = "Instrumento: " + (usuario.instrumentoPrincipal || "No especificado");
+
+        etiquetas.replaceChildren();
+
+        (usuario.etiquetas || []).forEach(texto => {
+            const etiqueta = document.createElement("span");
+
+            etiqueta.className = "etiqueta";
+            etiqueta.textContent = texto;
+
+            etiquetas.appendChild(etiqueta);
+        });
+
+        indiceVideo = 0;
+        mostrarVideo();
+    }
+
+    function siguienteUsuario() {
+        indiceUsuario++;
+        mostrarUsuario();
+    }
+
+    btnAnterior.addEventListener("click", () => {
+        indiceVideo--;
+        mostrarVideo();
+    });
+
+    btnSiguiente.addEventListener("click", () => {
+        indiceVideo++;
+        mostrarVideo();
+    });
+
+    btnLike.addEventListener("click", siguienteUsuario);
+    btnDislike.addEventListener("click", siguienteUsuario);
+    btnComentario.addEventListener("click", () => {
+        alert("Funcionalidad de comentarios pendiente");
+    });
+
+    buscador.addEventListener("input", () => {
+        const busqueda = buscador.value.trim().toLowerCase();
+
+        listaFiltrada = usuarios.filter(usuario =>
+            (usuario.apodo || "").toLowerCase().includes(busqueda)
+        );
+
+        indiceUsuario = 0;
+
+        perfilSeccion.hidden = false;
+        mensajeFinal.hidden = true;
+
+        mostrarUsuario();
+    });
+
+    mostrarUsuario();
+</script>

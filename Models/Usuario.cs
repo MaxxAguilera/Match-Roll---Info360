@@ -20,6 +20,7 @@ namespace MatchRollInfo360.Models
         public List<Match> matchesReceptor { get; set; } = new List<Match>();
         public Ubicacion ubicacion { get; set; } = new Ubicacion();
         public List<Etiqueta> etiquetas { get; set; } = new List<Etiqueta>(); 
+        public List<Video> videos { get; set; } = new List<Video>();
 
         public Usuario()
         {
