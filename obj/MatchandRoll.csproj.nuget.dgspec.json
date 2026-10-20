@@ -1,41 +1,23 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-    "C:\\Match-Roll---Info360\\MatchandRoll.csproj": {}
+    "C:\\Users\\50256921\\Match-Roll---Info360\\MatchandRoll.csproj": {}
   },
   "projects": {
-    "C:\\Match-Roll---Info360\\MatchandRoll.csproj": {
+    "C:\\Users\\50256921\\Match-Roll---Info360\\MatchandRoll.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Match-Roll---Info360\\MatchandRoll.csproj",
+        "projectUniqueName": "C:\\Users\\50256921\\Match-Roll---Info360\\MatchandRoll.csproj",
         "projectName": "MatchandRoll",
-        "projectPath": "C:\\Match-Roll---Info360\\MatchandRoll.csproj",
-        "packagesPath": "C:\\Users\\49628407\\.nuget\\packages\\",
-        "outputPath": "C:\\Match-Roll---Info360\\obj\\",
-=======
-    "C:\\Users\\50235170\\Match-Roll---Info360\\MatchandRoll.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\50235170\\Match-Roll---Info360\\MatchandRoll.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\50235170\\Match-Roll---Info360\\MatchandRoll.csproj",
-        "projectName": "MatchandRoll",
-        "projectPath": "C:\\Users\\50235170\\Match-Roll---Info360\\MatchandRoll.csproj",
-        "packagesPath": "C:\\Users\\50235170\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\50235170\\Match-Roll---Info360\\obj\\",
->>>>>>> 6c35d6cac9b1db22721750401f5f11e25d81f45f
+        "projectPath": "C:\\Users\\50256921\\Match-Roll---Info360\\MatchandRoll.csproj",
+        "packagesPath": "C:\\Users\\50256921\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\50256921\\Match-Roll---Info360\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-<<<<<<< HEAD
-          "C:\\Users\\49628407\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-          "C:\\Users\\50235170\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> 6c35d6cac9b1db22721750401f5f11e25d81f45f
+          "C:\\Users\\50256921\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
