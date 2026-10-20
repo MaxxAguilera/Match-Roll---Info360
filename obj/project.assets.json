@@ -2039,23 +2039,39 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\49628407\\.nuget\\packages\\": {},
+=======
+    "C:\\Users\\50235170\\.nuget\\packages\\": {},
+>>>>>>> 6c35d6cac9b1db22721750401f5f11e25d81f45f
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Match-Roll---Info360\\MatchandRoll.csproj",
       "projectName": "MatchandRoll",
       "projectPath": "C:\\Match-Roll---Info360\\MatchandRoll.csproj",
       "packagesPath": "C:\\Users\\49628407\\.nuget\\packages\\",
       "outputPath": "C:\\Match-Roll---Info360\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\50235170\\Match-Roll---Info360\\MatchandRoll.csproj",
+      "projectName": "MatchandRoll",
+      "projectPath": "C:\\Users\\50235170\\Match-Roll---Info360\\MatchandRoll.csproj",
+      "packagesPath": "C:\\Users\\50235170\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\50235170\\Match-Roll---Info360\\obj\\",
+>>>>>>> 6c35d6cac9b1db22721750401f5f11e25d81f45f
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
+<<<<<<< HEAD
         "C:\\Users\\49628407\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+        "C:\\Users\\50235170\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 6c35d6cac9b1db22721750401f5f11e25d81f45f
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2123,5 +2139,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.311/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problema al leer el archivo de caché C:\\Users\\50235170\\Match-Roll---Info360\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0."
+    }
+  ]
 }
