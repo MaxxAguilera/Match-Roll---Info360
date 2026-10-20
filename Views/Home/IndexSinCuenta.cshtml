@@ -21,11 +21,13 @@
     <!-- ================= HEADER ================= -->
     <header class="navbar">
         <a href="/" class="navbar__logo">
-           
-             <img src="~/img/LOGO.png" alt="Match&Roll" >
+            <img src="~/img/LOGO.png" alt="Match&Roll" >
         </a>
-        <a href='@Url.Action("VistaIniciarSesion","Home")' class="navbar__btn">Iniciar sesión</a>
-        <a href='@Url.Action("Registrarse","Home")' class="navbar__btn">Crear cuenta</a>
+
+        <nav class="navbar__nav">
+            <a href='@Url.Action("VistaIniciarSesion","Home")' class="navbar__btn navbar__btn--auth">Iniciar sesión</a>
+            <a href='@Url.Action("Registrarse","Home")' class="navbar__btn navbar__btn--auth">Crear cuenta</a>
+        </nav>
     </header>
 
 
