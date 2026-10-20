@@ -55,6 +55,33 @@ namespace MatchRollInfo360.Models
             return user;
         }
 
+        public Usuario? MostrarUsuarioCompleto(int id)
+        {
+            Usuario? usuario = MostrarUsuario(id);
+            if (usuario == null)
+            {
+                return null;
+            }
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                usuario.etiquetas = connection.Query<Etiqueta>(@"
+                    SELECT e.*
+                    FROM Etiquetas e
+                    INNER JOIN UsuarioEtiquetas ue ON e.idEtiqueta = ue.idEtiqueta
+                    WHERE ue.idUsuario = @IdUsuario
+                    ORDER BY e.nombreEtiqueta", new { IdUsuario = id }).ToList();
+
+                usuario.videos = connection.Query<Video>(@"
+                    SELECT *
+                    FROM Videos
+                    WHERE idUsuario = @IdUsuario
+                    ORDER BY idVideo", new { IdUsuario = id }).ToList();
+            }
+
+            return usuario;
+        }
+
         public bool ValidarEmail(string email)
         {
             string query = @"
@@ -186,17 +213,6 @@ namespace MatchRollInfo360.Models
             return matches;
         }
 
-        public List<Etiqueta> MostrarEtiquetas()
-        {
-            List<Etiqueta> etiquetas = new List<Etiqueta>();
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                etiquetas = connection.Query<Etiqueta>("SELECT * FROM Etiquetas").ToList();
-            }
-            return etiquetas;
-        }
-
         public List<Etiqueta> DevolverEtiquetasPorIds(List<int> ids)
         {
             List<Etiqueta> etiquetas = new List<Etiqueta>();
@@ -204,6 +220,32 @@ namespace MatchRollInfo360.Models
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 etiquetas = connection.Query<Etiqueta>("SELECT * FROM Etiquetas WHERE idEtiqueta IN @ids", new { ids }).ToList();
+            }
+            return etiquetas;
+        }
+
+        public List<Etiqueta> ObtenerEtiquetasPorUsuario(int idUsuario)
+        {
+            List<Etiqueta> etiquetas = new List<Etiqueta>();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                etiquetas = connection.Query<Etiqueta>(@"
+                    SELECT e.*
+                    FROM Etiquetas e
+                    INNER JOIN UsuarioEtiquetas ue ON e.idEtiqueta = ue.idEtiqueta
+                    WHERE ue.idUsuario = @IdUsuario
+                    ORDER BY e.idEtiqueta", new { IdUsuario = idUsuario }).ToList();
+            }
+            return etiquetas;
+        }
+
+        public List<Etiqueta> MostrarEtiquetas()
+        {
+            List<Etiqueta> etiquetas = new List<Etiqueta>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                etiquetas = connection.Query<Etiqueta>("SELECT * FROM Etiquetas").ToList();
             }
             return etiquetas;
         }

@@ -127,6 +127,18 @@ public class HomeController : Controller
         return View("Salas");
     }
     public IActionResult VistaPerfil(){
-        return View("Perfil");
+        int id = int.Parse(HttpContext.Session.GetString("id") ?? "0");
+
+        if (id == 0)
+        {
+            return RedirectToAction("IndexSinCuenta");
+        }
+
+        BD bd = new BD();
+        Usuario usuario = bd.MostrarUsuarioCompleto(id) ?? new Usuario();
+        ViewBag.usuario = usuario;
+        ViewBag.etiquetas = bd.MostrarEtiquetas();
+        ViewBag.etiquetasUsuario = bd.ObtenerEtiquetasPorUsuario(id);
+        return View("Perfil", usuario);
     }
 }

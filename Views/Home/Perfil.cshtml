@@ -1,0 +1,147 @@
+@model MatchRollInfo360.Models.Usuario
+@{
+    ViewData["Title"] = "Perfil";
+    var usuario = Model ?? new MatchRollInfo360.Models.Usuario();
+    var etiquetas = ViewBag.etiquetas as List<MatchRollInfo360.Models.Etiqueta> ?? new List<MatchRollInfo360.Models.Etiqueta>();
+    var etiquetasUsuario = ViewBag.etiquetasUsuario as List<MatchRollInfo360.Models.Etiqueta> ?? new List<MatchRollInfo360.Models.Etiqueta>();
+    var idsEtiquetasUsuario = new HashSet<int>(etiquetasUsuario.Select(e => e.idEtiqueta));
+}
+
+<link rel="stylesheet" href="~/css/Perfil.css" asp-append-version="true" />
+
+<div class="perfil-page">
+    <div class="perfil-shell">
+        <div class="perfil-main">
+            <div class="perfil-visual">
+                <div class="perfil-avatar" aria-label="Foto de perfil"></div>
+
+                <div class="perfil-etiquetas-box" aria-label="Etiquetas del usuario">
+                    @if (etiquetas.Count > 0)
+                    {
+                        foreach (var etiqueta in etiquetas)
+                        {
+                            var activa = idsEtiquetasUsuario.Contains(etiqueta.idEtiqueta);
+                            <span class="perfil-etiqueta @(activa ? "active" : "")">
+                                @etiqueta.nombreEtiqueta
+                            </span>
+                        }
+                    }
+                    else
+                    {
+                        <span class="perfil-etiqueta">Sin etiquetas</span>
+                    }
+                </div>
+            </div>
+
+            <form class="perfil-form" method="post" action="#">
+                <div class="perfil-field">
+                    <label for="apodo">Nombre de usuario:</label>
+                    <input id="apodo" name="apodo" type="text" value="@usuario.apodo" />
+                </div>
+
+                <div class="perfil-field">
+                    <label for="biografia">Descripción:</label>
+                    <textarea id="biografia" name="biografia" placeholder="Escribí una breve descripción...">@usuario.biografia</textarea>
+                </div>
+
+                <div class="perfil-row">
+                    <div class="perfil-field">
+                        <label for="nombre">Nombre:</label>
+                        <input id="nombre" name="nombre" type="text" value="@usuario.nombre" />
+                    </div>
+
+                    <div class="perfil-field">
+                        <label for="apellido">Apellido:</label>
+                        <input id="apellido" name="apellido" type="text" value="@usuario.apellido" />
+                    </div>
+                </div>
+
+                <div class="perfil-row">
+                    <div class="perfil-field">
+                        <label for="edad">Edad:</label>
+                        <input id="edad" name="edad" type="number" min="1" max="100" value="@usuario.edad" />
+                    </div>
+
+                    <div class="perfil-field">
+                        <label for="genero">Género:</label>
+                        <select id="genero" name="genero">
+                            <option value="" selected="@(string.IsNullOrEmpty(usuario.genero) ? "selected" : null)">Seleccioná</option>
+                            <option value="Masculino" selected="@(usuario.genero == "Masculino" ? "selected" : null)">Masculino</option>
+                            <option value="Femenino" selected="@(usuario.genero == "Femenino" ? "selected" : null)">Femenino</option>
+                            <option value="No binario" selected="@(usuario.genero == "No binario" ? "selected" : null)">No binario</option>
+                            <option value="Prefiero no decirlo" selected="@(usuario.genero == "Prefiero no decirlo" ? "selected" : null)">Prefiero no decirlo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="perfil-field">
+                    <label for="email">Correo electrónico:</label>
+                    <input id="email" name="email" type="email" value="@usuario.email" />
+                </div>
+
+                <div class="perfil-row">
+                    <div class="perfil-field">
+                        <label for="instrumentoPrincipal">Instrumento principal:</label>
+                        <input id="instrumentoPrincipal" name="instrumentoPrincipal" type="text" value="@usuario.instrumentoPrincipal" />
+                    </div>
+
+                    <div class="perfil-field">
+                        <label for="nivelExperiencia">Nivel de experiencia:</label>
+                        <select id="nivelExperiencia" name="nivelExperiencia">
+                            <option value="" selected="@(string.IsNullOrEmpty(usuario.nivelExperiencia) ? "selected" : null)">Seleccioná</option>
+                            <option value="Principiante" selected="@(usuario.nivelExperiencia == "Principiante" ? "selected" : null)">Principiante</option>
+                            <option value="Intermedio" selected="@(usuario.nivelExperiencia == "Intermedio" ? "selected" : null)">Intermedio</option>
+                            <option value="Avanzado" selected="@(usuario.nivelExperiencia == "Avanzado" ? "selected" : null)">Avanzado</option>
+                            <option value="Profesional" selected="@(usuario.nivelExperiencia == "Profesional" ? "selected" : null)">Profesional</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="perfil-row">
+                    <div class="perfil-field">
+                        <label for="tipoUsuario">Tipo de usuario:</label>
+                        <select id="tipoUsuario" name="tipoUsuario">
+                            <option value="" selected="@(string.IsNullOrEmpty(usuario.tipoUsuario) ? "selected" : null)">Seleccioná</option>
+                            <option value="Músico" selected="@(usuario.tipoUsuario == "Músico" ? "selected" : null)">Músico</option>
+                            <option value="Dueño de sala" selected="@(usuario.tipoUsuario == "Dueño de sala" ? "selected" : null)">Dueño de sala</option>
+                            <option value="Ambos" selected="@(usuario.tipoUsuario == "Ambos" ? "selected" : null)">Ambos</option>
+                        </select>
+                    </div>
+
+                    <div class="perfil-field">
+                        <label for="contraseña">Contraseña:</label>
+                        <input id="contraseña" name="contraseña" type="password" value="@usuario.contraseña" />
+                    </div>
+                </div>
+
+                <div class="perfil-field">
+                    <label for="ubicacion">Ubicación:</label>
+                    <input id="ubicacion" name="ubicacion" type="text" value="@(usuario.ubicacion != null ? usuario.ubicacion.ciudad + (string.IsNullOrEmpty(usuario.ubicacion.provincia) ? "" : ", " + usuario.ubicacion.provincia) : "")" placeholder="Provincia / Ciudad / Barrio" />
+                </div>
+
+                <div class="perfil-videos">
+                    <h3>Videos</h3>
+                    <div class="video-list">
+                        <div class="video-input">
+                            <span class="video-badge"></span>
+                            <input type="url" name="videos[0].urlVideo" value="@(usuario.videos.Count > 0 ? usuario.videos[0].urlVideo : "")" placeholder="https://youtube.com/..." />
+                        </div>
+                        <div class="video-input">
+                            <span class="video-badge"></span>
+                            <input type="url" name="videos[1].urlVideo" value="@(usuario.videos.Count > 1 ? usuario.videos[1].urlVideo : "")" placeholder="https://youtube.com/..." />
+                        </div>
+                        <div class="video-input">
+                            <span class="video-badge"></span>
+                            <input type="url" name="videos[2].urlVideo" value="@(usuario.videos.Count > 2 ? usuario.videos[2].urlVideo : "")" placeholder="https://youtube.com/..." />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="perfil-actions">
+                    <button type="button" class="btn-perfil">Cancelar</button>
+                    <button type="submit" class="btn-perfil primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
