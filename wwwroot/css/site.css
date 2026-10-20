@@ -88,6 +88,17 @@ h2 { font-family: var(--font-titulos); font-weight: 800; }
     border-radius: 4px;
 }
 
+.navbar__btn--auth {
+    width: 20%;
+    min-width: 6rem;
+    max-width: 12rem;
+    height: 56%;
+    min-height: 2.1rem;
+    font-size: 85%;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
 .navbar__avatar {
     width: 52px;
     height: 52px;
@@ -357,28 +368,41 @@ h2 { font-family: var(--font-titulos); font-weight: 800; }
     position: relative;
     z-index: 2;
     background: var(--rosa);
-    box-shadow: 0 0 14px 6px var(--rosa);
-    padding: 36px 0 110px;
+    box-shadow: 0 0 14px 6px rgba(255, 77, 109, 0.12);
+    padding: 5% 0 11%;
+    border-top: 2px solid rgba(17,17,17,.08);
+    border-bottom: 2px solid rgba(17,17,17,.08);
 }
-.por-que h2 { font-size: 19px; text-align: center; margin: 0 0 28px; }
+.por-que h2 { 
+    font-size: 150%; 
+    text-align: center; 
+    margin: 0 0 4%; 
+    letter-spacing: -0.03em; 
+}
 
 .por-que__cols {
-    width: 78%;
-    max-width: 440px;
+    width: min(88%, 820px);
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 24px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5%;
 }
 .por-que__cols p {
     margin: 0;
-    padding: 14px 12px;
-    background: #f1dede;
-    border-radius: 8px;
-    box-shadow: 0 6px 18px rgba(0,0,0,.06);
-    font-size: 11px;
-    line-height: 1.35;
+    padding: 6% 4%;
+    background: rgba(255, 255, 255, 0.78);
+    border: 2px solid rgba(17,17,17,.12);
+    border-radius: 16px;
+    box-shadow: 0 10px 22px rgba(0,0,0,.08);
+    font-size: 85%;
+    line-height: 1.5;
     text-align: center;
+    font-weight: 500;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+.por-que__cols p:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 26px rgba(0,0,0,.12);
 }
 
 /* ---------- Footer ---------- */
@@ -400,7 +424,7 @@ h2 { font-family: var(--font-titulos); font-weight: 800; }
     flex-direction: column;
     gap: 14px;
     align-self: center;
-    font-size: 8px;
+    font-size: 9px;
 }
 .site-footer__links--left  { text-align: right; padding-right: 20%; }
 .site-footer__links--right { text-align: left;  padding-left: 20%; }
@@ -410,7 +434,7 @@ h2 { font-family: var(--font-titulos); font-weight: 800; }
 .site-footer__logo { height: 48px; width: auto; margin: 0 auto 4px; }
 .site-footer__social { display: flex; justify-content: center; gap: 22px; margin-bottom: 8px; }
 .site-footer__social img { width: 20px; height: 20px; }
-.site-footer small { display: block; font-size: 6px; }
+.site-footer small { display: block; font-size: 7px; }
 
 /* ---------- Autenticación ---------- */
 .auth-header-pink,
@@ -734,10 +758,57 @@ h2 { font-family: var(--font-titulos); font-weight: 800; }
     .navbar__btn { width: 72px; }
 
     .hero-card { width: min(94%, 700px); height: 260px; }
-    .hero-card__overlay { padding-left: 20px; padding-bottom: 18px; }
-    .hero-card__btn { min-width: 120px; padding: 10px 18px; }
+    .hero-card__overlay { padding: 20px 0 24px; }
+    .hero-card__btn { padding: 12px 24px; font-size: .9rem; }
+    .hero-card .card-title { font-size: 1.8rem; }
+    .hero-card .card-text { font-size: .9rem; }
+
+    .match-layout { grid-template-columns: 1fr; }
+    .filtros-box { width: 100%; padding: 16px 12px; }
+    #buscarPerfil { padding: 10px 14px; font-size: .9rem; }
+    .filtros-list summary {
+        padding: 12px 14px;
+        font-size: 1rem;
+    }
+    .filtros-list summary::after {
+        font-size: 1.5rem;
+    }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; animation: none !important; }
+@media (max-width: 450px) {
+    .navbar__btn { width: 60px; }
+    .hero-card { height: 220px; }
+    .hero-card__overlay { padding: 18px 0 22px; }
+    .hero-card__btn { padding: 10px 20px; font-size: .8rem; }
+    .hero-card .card-title { font-size: 1.6rem; }
+    .hero-card .card-text { font-size: .85rem; }
+
+    .filtros-box { padding: 14px 10px; }
+    #buscarPerfil { padding: 8px 12px; font-size: .85rem; }
+    .filtros-list summary {
+        padding: 10px 12px;
+        font-size: .9rem;
+    }
+    .filtros-list summary::after {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 350px) {
+    .navbar__btn { width: 52px; }
+    .hero-card { height: 200px; }
+    .hero-card__overlay { padding: 16px 0 20px; }
+    .hero-card__btn { padding: 8px 16px; font-size: .75rem; }
+    .hero-card .card-title { font-size: 1.4rem; }
+    .hero-card .card-text { font-size: .8rem; }
+
+    .filtros-box { padding: 12px 8px; }
+    #buscarPerfil { padding: 6px 10px; font-size: .75rem; }
+    .filtros-list summary {
+        padding: 8px 10px;
+        font-size: .85rem;
+    }
+    .filtros-list summary::after {
+        font-size: 1rem;
+    }
 }
