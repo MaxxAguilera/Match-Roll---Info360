@@ -48,5 +48,15 @@
     "C:\\Users\\50256921\\.nuget\\packages\\system.text.encodings.web\\8.0.0\\system.text.encodings.web.8.0.0.nupkg.sha512",
     "C:\\Users\\50256921\\.nuget\\packages\\system.threading.ratelimiting\\9.0.18\\system.threading.ratelimiting.9.0.18.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "message": "Problema al leer el archivo de caché C:\\Users\\50256921\\Match-Roll---Info360\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
+      "projectPath": "C:\\Users\\50256921\\Match-Roll---Info360\\MatchandRoll.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\50256921\\Match-Roll---Info360\\MatchandRoll.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

@@ -8,6 +8,7 @@
 }
 
 <link rel="stylesheet" href="~/css/Perfil.css" asp-append-version="true" />
+<script src="~/js/Perfil.js" defer></script>
 
 <div class="perfil-page">
     <div class="perfil-shell">
@@ -21,9 +22,12 @@
                         foreach (var etiqueta in etiquetas)
                         {
                             var activa = idsEtiquetasUsuario.Contains(etiqueta.idEtiqueta);
-                            <span class="perfil-etiqueta @(activa ? "active" : "")">
+                            <button type="button"
+                                    class="perfil-etiqueta @(activa ? "active" : "")"
+                                    data-id="@etiqueta.idEtiqueta"
+                                    aria-pressed="@(activa ? "true" : "false")">
                                 @etiqueta.nombreEtiqueta
-                            </span>
+                            </button>
                         }
                     }
                     else
@@ -34,10 +38,18 @@
                 </div>
             </div>
 
-            <form class="perfil-form" method="post" action="#">
-                <div class="mb-3">
-                    <label for="apodo" class="form-label">Nombre de usuario:</label>
-                    <input id="apodo" name="apodo" type="text" class="form-control form-control-sm" value="@usuario.apodo" placeholder="Placeholder" />
+            <form class="perfil-form" method="post" action="@Url.Action("RegistrarDatosCompleto", "Home")">
+                <input type="hidden" name="idUsuario" value="@usuario.idUsuario" />
+                <div id="selectedTagsContainer" style="display:none;">
+                    @foreach (var idEtiqueta in idsEtiquetasUsuario)
+                    {
+                        <input type="hidden" name="IdsEtiquetas" value="@idEtiqueta" />
+                    }
+                </div>
+
+                <div class="perfil-field">
+                    <label for="apodo">Nombre de usuario:</label>
+                    <input id="apodo" name="apodo" type="text" value="@usuario.apodo" />
                 </div>
 
                 <div class="mb-3">
