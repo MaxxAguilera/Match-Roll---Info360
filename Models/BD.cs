@@ -169,7 +169,7 @@ namespace MatchRollInfo360.Models
                 }
             }
         }
-        public void CrearUsuarioCompleto(Usuario usuario)
+        public void ActualizarUsuario(Usuario usuario)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {

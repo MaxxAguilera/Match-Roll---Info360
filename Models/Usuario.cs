@@ -36,17 +36,20 @@ namespace MatchRollInfo360.Models
             this.etiquetas = etiquetas;
         }
 
-        public Usuario(string email, string contraseña, string apodo, int edad, string genero, string biografia, string instrumentoPrincipal, string nivelExperiencia, int idUbicacion)
+        public Usuario(string apodo, string contraseña, string nombre, string apellido, string tipoUsuario, int idUbicacion, string email, string biografia, string instrumentoPrincipal, string nivelExperiencia, string genero, int edad)
         {
-            this.email = email;
-            this.contraseña = contraseña;
             this.apodo = apodo;
-            this.edad = edad;
-            this.genero = genero;
+            this.contraseña = contraseña;
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.tipoUsuario = tipoUsuario;
+            this.idUbicacion = idUbicacion;
+            this.email = email;
             this.biografia = biografia;
             this.instrumentoPrincipal = instrumentoPrincipal;
             this.nivelExperiencia = nivelExperiencia;
-            this.idUbicacion = idUbicacion;
+            this.genero = genero;
+            this.edad = edad;
         }
     }
 }
