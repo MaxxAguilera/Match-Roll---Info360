@@ -290,3 +290,7 @@ C:\Match-Roll---Info360\obj\Debug\net9.0\MatchandRoll.genruntimeconfig.cache
 C:\Match-Roll---Info360\obj\Debug\net9.0\ref\MatchandRoll.dll
 C:\Match-Roll---Info360\obj\Debug\net9.0\compressed\7mxpqmdj21-qpcjs7wze5.gz
 >>>>>>> ebf0f5ccb84b918da5f0a3a8afc5cfeb5b1ff927
+C:\Users\50233806\Match-Roll---Info360\obj\Debug\net9.0\MatchandRoll.csproj.AssemblyReference.cache
+C:\Users\50233806\Match-Roll---Info360\obj\Debug\net9.0\MatchandRoll.dll
+C:\Users\50233806\Match-Roll---Info360\obj\Debug\net9.0\refint\MatchandRoll.dll
+C:\Users\50233806\Match-Roll---Info360\obj\Debug\net9.0\MatchandRoll.pdb
