@@ -1,6 +1,6 @@
 ﻿@{
     Layout = null;
-    ViewData["Title"] = "Match&Roll";
+    ViewData["Match"] = "Match&Roll";
 }
 <!DOCTYPE html>
 <html lang="es">
@@ -20,11 +20,9 @@
 
     <!-- ================= HEADER ================ -->
     <header class="navbar">
-        <a href="/" class="navbar__logo">
-           
-             <img src="~/Img/logo.png" alt="Match&Roll" >
+        <a href='@Url.Action("Index", "Home")' class="navbar__logo">
+           <img src="~/Img/logo.png" alt="Match&Roll" >
         </a>
-
 
         <nav class="navbar__nav">
             <a href='@Url.Action("VistaMatch", "Home")' class="navbar__btn">match</a>
@@ -48,7 +46,7 @@
                 <img src="~/img/landing1foto.png" class="card-img" alt="primera foto landing">
                 <div class="card-img-overlay hero-card__overlay">
                     <h4 class="card-title">Formá tu banda.<br />Matchéa</h4>
-                    <a href="#" class="hero-card__btn">Empeza ahora</a>
+                    <a href='@Url.Action("VistaMatch", "Home")' class="hero-card__btn">Empeza ahora</a>
                 </div>
             </div>
         </section>
