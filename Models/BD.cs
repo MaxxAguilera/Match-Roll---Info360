@@ -18,7 +18,7 @@ namespace MatchRollInfo360.Models
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string resultado = connection.QueryFirstOrDefault<string>(query, new { Email = email, contraseña = contraseña });
+                string? resultado = connection.QueryFirstOrDefault<string>(query, new { Email = email, contraseña = contraseña });
 
                 if (resultado != null)
                 {
@@ -27,78 +27,122 @@ namespace MatchRollInfo360.Models
             }
             return id;
         }
+
         public bool ValidarNombreUsuario(string apodo){
-            string query = "SELECT COUNT(apodo) FROM Usuarios WHERE apodo = @apodo";
+            return ValidarNombreUsuario(apodo, 0);
+        }
+
+        public bool ValidarNombreUsuario(string apodo, int idUsuario)
+        {
+            string query = @"
+                SELECT COUNT(apodo)
+                FROM Usuarios
+                WHERE apodo = @apodo
+                  AND idUsuario <> @idUsuario";
+
             int count = 0;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                count = connection.QueryFirstOrDefault<int>(query, new { apodo = apodo }); 
+                count = connection.QueryFirstOrDefault<int>(query, new { apodo = apodo, idUsuario = idUsuario });
             }
-            if (count > 0)
-            {
-                return false;
-            } 
-            return true;
+
+            return count == 0;
         }
 
-        public Usuario MostrarUsuario(int id)
-        {
-            Usuario user = null;
-
-            string query = "SELECT * FROM Usuarios WHERE idUsuario = @Id";
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                user = connection.QueryFirstOrDefault<Usuario>(query, new { Id = id });
-            }
-
-            return user;
+        public bool ValidarEmail(string email){
+            return ValidarEmail(email, 0);
         }
 
-        public Usuario? MostrarUsuarioCompleto(int id)
-        {
-            Usuario? usuario = MostrarUsuario(id);
-            if (usuario == null)
-            {
-                return null;
-            }
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                usuario.etiquetas = connection.Query<Etiqueta>(@"
-                    SELECT e.*
-                    FROM Etiquetas e
-                    INNER JOIN UsuarioEtiquetas ue ON e.idEtiqueta = ue.idEtiqueta
-                    WHERE ue.idUsuario = @IdUsuario
-                    ORDER BY e.nombreEtiqueta", new { IdUsuario = id }).ToList();
-
-                usuario.videos = connection.Query<Video>(@"
-                    SELECT *
-                    FROM Videos
-                    WHERE idUsuario = @IdUsuario
-                    ORDER BY idVideo", new { IdUsuario = id }).ToList();
-            }
-
-            return usuario;
-        }
-
-        public bool ValidarEmail(string email)
+        public bool ValidarEmail(string email, int idUsuario)
         {
             string query = @"
                     SELECT COUNT(email)
                     FROM Usuarios
-                    WHERE email = @Email";
+                    WHERE email = @Email
+                      AND idUsuario <> @idUsuario";
             int count = 0;
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                count = connection.QueryFirstOrDefault<int>(query, new { Email = email });
+                count = connection.QueryFirstOrDefault<int>(query, new { Email = email, idUsuario = idUsuario });
             }
-            if (count > 0)
+
+            return count == 0;
+        }
+
+        public void ActualizarUsuarioEtiquetas(int idUsuario, List<int> IdsEtiquetas)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                return false;
+                connection.Execute("DELETE FROM UsuarioEtiquetas WHERE idUsuario = @idUsuario", new { idUsuario = idUsuario });
+
+                foreach (var idEtiqueta in IdsEtiquetas ?? new List<int>())
+                {
+                    connection.Execute(
+                        "INSERT INTO UsuarioEtiquetas (idUsuario, idEtiqueta) VALUES (@idUsuario, @idEtiqueta)",
+                        new { idUsuario = idUsuario, idEtiqueta = idEtiqueta });
+                }
             }
-            return true;
+        }
+
+        public void ActualizarUsuario(Usuario usuario)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var sql = @"
+                    UPDATE Usuarios
+                    SET apodo = @apodo,
+                        contraseña = @contraseña,
+                        nombre = @nombre,
+                        apellido = @apellido,
+                        tipoUsuario = @tipoUsuario,
+                        idUbicacion = @idUbicacion,
+                        email = @email,
+                        biografia = @biografia,
+                        instrumentoPrincipal = @instrumentoPrincipal,
+                        nivelExperiencia = @nivelExperiencia,
+                        genero = @genero,
+                        edad = @edad,
+                        urlVideo = @urlVideo
+                    WHERE idUsuario = @idUsuario;";
+
+                connection.Execute(sql, usuario);
+            }
+        }
+
+        public void ActualizarVideosUsuario(int idUsuario, List<Video> videos)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Execute("DELETE FROM Videos WHERE idUsuario = @idUsuario", new { idUsuario });
+
+                foreach (var video in videos ?? new List<Video>())
+                {
+                    if (string.IsNullOrWhiteSpace(video.urlVideo))
+                    {
+                        continue;
+                    }
+
+                    connection.Execute(
+                        "INSERT INTO Videos (idUsuario, urlVideo) VALUES (@idUsuario, @urlVideo)",
+                        new { idUsuario, urlVideo = video.urlVideo.Trim() });
+                }
+            }
+        }
+
+        public void GuardarVideoDesdeUsuario(Usuario usuario)
+        {
+            if (string.IsNullOrWhiteSpace(usuario.urlVideo))
+            {
+                return;
+            }
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Execute(
+                    "UPDATE Usuarios SET urlVideo = @urlVideo WHERE idUsuario = @idUsuario",
+                    new { idUsuario = usuario.idUsuario, urlVideo = usuario.urlVideo.Trim() });
+            }
         }
 
         public List<Usuario> ObtenerUsuarios()
@@ -169,17 +213,6 @@ namespace MatchRollInfo360.Models
                 }
             }
         }
-        public void ActualizarUsuario(Usuario usuario)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                var sql = @"
-                    INSERT INTO Usuarios (apodo, contraseña, nombre, apellido, tipoUsuario, idUbicacion, email, biografia, instrumentoPrincipal, nivelExperiencia, genero, edad)
-                    VALUES (@apodo, @contraseña, @nombre, @apellido, @tipoUsuario, @idUbicacion, @email, @biografia, @instrumentoPrincipal, @nivelExperiencia, @genero, @edad);";
-
-                connection.Execute(sql, usuario);
-            }
-        }
 
         public void CrearReserva(Reserva reserva)
         {
@@ -248,6 +281,47 @@ namespace MatchRollInfo360.Models
                 etiquetas = connection.Query<Etiqueta>("SELECT * FROM Etiquetas").ToList();
             }
             return etiquetas;
+        }
+
+        public Usuario MostrarUsuario(int id)
+        {
+            Usuario user = null!;
+
+            string query = "SELECT * FROM Usuarios WHERE idUsuario = @Id";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                user = connection.QueryFirstOrDefault<Usuario>(query, new { Id = id }) ?? new Usuario();
+            }
+
+            return user;
+        }
+
+        public Usuario? MostrarUsuarioCompleto(int id)
+        {
+            Usuario? usuario = MostrarUsuario(id);
+            if (usuario == null)
+            {
+                return null;
+            }
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                usuario.etiquetas = connection.Query<Etiqueta>(@"
+                    SELECT e.*
+                    FROM Etiquetas e
+                    INNER JOIN UsuarioEtiquetas ue ON e.idEtiqueta = ue.idEtiqueta
+                    WHERE ue.idUsuario = @IdUsuario
+                    ORDER BY e.nombreEtiqueta", new { IdUsuario = id }).ToList();
+
+                usuario.videos = connection.Query<Video>(@"
+                    SELECT *
+                    FROM Videos
+                    WHERE idUsuario = @IdUsuario
+                    ORDER BY idVideo", new { IdUsuario = id }).ToList();
+            }
+
+            return usuario;
         }
     }
 }

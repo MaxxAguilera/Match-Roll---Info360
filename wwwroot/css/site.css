@@ -1,3 +1,17 @@
+@font-face {
+    font-family: "Galak Round";
+    src: url("https://fonts.cdnfonts.com/s/91448/Galak-Round.woff") format("woff");
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Galak Round SemiBold";
+    src: url("https://fonts.cdnfonts.com/s/91448/Galak-Round-SemiBold.woff") format("woff");
+    font-weight: 600;
+    font-style: normal;
+}
+
 :root {
     --celeste: #b0e3e8;
     --rosa: #FF4D6D;
@@ -5,8 +19,8 @@
     --violeta: #A855F7;
     --negro: #000;
     --blanco: #fff;
-    --font-titulos: "Inter", sans-serif;
-    --font-ui: "Poppins", sans-serif;
+    --font-titulos: "Galak Round SemiBold", "Galak Round", "Arial Rounded MT Bold", "Segoe UI", sans-serif;
+    --font-ui: "Galak Round SemiBold", "Galak Round", "Segoe UI", sans-serif;
     --font-texto: "Outfit", sans-serif;
 }
 
@@ -30,7 +44,22 @@ img { max-width: 100%; display: block; }
 a { color: inherit; } /* Los links toman el color del texto que los rodea, en vez del azul por defecto del navegador
 
 /* Títulos de sección */
-h2 { font-family: var(--font-titulos); font-weight: 800; }
+h1, h2, h3, h4, h5, h6,
+.hero__text h1,
+.hero .card-title,
+.hero-card .card-title,
+.site-footer,
+.navbar,
+.navbar__btn,
+.site-footer__links,
+.site-footer small,
+.registro-header,
+.registro-form .btn,
+.etiqueta-chip {
+    font-family: var(--font-titulos);
+    font-weight: 600;
+    letter-spacing: .02em;
+}
 
 /* ---------- Botones ---------- */
 .btn {

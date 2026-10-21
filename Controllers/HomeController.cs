@@ -107,20 +107,32 @@ public class HomeController : Controller
     }
     
     [HttpPost]
-    public IActionResult RegistrarDatosCompleto(Usuario usuario, List<int> IdsEtiquetas){
+    public IActionResult RegistrarDatosCompleto(Usuario usuario, List<int> IdsEtiquetas, List<Video> videos)
+    {
         BD bd = new BD();
-
-        
 
         bool nombreValido = bd.ValidarNombreUsuario(usuario.apodo, usuario.idUsuario);
         bool emailValido = bd.ValidarEmail(usuario.email, usuario.idUsuario);
 
-        if (!nombreValido || !emailValido){
-            if (usuario.edad < 1 || usuario.edad > 100){
+        if (nombreValido && emailValido)
+        {
+            if (usuario.edad < 1 || usuario.edad > 100)
+            {
                 ViewBag.etiquetas = bd.MostrarEtiquetas();
                 ViewBag.msj = "La edad debe estar entre 1 y 100 años.";
-                RedirectToAction("VistaPerfil");
+                return RedirectToAction("VistaPerfil");
             }
+
+            if (!string.IsNullOrWhiteSpace(usuario.urlVideo))
+            {
+                bd.GuardarVideoDesdeUsuario(usuario);
+            }
+
+            if (videos != null && videos.Any())
+            {
+                bd.ActualizarVideosUsuario(usuario.idUsuario, videos);
+            }
+
             bd.ActualizarUsuario(usuario);
             bd.ActualizarUsuarioEtiquetas(usuario.idUsuario, IdsEtiquetas);
             return RedirectToAction("Index");
@@ -128,7 +140,7 @@ public class HomeController : Controller
 
         ViewBag.etiquetas = bd.MostrarEtiquetas();
         ViewBag.msj = "Nombre y email ya están en uso, por favor elija otros.";
-        return RedirectToAction("Index");
+        return RedirectToAction("VistaPerfil");
     }
 
     public IActionResult Privacy()
