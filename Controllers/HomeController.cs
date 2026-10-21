@@ -110,17 +110,16 @@ public class HomeController : Controller
     public IActionResult RegistrarDatosCompleto(Usuario usuario, List<int> IdsEtiquetas){
         BD bd = new BD();
 
-        
-
         bool nombreValido = bd.ValidarNombreUsuario(usuario.apodo, usuario.idUsuario);
         bool emailValido = bd.ValidarEmail(usuario.email, usuario.idUsuario);
 
-        if (!nombreValido || !emailValido){
+        if (nombreValido && emailValido){
             if (usuario.edad < 1 || usuario.edad > 100){
                 ViewBag.etiquetas = bd.MostrarEtiquetas();
                 ViewBag.msj = "La edad debe estar entre 1 y 100 años.";
-                RedirectToAction("VistaPerfil");
+                return RedirectToAction("VistaPerfil");
             }
+
             bd.ActualizarUsuario(usuario);
             bd.ActualizarUsuarioEtiquetas(usuario.idUsuario, IdsEtiquetas);
             return RedirectToAction("Index");
@@ -128,7 +127,7 @@ public class HomeController : Controller
 
         ViewBag.etiquetas = bd.MostrarEtiquetas();
         ViewBag.msj = "Nombre y email ya están en uso, por favor elija otros.";
-        return RedirectToAction("Index");
+        return RedirectToAction("VistaPerfil");
     }
 
     public IActionResult Privacy()
