@@ -74,12 +74,31 @@ namespace MatchRollInfo360.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
+                var ids = (IdsEtiquetas ?? new List<int>())
+                    .Where(x => x > 0)
+                    .Distinct()
+                    .ToList();
+
                 connection.Execute("DELETE FROM UsuarioEtiquetas WHERE idUsuario = @idUsuario", new { idUsuario = idUsuario });
 
-                foreach (var idEtiqueta in IdsEtiquetas ?? new List<int>())
+                if (!ids.Any())
                 {
-                    connection.Execute(
-                        "INSERT INTO UsuarioEtiquetas (idUsuario, idEtiqueta) VALUES (@idUsuario, @idEtiqueta)",
+                    AsegurarEtiquetaAleatoria(idUsuario);
+                    return;
+                }
+
+                foreach (var idEtiqueta in ids)
+                {
+                    connection.Execute(@"
+                        IF NOT EXISTS (
+                            SELECT 1
+                            FROM UsuarioEtiquetas
+                            WHERE idUsuario = @idUsuario
+                              AND idEtiqueta = @idEtiqueta)
+                        BEGIN
+                            INSERT INTO UsuarioEtiquetas (idUsuario, idEtiqueta)
+                            VALUES (@idUsuario, @idEtiqueta)
+                        END;",
                         new { idUsuario = idUsuario, idEtiqueta = idEtiqueta });
                 }
             }
@@ -112,22 +131,8 @@ namespace MatchRollInfo360.Models
 
         public void ActualizarVideosUsuario(int idUsuario, List<Video> videos)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Execute("DELETE FROM Videos WHERE idUsuario = @idUsuario", new { idUsuario });
-
-                foreach (var video in videos ?? new List<Video>())
-                {
-                    if (string.IsNullOrWhiteSpace(video.urlVideo))
-                    {
-                        continue;
-                    }
-
-                    connection.Execute(
-                        "INSERT INTO Videos (idUsuario, urlVideo) VALUES (@idUsuario, @urlVideo)",
-                        new { idUsuario, urlVideo = video.urlVideo.Trim() });
-                }
-            }
+            // La base actual no tiene tabla Videos. Se usa solo la columna urlVideo de Usuarios.
+            return;
         }
 
         public void GuardarVideoDesdeUsuario(Usuario usuario)
@@ -201,15 +206,37 @@ namespace MatchRollInfo360.Models
 
         public void CrearUsuarioEtiquetas(int id, List<int> IdsEtiquetas)
         {
+            var ids = (IdsEtiquetas ?? new List<int>())
+                .Where(x => x > 0)
+                .Distinct()
+                .ToList();
+
+            if (!ids.Any())
+            {
+                ids = ObtenerEtiquetasAleatorias(1);
+            }
+
+            if (!ids.Any())
+            {
+                return;
+            }
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                foreach (var idEtiqueta in IdsEtiquetas)
+                foreach (var idEtiqueta in ids)
                 {
                     var sql = @"
-                        INSERT INTO UsuarioEtiquetas (idUsuario, idEtiqueta)
-                        VALUES (@id, @idEtiqueta);";
+                        IF NOT EXISTS (
+                            SELECT 1
+                            FROM UsuarioEtiquetas
+                            WHERE idUsuario = @idUsuario
+                              AND idEtiqueta = @idEtiqueta)
+                        BEGIN
+                            INSERT INTO UsuarioEtiquetas (idUsuario, idEtiqueta)
+                            VALUES (@idUsuario, @idEtiqueta)
+                        END;";
 
-                    connection.Execute(sql, new {idEtiqueta = idEtiqueta, id = id});
+                    connection.Execute(sql, new { idUsuario = id, idEtiqueta = idEtiqueta });
                 }
             }
         }
@@ -307,6 +334,23 @@ namespace MatchRollInfo360.Models
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
+                var tieneEtiquetas = connection.QuerySingleOrDefault<int>(@"
+                    SELECT COUNT(*)
+                    FROM UsuarioEtiquetas
+                    WHERE idUsuario = @IdUsuario", new { IdUsuario = id });
+
+                if (tieneEtiquetas == 0)
+                {
+                    var ids = connection.Query<int>("SELECT idEtiqueta FROM Etiquetas").ToList();
+                    if (ids.Any())
+                    {
+                        int idEtiqueta = ids.OrderBy(_ => Guid.NewGuid()).First();
+                        connection.Execute(
+                            "INSERT INTO UsuarioEtiquetas (idUsuario, idEtiqueta) VALUES (@idUsuario, @idEtiqueta)",
+                            new { idUsuario = id, idEtiqueta });
+                    }
+                }
+
                 usuario.etiquetas = connection.Query<Etiqueta>(@"
                     SELECT e.*
                     FROM Etiquetas e
@@ -314,14 +358,81 @@ namespace MatchRollInfo360.Models
                     WHERE ue.idUsuario = @IdUsuario
                     ORDER BY e.nombreEtiqueta", new { IdUsuario = id }).ToList();
 
-                usuario.videos = connection.Query<Video>(@"
-                    SELECT *
-                    FROM Videos
-                    WHERE idUsuario = @IdUsuario
-                    ORDER BY idVideo", new { IdUsuario = id }).ToList();
+                usuario.videos = new List<Video>();
             }
 
             return usuario;
+        }
+
+        public void AsegurarEtiquetaAleatoria(int idUsuario)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                int cantidad = connection.QuerySingle<int>(
+                    "SELECT COUNT(*) FROM UsuarioEtiquetas WHERE idUsuario = @idUsuario",
+                    new { idUsuario });
+
+                if (cantidad > 0)
+                {
+                    return;
+                }
+
+                var ids = connection.Query<int>("SELECT idEtiqueta FROM Etiquetas").ToList();
+                if (!ids.Any())
+                {
+                    return;
+                }
+
+                int idEtiqueta = ids.OrderBy(_ => Guid.NewGuid()).First();
+
+                connection.Execute(
+                    "INSERT INTO UsuarioEtiquetas (idUsuario, idEtiqueta) VALUES (@idUsuario, @idEtiqueta)",
+                    new { idUsuario, idEtiqueta });
+            }
+        }
+
+        public void AsegurarEtiquetasParaTodosLosUsuarios()
+        {
+            var usuarios = ObtenerUsuarios();
+            foreach (var usuario in usuarios)
+            {
+                AsegurarEtiquetaAleatoria(usuario.idUsuario);
+            }
+        }
+
+        public List<int> ObtenerEtiquetasAleatorias(int cantidad = 1)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var ids = connection.Query<int>("SELECT idEtiqueta FROM Etiquetas").ToList();
+                if (!ids.Any())
+                {
+                    return new List<int>();
+                }
+
+                return ids
+                    .OrderBy(_ => Guid.NewGuid())
+                    .Take(Math.Max(1, cantidad))
+                    .ToList();
+            }
+        }
+
+        public void LimpiarEtiquetasDuplicadas()
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Execute(@"
+                    WITH duplicados AS (
+                        SELECT idUsuario, idEtiqueta,
+                               ROW_NUMBER() OVER (
+                                   PARTITION BY idUsuario, idEtiqueta
+                                   ORDER BY idUsuario
+                               ) AS rn
+                        FROM UsuarioEtiquetas
+                    )
+                    DELETE FROM duplicados
+                    WHERE rn > 1;");
+            }
         }
     }
 }

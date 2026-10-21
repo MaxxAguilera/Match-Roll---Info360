@@ -96,11 +96,21 @@ public class HomeController : Controller
         }
     
         if (bd.ValidarNombreUsuario(apodo) && bd.ValidarEmail(email)){
-            List<Etiqueta> etiquetas = bd.DevolverEtiquetasPorIds(IdsEtiquetas);
+            List<int> idsEtiquetasFinales = (IdsEtiquetas != null && IdsEtiquetas.Any())
+                ? IdsEtiquetas
+                : bd.ObtenerEtiquetasAleatorias(1);
+
+            List<Etiqueta> etiquetas = bd.DevolverEtiquetasPorIds(idsEtiquetasFinales);
             Usuario user = new Usuario(email, contraseña, apodo, edad, genero, etiquetas);
             bd.CrearUsuarioNoCompleto(user);
             HttpContext.Session.SetString("id", user.idUsuario.ToString());
-            bd.CrearUsuarioEtiquetas(user.idUsuario, IdsEtiquetas);
+            bd.CrearUsuarioEtiquetas(user.idUsuario, idsEtiquetasFinales);
+
+            if (!idsEtiquetasFinales.Any())
+            {
+                bd.AsegurarEtiquetaAleatoria(user.idUsuario);
+            }
+
             return RedirectToAction("Index");
         }
         return RedirectToAction("VistaRegistrarseConMensaje");
@@ -110,6 +120,12 @@ public class HomeController : Controller
     public IActionResult RegistrarDatosCompleto(Usuario usuario, List<int> IdsEtiquetas, List<Video> videos)
     {
         BD bd = new BD();
+
+        var usuarioActual = bd.MostrarUsuario(usuario.idUsuario);
+        if (usuario.idUbicacion <= 0 && usuarioActual.idUbicacion > 0)
+        {
+            usuario.idUbicacion = usuarioActual.idUbicacion;
+        }
 
         bool nombreValido = bd.ValidarNombreUsuario(usuario.apodo, usuario.idUsuario);
         bool emailValido = bd.ValidarEmail(usuario.email, usuario.idUsuario);
@@ -156,8 +172,13 @@ public class HomeController : Controller
 
     public IActionResult VistaMatch(){
         BD bd = new BD();
+        bd.LimpiarEtiquetasDuplicadas();
+        bd.AsegurarEtiquetasParaTodosLosUsuarios();
+
         List<Usuario> usuarios = bd.ObtenerUsuarios();
-        ViewBag.usuarios = usuarios;
+        ViewBag.usuarios = usuarios
+            .Select(u => bd.MostrarUsuarioCompleto(u.idUsuario) ?? u)
+            .ToList();
         return View("Match");
     }
     public IActionResult VistaSalas(){

@@ -13,6 +13,7 @@
         edad = u.edad,
         biografia = u.biografia,
         instrumentoPrincipal = u.instrumentoPrincipal,
+        urlVideo = u.urlVideo,
 
         etiquetas = u.etiquetas == null
             ? new List<string>()
@@ -38,12 +39,7 @@
                 <div class="video-area">
 
                     <div class="video-frame">
-                        <video id="videoPerfil"
-                               controls
-                               autoplay
-                               muted
-                               playsinline>
-                        </video>
+                        <div id="videoContainer"></div>
 
                         <div id="sinVideo" hidden class="no-video">
                             Este usuario todavía no tiene videos.
@@ -72,6 +68,7 @@
                         </div>
                         <p id="biografiaPerfil" class="bio"></p>
                         <p id="instrumentoPerfil" class="inst"></p>
+                        <p id="contadorVideos" class="contador-videos">0 videos</p>
                     </div>
 
                 </div>
@@ -137,12 +134,13 @@
         document.getElementById("datosUsuarios").textContent
     );
 
-    const video = document.getElementById("videoPerfil");
+    const videoContainer = document.getElementById("videoContainer");
     const sinVideo = document.getElementById("sinVideo");
     const nombre = document.getElementById("nombrePerfil");
     const biografia = document.getElementById("biografiaPerfil");
     const instrumento = document.getElementById("instrumentoPerfil");
     const etiquetas = document.getElementById("etiquetasPerfil");
+    const contadorVideos = document.getElementById("contadorVideos");
 
     const btnLike = document.getElementById("btnLike");
     const btnComentario = document.getElementById("btnComentario");
@@ -150,7 +148,6 @@
     const btnAnterior = document.getElementById("videoAnterior");
     const btnSiguiente = document.getElementById("videoSiguiente");
 
-    const contadorVideos = document.getElementById("contadorVideos");
     const mensajeFinal = document.getElementById("mensajeFinal");
     const perfilSeccion = document.querySelector(".perfil-seccion");
     const buscador = document.getElementById("buscarPerfil");
@@ -159,48 +156,91 @@
     let indiceVideo = 0;
     let listaFiltrada = [...usuarios];
 
+    function normalizarVideoUrl(url) {
+        const value = (url || "").trim();
+        if (!value) return "";
+
+        const youtubeMatch = value.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/|youtube-nocookie\.com\/embed\/)([A-Za-z0-9_-]{11})/i);
+        if (youtubeMatch) {
+            const videoId = youtubeMatch[1];
+            return `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&rel=0&modestbranding=1&showinfo=0&controls=0&playsinline=1&enablejsapi=1`;
+        }
+
+        return value;
+    }
+
     function mostrarVideo() {
         const usuario = listaFiltrada[indiceUsuario];
         const videos = usuario?.videos || [];
+        const media = [];
 
-        if (videos.length === 0) {
-            video.pause();
-            video.removeAttribute("src");
-            video.load();
+        const urlPrincipal = (usuario?.urlVideo || "").trim();
+        if (urlPrincipal) {
+            media.push(urlPrincipal);
+        }
 
-            video.hidden = true;
-            sinVideo.hidden = false;
-            contadorVideos.textContent = "0 videos";
+        videos.forEach(url => {
+            const value = (url || "").trim();
+            if (value && !media.includes(value)) {
+                media.push(value);
+            }
+        });
 
-            btnAnterior.hidden = true;
-            btnSiguiente.hidden = true;
+        if (media.length === 0) {
+            if (videoContainer) videoContainer.innerHTML = "";
+            if (sinVideo) sinVideo.hidden = false;
+            if (contadorVideos) contadorVideos.textContent = "0 videos";
+
+            if (btnAnterior) btnAnterior.hidden = true;
+            if (btnSiguiente) btnSiguiente.hidden = true;
 
             return;
         }
 
-        indiceVideo = (indiceVideo + videos.length) % videos.length;
+        indiceVideo = (indiceVideo + media.length) % media.length;
+        const rawUrl = (media[indiceVideo] || "").trim();
+        const url = normalizarVideoUrl(rawUrl);
 
-        video.src = videos[indiceVideo];
-        video.hidden = false;
-        sinVideo.hidden = true;
+        if (sinVideo) sinVideo.hidden = true;
+        if (videoContainer) videoContainer.innerHTML = "";
 
-        contadorVideos.textContent = `${indiceVideo + 1} / ${videos.length}`;
+        const isYoutube = url.includes("youtube.com/embed/") || url.includes("youtube-nocookie.com/embed/");
 
-        btnAnterior.hidden = videos.length <= 1;
-        btnSiguiente.hidden = videos.length <= 1;
+        if (isYoutube) {
+            const iframe = document.createElement("iframe");
+            iframe.src = url;
+            iframe.title = "Video del perfil";
+            iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen";
+            iframe.allowFullscreen = true;
+            iframe.referrerPolicy = "strict-origin-when-cross-origin";
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            iframe.style.border = "0";
+            iframe.style.borderRadius = "16px";
+            if (videoContainer) videoContainer.appendChild(iframe);
+        } else {
+            const video = document.createElement("video");
+            video.controls = true;
+            video.autoplay = true;
+            video.muted = true;
+            video.playsInline = true;
+            video.src = url;
+            video.style.width = "100%";
+            video.style.height = "100%";
+            video.style.borderRadius = "16px";
+            if (videoContainer) videoContainer.appendChild(video);
+        }
 
-        video.load();
-        video.play().catch(() => {});
+        if (contadorVideos) contadorVideos.textContent = `${indiceVideo + 1} / ${media.length}`;
+
+        if (btnAnterior) btnAnterior.hidden = media.length <= 1;
+        if (btnSiguiente) btnSiguiente.hidden = media.length <= 1;
     }
 
     function mostrarUsuario() {
         if (indiceUsuario >= listaFiltrada.length) {
-            video.pause();
-            video.removeAttribute("src");
-            video.load();
-
-            perfilSeccion.hidden = true;
-            mensajeFinal.hidden = false;
+            if (perfilSeccion) perfilSeccion.hidden = true;
+            if (mensajeFinal) mensajeFinal.hidden = false;
 
             return;
         }
@@ -213,16 +253,23 @@
 
         instrumento.textContent = "Instrumento: " + (usuario.instrumentoPrincipal || "No especificado");
 
+        const etiquetasUsuario = usuario.etiquetas || [];
+
         etiquetas.replaceChildren();
 
-        (usuario.etiquetas || []).forEach(texto => {
+        if (etiquetasUsuario.length > 0) {
+            etiquetasUsuario.forEach((texto, index) => {
+                const etiqueta = document.createElement("span");
+                etiqueta.className = "etiqueta" + (index === 0 ? " primary" : "");
+                etiqueta.textContent = texto;
+                etiquetas.appendChild(etiqueta);
+            });
+        } else {
             const etiqueta = document.createElement("span");
-
-            etiqueta.className = "etiqueta";
-            etiqueta.textContent = texto;
-
+            etiqueta.className = "etiqueta primary";
+            etiqueta.textContent = "Sin etiqueta";
             etiquetas.appendChild(etiqueta);
-        });
+        }
 
         indiceVideo = 0;
         mostrarVideo();
@@ -233,23 +280,23 @@
         mostrarUsuario();
     }
 
-    btnAnterior.addEventListener("click", () => {
+    if (btnAnterior) btnAnterior.addEventListener("click", () => {
         indiceVideo--;
         mostrarVideo();
     });
 
-    btnSiguiente.addEventListener("click", () => {
+    if (btnSiguiente) btnSiguiente.addEventListener("click", () => {
         indiceVideo++;
         mostrarVideo();
     });
 
-    btnLike.addEventListener("click", siguienteUsuario);
-    btnDislike.addEventListener("click", siguienteUsuario);
-    btnComentario.addEventListener("click", () => {
+    if (btnLike) btnLike.addEventListener("click", siguienteUsuario);
+    if (btnDislike) btnDislike.addEventListener("click", siguienteUsuario);
+    if (btnComentario) btnComentario.addEventListener("click", () => {
         alert("Funcionalidad de comentarios pendiente");
     });
 
-    buscador.addEventListener("input", () => {
+    if (buscador) buscador.addEventListener("input", () => {
         const busqueda = buscador.value.trim().toLowerCase();
 
         listaFiltrada = usuarios.filter(usuario =>
@@ -258,8 +305,8 @@
 
         indiceUsuario = 0;
 
-        perfilSeccion.hidden = false;
-        mensajeFinal.hidden = true;
+        if (perfilSeccion) perfilSeccion.hidden = false;
+        if (mensajeFinal) mensajeFinal.hidden = true;
 
         mostrarUsuario();
     });

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MatchandRoll")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d7af57f855c088b9f676f95e316e43aeaee0ea62")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+427fb1ae125352ec680b827cac8b114fdda43586")]
 [assembly: System.Reflection.AssemblyProductAttribute("MatchandRoll")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MatchandRoll")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

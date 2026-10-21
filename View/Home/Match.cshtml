@@ -1,0 +1,12 @@
+    function normalizarVideoUrl(url) {
+        const value = (url || "").trim();
+        if (!value) return "";
+
+        const youtubeMatch = value.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/i);
+        if (youtubeMatch) {
+            const videoId = youtubeMatch[1];
+            return `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&showinfo=0`;
+        }
+
+        return value;
+    }

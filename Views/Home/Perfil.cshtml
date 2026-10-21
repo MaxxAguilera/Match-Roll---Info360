@@ -17,6 +17,9 @@
                 <div class="perfil-avatar" aria-label="Foto de perfil"></div>
 
                 <div class="perfil-etiquetas-box" aria-label="Etiquetas del usuario">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <strong>Mis etiquetas</strong>
+                    </div>
                     @if (etiquetas.Count > 0)
                     {
                         foreach (var etiqueta in etiquetas)
@@ -129,14 +132,14 @@
 
                 <div class="form-field">
                     <label for="fieldSelect" class="form-label">Ubicación</label>
-                     <select class="form-control" id="fieldSelect">
-                     <option selected>Elige tu ciudad</option>
-                     <option value="1">CABA</option>
-                     <option value="2">Buenos Aires</option>
-                     <option value="3">Santa Fe</option>
-                     <option value="4">Otro</option>
-  </select>
-</div>
+                    <select class="form-control" id="fieldSelect" name="idUbicacion">
+                        <option value="0" selected="@(usuario.idUbicacion == 0 ? "selected" : null)">Elige tu ciudad</option>
+                        <option value="1" selected="@(usuario.idUbicacion == 1 ? "selected" : null)">CABA</option>
+                        <option value="2" selected="@(usuario.idUbicacion == 2 ? "selected" : null)">Buenos Aires</option>
+                        <option value="3" selected="@(usuario.idUbicacion == 3 ? "selected" : null)">Santa Fe</option>
+                        <option value="4" selected="@(usuario.idUbicacion == 4 ? "selected" : null)">Otro</option>
+                    </select>
+                </div>
 
                 <div class="mb-3 mt-3">
                     <label for="urlVideo" class="form-label">URL del video principal</label>
@@ -156,10 +159,6 @@
                         <div class="video-input">
                             <span class="video-badge"></span>
                             <input type="url" class="form-control form-control-sm" name="videos[1].urlVideo" value="@(usuario.videos.Count > 1 ? usuario.videos[1].urlVideo : "")" placeholder="https://youtube.com/..." />
-                        </div>
-                        <div class="video-input">
-                            <span class="video-badge"></span>
-                            <input type="url" class="form-control form-control-sm" name="videos[2].urlVideo" value="@(usuario.videos.Count > 2 ? usuario.videos[2].urlVideo : "")" placeholder="https://youtube.com/..." />
                         </div>
                     </div>
                 </div>
