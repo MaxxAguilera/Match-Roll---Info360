@@ -125,14 +125,47 @@ namespace MatchRollInfo360.Models
                         urlVideo = @urlVideo
                     WHERE idUsuario = @idUsuario;";
 
-                connection.Execute(sql, usuario);
+                connection.Execute(sql, new
+                {
+                    usuario.idUsuario,
+                    usuario.apodo,
+                    usuario.contraseña,
+                    usuario.nombre,
+                    usuario.apellido,
+                    usuario.tipoUsuario,
+                    usuario.idUbicacion,
+                    usuario.email,
+                    usuario.biografia,
+                    usuario.instrumentoPrincipal,
+                    usuario.nivelExperiencia,
+                    usuario.genero,
+                    usuario.edad,
+                    urlVideo = usuario.urlVideo ?? string.Empty
+                });
             }
         }
 
         public void ActualizarVideosUsuario(int idUsuario, List<Video> videos)
         {
-            // La base actual no tiene tabla Videos. Se usa solo la columna urlVideo de Usuarios.
-            return;
+            if (videos == null || !videos.Any())
+            {
+                return;
+            }
+
+            var urlPrincipal = videos
+                .Where(v => v != null && !string.IsNullOrWhiteSpace(v.urlVideo))
+                .Select(v => v.urlVideo.Trim())
+                .FirstOrDefault();
+
+            if (!string.IsNullOrWhiteSpace(urlPrincipal))
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    connection.Execute(
+                        "UPDATE Usuarios SET urlVideo = @urlVideo WHERE idUsuario = @idUsuario",
+                        new { idUsuario, urlVideo = urlPrincipal });
+                }
+            }
         }
 
         public void GuardarVideoDesdeUsuario(Usuario usuario)

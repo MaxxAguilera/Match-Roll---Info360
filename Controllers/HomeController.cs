@@ -139,6 +139,25 @@ public class HomeController : Controller
                 return RedirectToAction("VistaPerfil");
             }
 
+            var urlsVideo = new List<string>();
+
+            if (!string.IsNullOrWhiteSpace(usuario.urlVideo))
+            {
+                urlsVideo.Add(usuario.urlVideo);
+            }
+
+            if (videos != null)
+            {
+                urlsVideo.AddRange(videos
+                    .Where(v => v != null)
+                    .Select(v => v.urlVideo)
+                    .Where(v => !string.IsNullOrWhiteSpace(v)));
+            }
+
+            usuario.urlVideo = urlsVideo
+                .Select(v => v.Trim())
+                .FirstOrDefault(v => !string.IsNullOrWhiteSpace(v)) ?? string.Empty;
+
             if (!string.IsNullOrWhiteSpace(usuario.urlVideo))
             {
                 bd.GuardarVideoDesdeUsuario(usuario);
