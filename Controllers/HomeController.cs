@@ -81,6 +81,16 @@ public class HomeController : Controller
     public IActionResult RegistrarDatosPrincipales(string email, string contraseña, string contraseñaConfirmacion, string apodo, int edad, string genero, List<int> IdsEtiquetas){
         BD bd = new BD();
 
+        if (string.IsNullOrWhiteSpace(genero))
+        {
+            ViewBag.etiquetas = bd.MostrarEtiquetas();
+            ViewBag.msj = "Debes seleccionar un género para continuar.";
+            ViewData["HideNav"] = true;
+            return View("Registrarse");
+        }
+
+        genero = ObtenerGeneroValido(genero);
+
         if (edad < 1 || edad > 100){
             ViewBag.etiquetas = bd.MostrarEtiquetas();
             ViewBag.msj = "La edad debe estar entre 1 y 100 años.";
@@ -115,16 +125,62 @@ public class HomeController : Controller
         }
         return RedirectToAction("VistaRegistrarseConMensaje");
     }
+
+    private static string ObtenerGeneroValido(string genero)
+    {
+        if (string.IsNullOrWhiteSpace(genero))
+            return "Prefiero no decirlo";
+
+        var valor = genero.Trim();
+        return valor switch
+        {
+            "1" => "Masculino",
+            "2" => "Femenino",
+            "3" => "No binario",
+            "Masculino" => "Masculino",
+            "Femenino" => "Femenino",
+            "No binario" => "No binario",
+            "Prefiero no decirlo" => "Prefiero no decirlo",
+            _ => valor
+        };
+    }
     
     [HttpPost]
     public IActionResult RegistrarDatosCompleto(Usuario usuario, List<int> IdsEtiquetas, List<Video> videos)
     {
         BD bd = new BD();
 
+        if (string.IsNullOrWhiteSpace(usuario.genero))
+        {
+            usuario.genero = "Prefiero no decirlo";
+        }
+        else
+        {
+            usuario.genero = ObtenerGeneroValido(usuario.genero);
+        }
+
         var usuarioActual = bd.MostrarUsuario(usuario.idUsuario);
+        if (usuario.idUbicacion <= 0)
+        {
+            usuario.idUbicacion = usuarioActual.idUbicacion > 0 ? usuarioActual.idUbicacion : 1;
+        }
+        else if (usuario.idUbicacion > 0)
+        {
+            var ubicacionesValidas = bd.ObtenerUbicacionesDisponibles();
+            if (!ubicacionesValidas.Contains(usuario.idUbicacion))
+            {
+                usuario.idUbicacion = usuarioActual.idUbicacion > 0 ? usuarioActual.idUbicacion : 1;
+            }
+        }
+
         if (usuario.idUbicacion <= 0 && usuarioActual.idUbicacion > 0)
         {
             usuario.idUbicacion = usuarioActual.idUbicacion;
+        }
+
+        if (usuario.idUbicacion <= 0)
+        {
+            usuario.idUbicacion = 1;
         }
 
         bool nombreValido = bd.ValidarNombreUsuario(usuario.apodo, usuario.idUsuario);

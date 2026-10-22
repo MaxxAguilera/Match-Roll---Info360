@@ -104,8 +104,41 @@ namespace MatchRollInfo360.Models
             }
         }
 
+        private static string NormalizarTexto(string? valor, string defecto = "")
+        {
+            return string.IsNullOrWhiteSpace(valor) ? defecto : valor.Trim();
+        }
+
+        private static string NormalizarGenero(string? valor)
+        {
+            var genero = NormalizarTexto(valor, "Prefiero no decirlo");
+            return genero switch
+            {
+                "1" => "Masculino",
+                "2" => "Femenino",
+                "3" => "No binario",
+                "Masculino" => "Masculino",
+                "Femenino" => "Femenino",
+                "No binario" => "No binario",
+                "Prefiero no decirlo" => "Prefiero no decirlo",
+                _ => genero
+            };
+        }
+
         public void ActualizarUsuario(Usuario usuario)
         {
+            usuario.apodo = NormalizarTexto(usuario.apodo);
+            usuario.contraseña = NormalizarTexto(usuario.contraseña);
+            usuario.nombre = NormalizarTexto(usuario.nombre);
+            usuario.apellido = NormalizarTexto(usuario.apellido);
+            usuario.tipoUsuario = NormalizarTexto(usuario.tipoUsuario);
+            usuario.email = NormalizarTexto(usuario.email);
+            usuario.biografia = NormalizarTexto(usuario.biografia);
+            usuario.instrumentoPrincipal = NormalizarTexto(usuario.instrumentoPrincipal);
+            usuario.nivelExperiencia = NormalizarTexto(usuario.nivelExperiencia);
+            usuario.genero = NormalizarGenero(usuario.genero);
+            usuario.urlVideo = NormalizarTexto(usuario.urlVideo);
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 var sql = @"
@@ -226,6 +259,11 @@ namespace MatchRollInfo360.Models
         }
         public void CrearUsuarioNoCompleto(Usuario usuario)
         {
+            usuario.email = NormalizarTexto(usuario.email);
+            usuario.contraseña = NormalizarTexto(usuario.contraseña);
+            usuario.apodo = NormalizarTexto(usuario.apodo);
+            usuario.genero = NormalizarGenero(usuario.genero);
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 var sql = @"
@@ -465,6 +503,14 @@ namespace MatchRollInfo360.Models
                     )
                     DELETE FROM duplicados
                     WHERE rn > 1;");
+            }
+        }
+
+        public List<int> ObtenerUbicacionesDisponibles()
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                return connection.Query<int>("SELECT idUbicacion FROM Ubicaciones").ToList();
             }
         }
     }
