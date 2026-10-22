@@ -70,7 +70,6 @@ C:\Users\50256921\Match-Roll---Info360\obj\Debug\net9.0\scopedcss\Views\Shared\_
 C:\Users\50256921\Match-Roll---Info360\obj\Debug\net9.0\scopedcss\bundle\MatchandRoll.styles.css
 C:\Users\50256921\Match-Roll---Info360\obj\Debug\net9.0\scopedcss\projectbundle\MatchandRoll.bundle.scp.css
 C:\Users\50256921\Match-Roll---Info360\obj\Debug\net9.0\compressed\rhc92dvdtb-61n19gt1b8.gz
-C:\Users\50256921\Match-Roll---Info360\obj\Debug\net9.0\compressed\7mxpqmdj21-qpcjs7wze5.gz
 C:\Users\50256921\Match-Roll---Info360\obj\Debug\net9.0\compressed\pve3ai9yn9-mak3zpoy81.gz
 C:\Users\50256921\Match-Roll---Info360\obj\Debug\net9.0\compressed\3yk3zza6a6-t1cqhe9u97.gz
 C:\Users\50256921\Match-Roll---Info360\obj\Debug\net9.0\compressed\28p3y1hxa8-c2jlpeoesf.gz
@@ -433,6 +432,7 @@ C:\Users\50233806\Match-Roll---Info360\obj\Debug\net9.0\staticwebassets.build.en
 C:\Users\50233806\Match-Roll---Info360\obj\Debug\net9.0\Matchand.BF69894F.Up2Date
 C:\Users\50233806\Match-Roll---Info360\obj\Debug\net9.0\MatchandRoll.genruntimeconfig.cache
 C:\Users\50233806\Match-Roll---Info360\obj\Debug\net9.0\ref\MatchandRoll.dll
-C:\Users\50256921\Match-Roll---Info360\obj\Debug\net9.0\compressed\g9x36t2s72-ggyhoe4fw1.gz
 C:\Users\50233806\Match-Roll---Info360\obj\Debug\net9.0\compressed\g9x36t2s72-igxiee6r0f.gz
 C:\Users\50233806\Match-Roll---Info360\obj\Debug\net9.0\compressed\7mxpqmdj21-dxz2lmlzb2.gz
+C:\Users\50256921\Match-Roll---Info360\obj\Debug\net9.0\compressed\g9x36t2s72-igxiee6r0f.gz
+C:\Users\50256921\Match-Roll---Info360\obj\Debug\net9.0\compressed\7mxpqmdj21-dxz2lmlzb2.gz
