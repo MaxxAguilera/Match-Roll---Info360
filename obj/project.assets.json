@@ -2039,23 +2039,39 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\50233806\\.nuget\\packages\\": {},
+=======
+    "C:\\Users\\49628407\\.nuget\\packages\\": {},
+>>>>>>> 10b02bc56443f4391849e6d598a39ea45399ebd1
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\50233806\\Match-Roll---Info360\\MatchandRoll.csproj",
       "projectName": "MatchandRoll",
       "projectPath": "C:\\Users\\50233806\\Match-Roll---Info360\\MatchandRoll.csproj",
       "packagesPath": "C:\\Users\\50233806\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\50233806\\Match-Roll---Info360\\obj\\",
+=======
+      "projectUniqueName": "C:\\Match-Roll---Info360\\MatchandRoll.csproj",
+      "projectName": "MatchandRoll",
+      "projectPath": "C:\\Match-Roll---Info360\\MatchandRoll.csproj",
+      "packagesPath": "C:\\Users\\49628407\\.nuget\\packages\\",
+      "outputPath": "C:\\Match-Roll---Info360\\obj\\",
+>>>>>>> 10b02bc56443f4391849e6d598a39ea45399ebd1
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
+<<<<<<< HEAD
         "C:\\Users\\50233806\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+        "C:\\Users\\49628407\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 10b02bc56443f4391849e6d598a39ea45399ebd1
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
