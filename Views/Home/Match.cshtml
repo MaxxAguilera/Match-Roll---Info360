@@ -13,6 +13,8 @@
         edad = u.edad,
         biografia = u.biografia,
         instrumentoPrincipal = u.instrumentoPrincipal,
+        genero = u.genero,
+        idUbicacion = u.idUbicacion,
         urlVideo = u.urlVideo,
 
         etiquetas = u.etiquetas == null
@@ -85,6 +87,7 @@
             <p id="mensajeFinal" hidden>
                 ¡Ya viste todos los perfiles disponibles!
             </p>
+            <div id="listaLikes" class="lista-likes" hidden></div>
 
         </section>
 
@@ -124,10 +127,10 @@
                                 <svg class="match-combobox-caret" width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.46967 5.46967C0.762563 5.17678 1.23744 5.17678 1.53033 5.46967L5 8.93934L8.46967 5.46967C8.76256 5.17678 9.23744 5.17678 9.53033 5.46967C9.82322 5.76256 9.82322 6.23744 9.53033 6.53033L5.53033 10.5303C5.23744 10.8232 4.76256 10.8232 4.46967 10.5303L0.46967 6.53033C0.176777 6.23744 0.176777 5.76256 0.46967 5.46967Z" fill="currentcolor"/></svg>
                             </button>
                             <div class="match-menu">
-                                <button class="match-menu-item" type="button" data-bs-value="guitarra">Guitarra</button>
-                                <button class="match-menu-item" type="button" data-bs-value="bateria">Batería</button>
-                                <button class="match-menu-item" type="button" data-bs-value="bajo">Bajo</button>
-                                <button class="match-menu-item" type="button" data-bs-value="voz">Voz</button>
+                                <button class="match-menu-item" type="button" data-bs-value="Guitarra">Guitarra</button>
+                                <button class="match-menu-item" type="button" data-bs-value="Batería">Batería</button>
+                                <button class="match-menu-item" type="button" data-bs-value="Bajo">Bajo</button>
+                                <button class="match-menu-item" type="button" data-bs-value="Voz">Voz</button>
                             </div>
                         </div>
 
@@ -140,10 +143,10 @@
                                 <svg class="match-combobox-caret" width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.46967 5.46967C0.762563 5.17678 1.23744 5.17678 1.53033 5.46967L5 8.93934L8.46967 5.46967C8.76256 5.17678 9.23744 5.17678 9.53033 5.46967C9.82322 5.76256 9.82322 6.23744 9.53033 6.53033L5.53033 10.5303C5.23744 10.8232 4.76256 10.8232 4.46967 10.5303L0.46967 6.53033C0.176777 6.23744 0.176777 5.76256 0.46967 5.46967Z" fill="currentcolor"/></svg>
                             </button>
                             <div class="match-menu">
-                                <button class="match-menu-item" type="button" data-bs-value="caba">CABA</button>
-                                <button class="match-menu-item" type="button" data-bs-value="gba">GBA</button>
-                                <button class="match-menu-item" type="button" data-bs-value="rosario">Rosario</button>
-                                <button class="match-menu-item" type="button" data-bs-value="mendoza">Mendoza</button>
+                                <button class="match-menu-item" type="button" data-bs-value="1">CABA</button>
+                                <button class="match-menu-item" type="button" data-bs-value="2">GBA</button>
+                                <button class="match-menu-item" type="button" data-bs-value="3">Rosario</button>
+                                <button class="match-menu-item" type="button" data-bs-value="4">Mendoza</button>
                             </div>
                         </div>
 
@@ -156,10 +159,10 @@
                                 <svg class="match-combobox-caret" width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.46967 5.46967C0.762563 5.17678 1.23744 5.17678 1.53033 5.46967L5 8.93934L8.46967 5.46967C8.76256 5.17678 9.23744 5.17678 9.53033 5.46967C9.82322 5.76256 9.82322 6.23744 9.53033 6.53033L5.53033 10.5303C5.23744 10.8232 4.76256 10.8232 4.46967 10.5303L0.46967 6.53033C0.176777 6.23744 0.176777 5.76256 0.46967 5.46967Z" fill="currentcolor"/></svg>
                             </button>
                             <div class="match-menu">
-                                <button class="match-menu-item" type="button" data-bs-value="rock">Rock</button>
-                                <button class="match-menu-item" type="button" data-bs-value="pop">Pop</button>
-                                <button class="match-menu-item" type="button" data-bs-value="jazz">Jazz</button>
-                                <button class="match-menu-item" type="button" data-bs-value="metal">Metal</button>
+                                <button class="match-menu-item" type="button" data-bs-value="Masculino">Masculino</button>
+                                <button class="match-menu-item" type="button" data-bs-value="Femenino">Femenino</button>
+                                <button class="match-menu-item" type="button" data-bs-value="No binario">No binario</button>
+                                <button class="match-menu-item" type="button" data-bs-value="Prefiero no decirlo">Prefiero no decirlo</button>
                             </div>
                         </div>
                     </div>
@@ -183,6 +186,134 @@
 
     const videoContainer = document.getElementById("videoContainer");
     const toggles = document.querySelectorAll('.match-combobox-toggle');
+    const filtros = {
+        edad: null,
+        instrumento: null,
+        ubicacion: null,
+        genero: null
+    };
+
+    const normalizarTexto = (valor) =>
+        (valor ?? "")
+            .toString()
+            .trim()
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-z0-9]/g, "");
+
+    const coincideRangoEdad = (edad, rango) => {
+        if (!rango) return true;
+        const numero = Number(edad) || 0;
+
+        if (rango === "18-25") return numero >= 18 && numero <= 25;
+        if (rango === "26-35") return numero >= 26 && numero <= 35;
+        if (rango === "36-45") return numero >= 36 && numero <= 45;
+        if (rango === "45+") return numero >= 45;
+
+        return true;
+    };
+
+    const coincideInstrumento = (usuarioInstrumento, filtro) => {
+        if (!filtro) return true;
+        const valorUsuario = normalizarTexto(usuarioInstrumento);
+        const valorFiltro = normalizarTexto(filtro);
+
+        if (!valorUsuario || !valorFiltro) return false;
+        return valorUsuario.includes(valorFiltro) || valorFiltro.includes(valorUsuario);
+    };
+
+    const usuarioCumpleFiltros = (usuario, busqueda = "") => {
+        const coincideBusqueda = !busqueda || (usuario.apodo || "").toLowerCase().includes(busqueda);
+        const coincideEdad = coincideRangoEdad(usuario.edad, filtros.edad);
+        const coincideInstrumentoPerfil = coincideInstrumento(usuario.instrumentoPrincipal, filtros.instrumento);
+        const coincideUbicacion = !filtros.ubicacion || Number(usuario.idUbicacion) === Number(filtros.ubicacion);
+        const coincideGenero = !filtros.genero || normalizarTexto(usuario.genero) === normalizarTexto(filtros.genero);
+
+        return coincideBusqueda && coincideEdad && coincideInstrumentoPerfil && coincideUbicacion && coincideGenero;
+    };
+
+    let listaFiltrada = [...usuarios];
+    let likedUsers = [];
+
+    function renderLikedUsers() {
+        if (!listaLikes) return;
+
+        const usuariosLike = likedUsers;
+
+        listaLikes.innerHTML = "";
+
+        if (!usuariosLike.length) {
+            listaLikes.hidden = true;
+            if (mensajeFinal) {
+                mensajeFinal.textContent = "No hay perfiles con esos filtros.";
+                mensajeFinal.hidden = false;
+            }
+            return;
+        }
+
+        if (mensajeFinal) mensajeFinal.hidden = true;
+        listaLikes.hidden = false;
+
+        usuariosLike.forEach(usuario => {
+            const item = document.createElement("div");
+            item.className = "liked-user-item";
+
+            const nombre = (usuario.apodo || "Usuario").trim() || "Usuario";
+            const inicial = nombre.charAt(0).toUpperCase();
+
+            item.innerHTML = `
+                <div class="liked-user-main">
+                    <div class="liked-user-avatar">${inicial}</div>
+                    <span class="liked-user-name">${nombre}</span>
+                </div>
+                <button type="button" class="liked-user-message" aria-label="Mensaje pendiente" title="Mensaje pendiente">💬</button>
+            `;
+
+            const boton = item.querySelector(".liked-user-message");
+            if (boton) {
+                boton.addEventListener("click", () => {
+                    boton.disabled = true;
+                    boton.textContent = "✓";
+                    boton.title = "Mensaje pendiente";
+                });
+            }
+
+            listaLikes.appendChild(item);
+        });
+    }
+
+    function mostrarListaFinalSiNoHayMasPerfiles() {
+        if (perfilSeccion) perfilSeccion.hidden = true;
+        if (mensajeFinal) mensajeFinal.hidden = true;
+        if (likedUsers.length > 0) {
+            renderLikedUsers();
+            return;
+        }
+
+        if (listaLikes) listaLikes.hidden = true;
+        if (mensajeFinal) {
+            mensajeFinal.textContent = "¡Ya viste todos los perfiles disponibles!";
+            mensajeFinal.hidden = false;
+        }
+    }
+
+    function aplicarFiltros() {
+        const busqueda = (buscador?.value || "").trim().toLowerCase();
+
+        listaFiltrada = usuarios.filter(usuario => usuarioCumpleFiltros(usuario, busqueda));
+        indiceUsuario = 0;
+
+        if (listaFiltrada.length === 0) {
+            mostrarListaFinalSiNoHayMasPerfiles();
+            return;
+        }
+
+        if (perfilSeccion) perfilSeccion.hidden = false;
+        if (mensajeFinal) mensajeFinal.hidden = true;
+        if (listaLikes) listaLikes.hidden = true;
+        mostrarUsuario();
+    }
 
     toggles.forEach(button => {
         const menu = button.nextElementSibling;
@@ -198,8 +329,12 @@
 
         menu.querySelectorAll('.match-menu-item').forEach(item => {
             item.addEventListener('click', () => {
+                const selectedValue = item.dataset.bsValue;
+                const filterName = button.dataset.bsName;
+                filtros[filterName] = selectedValue || null;
                 value.textContent = item.textContent;
                 menu.classList.remove('open');
+                aplicarFiltros();
             });
         });
     });
@@ -227,10 +362,10 @@
     const mensajeFinal = document.getElementById("mensajeFinal");
     const perfilSeccion = document.querySelector(".perfil-seccion");
     const buscador = document.getElementById("buscarPerfil");
+    const listaLikes = document.getElementById("listaLikes");
 
     let indiceUsuario = 0;
     let indiceVideo = 0;
-    let listaFiltrada = [...usuarios];
 
     function normalizarVideoUrl(url) {
         const value = (url || "").trim();
@@ -315,9 +450,7 @@
 
     function mostrarUsuario() {
         if (indiceUsuario >= listaFiltrada.length) {
-            if (perfilSeccion) perfilSeccion.hidden = true;
-            if (mensajeFinal) mensajeFinal.hidden = false;
-
+            mostrarListaFinalSiNoHayMasPerfiles();
             return;
         }
 
@@ -351,6 +484,12 @@
 
     function siguienteUsuario() {
         indiceUsuario++;
+
+        if (indiceUsuario >= listaFiltrada.length) {
+            mostrarListaFinalSiNoHayMasPerfiles();
+            return;
+        }
+
         mostrarUsuario();
     }
 
@@ -364,26 +503,20 @@
         mostrarVideo();
     });
 
-    if (btnLike) btnLike.addEventListener("click", siguienteUsuario);
+    if (btnLike) btnLike.addEventListener("click", () => {
+        const usuarioActual = listaFiltrada[indiceUsuario];
+        if (usuarioActual && !likedUsers.some(u => u.idUsuario === usuarioActual.idUsuario)) {
+            likedUsers.push(usuarioActual);
+        }
+        siguienteUsuario();
+    });
+
     if (btnDislike) btnDislike.addEventListener("click", siguienteUsuario);
     if (btnComentario) btnComentario.addEventListener("click", () => {
         alert("Funcionalidad de comentarios pendiente");
     });
 
-    if (buscador) buscador.addEventListener("input", () => {
-        const busqueda = buscador.value.trim().toLowerCase();
+    if (buscador) buscador.addEventListener("input", aplicarFiltros);
 
-        listaFiltrada = usuarios.filter(usuario =>
-            (usuario.apodo || "").toLowerCase().includes(busqueda)
-        );
-
-        indiceUsuario = 0;
-
-        if (perfilSeccion) perfilSeccion.hidden = false;
-        if (mensajeFinal) mensajeFinal.hidden = true;
-
-        mostrarUsuario();
-    });
-
-    mostrarUsuario();
+    aplicarFiltros();
 </script>
