@@ -1,42 +1,28 @@
 @model MatchRollInfo360.Models.Usuario
 @{
     ViewData["Title"] = "Perfil";
-    var usuario = Model ?? new MatchRollInfo360.Models.Usuario();
-    var etiquetas = ViewBag.etiquetas as List<MatchRollInfo360.Models.Etiqueta> ?? new List<MatchRollInfo360.Models.Etiqueta>();
-    var etiquetasUsuario = ViewBag.etiquetasUsuario as List<MatchRollInfo360.Models.Etiqueta> ?? new List<MatchRollInfo360.Models.Etiqueta>();
-    var idsEtiquetasUsuario = new HashSet<int>(etiquetasUsuario.Select(e => e.idEtiqueta));
 }
 
 <link rel="stylesheet" href="~/css/Perfil.css" asp-append-version="true" />
-<script src="~/js/Perfil.js" defer></script>
-
-
 <div class="perfil-page">
     <main class="perfil-shell">
         <section class="perfil-main">
             <section class="perfil-visual">
                 <div class="perfil-avatar" aria-label="Foto de perfil"></div>
 
-                <div class="perfil-etiquetas-box" aria-label="Etiquetas del usuario">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <strong>Mis etiquetas</strong>
-                    </div>
-                    @if (etiquetas.Count > 0)
+                <div class="perfil-etiquetas-box">
+                    <strong>Mis etiquetas</strong>
+
+                    @foreach (var etiqueta in ViewBag.etiquetas)
                     {
-                        foreach (var etiqueta in etiquetas)
-                        {
-                            var activa = idsEtiquetasUsuario.Contains(etiqueta.idEtiqueta);
-                            <button type="button"
-                                    class="perfil-etiqueta @(activa ? "active" : "")"
-                                    data-id="@etiqueta.idEtiqueta"
-                                    aria-pressed="@(activa ? "true" : "false")">
-                                @etiqueta.nombreEtiqueta
-                            </button>
-                        }
-                    }
-                    else
-                    {
-                        <span class="perfil-etiqueta">Sin etiquetas</span>
+                        <label class="perfil-etiqueta">
+                            <input type="checkbox"
+                                name="IdsEtiquetas"
+                                value="@etiqueta.idEtiqueta"
+                                @(idsEtiquetasUsuario.Contains(etiqueta.idEtiqueta) ? "checked" : "") />
+
+                            @etiqueta.nombreEtiqueta
+                        </label>
                     }
                 </div>
             </section>
