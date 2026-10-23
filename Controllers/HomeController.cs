@@ -250,7 +250,13 @@ public class HomeController : Controller
         bd.LimpiarEtiquetasDuplicadas();
         bd.AsegurarEtiquetasParaTodosLosUsuarios();
 
-        List<Usuario> usuarios = bd.ObtenerUsuarios();
+        int idUsuarioActual = 0;
+        int.TryParse(HttpContext.Session.GetString("id"), out idUsuarioActual);
+
+        List<Usuario> usuarios = bd.ObtenerUsuarios()
+            .Where(u => idUsuarioActual <= 0 || u.idUsuario != idUsuarioActual)
+            .ToList();
+
         ViewBag.usuarios = usuarios
             .Select(u => bd.MostrarUsuarioCompleto(u.idUsuario) ?? u)
             .ToList();
