@@ -513,5 +513,15 @@ namespace MatchRollInfo360.Models
                 return connection.Query<int>("SELECT idUbicacion FROM Ubicaciones").ToList();
             }
         }
+
+        public List<int> ObtenerIdsEtiquetasPorUsuario(int idUsuario)
+        {
+            List<int> idsEtiquetas = new List<int>();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                idsEtiquetas = connection.Query<int>("SELECT idEtiqueta FROM UsuarioEtiquetas WHERE idUsuario = @idUsuario", new { idUsuario }).ToList();
+            }
+            return idsEtiquetas;
+        }
     }
 }

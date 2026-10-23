@@ -266,6 +266,8 @@ public class HomeController : Controller
         ViewBag.usuario = usuario;
         ViewBag.etiquetas = bd.MostrarEtiquetas();
         ViewBag.etiquetasUsuario = bd.ObtenerEtiquetasPorUsuario(id);
+        List<int> idsEtiquetasUsuario = bd.ObtenerIdsEtiquetasPorUsuario(id);
+        ViewBag.idsEtiquetasUsuario = idsEtiquetasUsuario;
         return View("Perfil");
     }
 }

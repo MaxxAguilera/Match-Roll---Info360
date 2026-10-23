@@ -1,6 +1,7 @@
 @model MatchRollInfo360.Models.Usuario
 @{
     ViewData["Title"] = "Perfil";
+
 }
 
 <link rel="stylesheet" href="~/css/Perfil.css" asp-append-version="true" />
@@ -19,7 +20,7 @@
                             <input type="checkbox"
                                 name="IdsEtiquetas"
                                 value="@etiqueta.idEtiqueta"
-                                @(idsEtiquetasUsuario.Contains(etiqueta.idEtiqueta) ? "checked" : "") />
+                                @(ViewBag.idsEtiquetasUsuario.Contains(etiqueta.idEtiqueta) ? "checked" : "") />
 
                             @etiqueta.nombreEtiqueta
                         </label>
@@ -29,9 +30,9 @@
 
             <section class="perfil-form-section">
                 <form class="perfil-form" method="post" action="@Url.Action("RegistrarDatosCompleto", "Home")">
-                    <input type="hidden" name="idUsuario" value="@usuario.idUsuario" />
+                    <input type="hidden" name="idUsuario" value="@ViewBag.usuario.idUsuario" />
                     <div id="selectedTagsContainer" style="display:none;">
-                        @foreach (var idEtiqueta in idsEtiquetasUsuario)
+                        @foreach (var idEtiqueta in ViewBag.idsEtiquetasUsuario)
                         {
                             <input type="hidden" name="IdsEtiquetas" value="@idEtiqueta" />
                         }
@@ -40,12 +41,12 @@
                     <section class="perfil-field-group">
                         <div class="perfil-field">
                             <label for="apodo">Nombre de usuario:</label>
-                            <input id="apodo" name="apodo" type="text" value="@usuario.apodo" />
+                            <input id="apodo" name="apodo" type="text" value="@ViewBag.usuario.apodo" />
                         </div>
 
                         <div class="mb-3">
                             <label for="biografia" class="form-label">Descripción:</label>
-                            <textarea id="biografia" name="biografia" class="form-control form-control-sm" rows="3" placeholder="Placeholder">@usuario.biografia</textarea>
+                            <textarea id="biografia" name="biografia" class="form-control form-control-sm" rows="3" placeholder="Placeholder">@ViewBag.usuario.biografia</textarea>
                         </div>
                     </section>
 
@@ -53,29 +54,29 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="nombre" class="form-label">Nombre</label>
-                                <input id="nombre" name="nombre" type="text" class="form-control form-control-sm" value="@usuario.nombre" placeholder="Placeholder" />
+                                <input id="nombre" name="nombre" type="text" class="form-control form-control-sm" value="@ViewBag.usuario.nombre" placeholder="Placeholder" />
                             </div>
 
                             <div class="col-md-6">
                                 <label for="apellido" class="form-label">Apellido</label>
-                                <input id="apellido" name="apellido" type="text" class="form-control form-control-sm" value="@usuario.apellido" placeholder="Placeholder" />
+                                <input id="apellido" name="apellido" type="text" class="form-control form-control-sm" value="@ViewBag.usuario.apellido" placeholder="Placeholder" />
                             </div>
                         </div>
 
                         <div class="row g-3 mt-0">
                             <div class="col-md-6">
                                 <label for="edad" class="form-label">Edad</label>
-                                <input id="edad" name="edad" type="number" min="1" max="100" class="form-control form-control-sm" value="@usuario.edad" placeholder="Placeholder" />
+                                <input id="edad" name="edad" type="number" min="1" max="100" class="form-control form-control-sm" value="@ViewBag.usuario.edad" placeholder="Placeholder" />
                             </div>
 
                             <div class="col-md-6">
                                 <label for="genero" class="form-label">Género</label>
                                 <select id="genero" name="genero" class="form-select form-select-sm">
-                                    <option value="" selected="@(string.IsNullOrEmpty(usuario.genero) ? "selected" : null)">Placeholder</option>
-                                    <option value="Masculino" selected="@(usuario.genero == "Masculino" ? "selected" : null)">Masculino</option>
-                                    <option value="Femenino" selected="@(usuario.genero == "Femenino" ? "selected" : null)">Femenino</option>
-                                    <option value="No binario" selected="@(usuario.genero == "No binario" ? "selected" : null)">No binario</option>
-                                    <option value="Prefiero no decirlo" selected="@(usuario.genero == "Prefiero no decirlo" ? "selected" : null)">Prefiero no decirlo</option>
+                                    <option value="" selected="@(string.IsNullOrEmpty(ViewBag.usuario.genero) ? "selected" : null)">Placeholder</option>
+                                    <option value="Masculino" selected="@(ViewBag.usuario.genero == "Masculino" ? "selected" : null)">Masculino</option>
+                                    <option value="Femenino" selected="@(ViewBag.usuario.genero == "Femenino" ? "selected" : null)">Femenino</option>
+                                    <option value="No binario" selected="@(ViewBag.usuario.genero == "No binario" ? "selected" : null)">No binario</option>
+                                    <option value="Prefiero no decirlo" selected="@(ViewBag.usuario.genero == "Prefiero no decirlo" ? "selected" : null)">Prefiero no decirlo</option>
                                 </select>
                             </div>
                         </div>
@@ -84,23 +85,23 @@
                     <section class="perfil-field-group">
                         <div class="mb-3 mt-3">
                             <label for="email" class="form-label">Correo electrónico</label>
-                            <input id="email" name="email" type="email" class="form-control form-control-sm" value="@usuario.email" placeholder="Placeholder" />
+                            <input id="email" name="email" type="email" class="form-control form-control-sm" value="@ViewBag.usuario.email" placeholder="Placeholder" />
                         </div>
 
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="instrumentoPrincipal" class="form-label">Instrumento principal</label>
-                                <input id="instrumentoPrincipal" name="instrumentoPrincipal" type="text" class="form-control form-control-sm" value="@usuario.instrumentoPrincipal" placeholder="Placeholder" />
+                                <input id="instrumentoPrincipal" name="instrumentoPrincipal" type="text" class="form-control form-control-sm" value="@ViewBag.usuario.instrumentoPrincipal" placeholder="Placeholder" />
                             </div>
 
                             <div class="col-md-6">
                                 <label for="nivelExperiencia" class="form-label">Nivel de experiencia</label>
                                 <select id="nivelExperiencia" name="nivelExperiencia" class="form-select form-select-sm">
-                                    <option value="" selected="@(string.IsNullOrEmpty(usuario.nivelExperiencia) ? "selected" : null)">Placeholder</option>
-                                    <option value="Principiante" selected="@(usuario.nivelExperiencia == "Principiante" ? "selected" : null)">Principiante</option>
-                                    <option value="Intermedio" selected="@(usuario.nivelExperiencia == "Intermedio" ? "selected" : null)">Intermedio</option>
-                                    <option value="Avanzado" selected="@(usuario.nivelExperiencia == "Avanzado" ? "selected" : null)">Avanzado</option>
-                                    <option value="Profesional" selected="@(usuario.nivelExperiencia == "Profesional" ? "selected" : null)">Profesional</option>
+                                    <option value="" selected="@(string.IsNullOrEmpty(ViewBag.usuario.nivelExperiencia) ? "selected" : null)">Placeholder</option>
+                                    <option value="Principiante" selected="@(ViewBag.usuario.nivelExperiencia == "Principiante" ? "selected" : null)">Principiante</option>
+                                    <option value="Intermedio" selected="@(ViewBag.usuario.nivelExperiencia == "Intermedio" ? "selected" : null)">Intermedio</option>
+                                    <option value="Avanzado" selected="@(ViewBag.usuario.nivelExperiencia == "Avanzado" ? "selected" : null)">Avanzado</option>
+                                    <option value="Profesional" selected="@(ViewBag.usuario.nivelExperiencia == "Profesional" ? "selected" : null)">Profesional</option>
                                 </select>
                             </div>
                         </div>
@@ -111,27 +112,27 @@
                             <div class="col-md-6">
                                 <label for="tipoUsuario" class="form-label">Tipo de usuario</label>
                                 <select id="tipoUsuario" name="tipoUsuario" class="form-select form-select-sm">
-                                    <option value="" selected="@(string.IsNullOrEmpty(usuario.tipoUsuario) ? "selected" : null)">Placeholder</option>
-                                    <option value="Músico" selected="@(usuario.tipoUsuario == "Músico" ? "selected" : null)">Músico</option>
-                                    <option value="Dueño de sala" selected="@(usuario.tipoUsuario == "Dueño de sala" ? "selected" : null)">Dueño de sala</option>
-                                    <option value="Ambos" selected="@(usuario.tipoUsuario == "Ambos" ? "selected" : null)">Ambos</option>
+                                    <option value="" selected="@(string.IsNullOrEmpty(ViewBag.usuario.tipoUsuario) ? "selected" : null)">Placeholder</option>
+                                    <option value="Músico" selected="@(ViewBag.usuario.tipoUsuario == "Músico" ? "selected" : null)">Músico</option>
+                                    <option value="Dueño de sala" selected="@(ViewBag.usuario.tipoUsuario == "Dueño de sala" ? "selected" : null)">Dueño de sala</option>
+                                    <option value="Ambos" selected="@(ViewBag.usuario.tipoUsuario == "Ambos" ? "selected" : null)">Ambos</option>
                                 </select>
                             </div>
 
                             <div class="col-md-6">
                                 <label for="contraseña" class="form-label">Contraseña</label>
-                                <input id="contraseña" name="contraseña" type="password" class="form-control form-control-sm" value="@usuario.contraseña" placeholder="Placeholder" />
+                                <input id="contraseña" name="contraseña" type="password" class="form-control form-control-sm" value="@ViewBag.usuario.contraseña" placeholder="Placeholder" />
                             </div>
                         </div>
 
                         <div class="form-field">
                             <label for="fieldSelect" class="form-label">Ubicación</label>
                             <select class="form-control" id="fieldSelect" name="idUbicacion">
-                                <option value="0" selected="@(usuario.idUbicacion == 0 ? "selected" : null)">Elige tu ciudad</option>
-                                <option value="1" selected="@(usuario.idUbicacion == 1 ? "selected" : null)">CABA</option>
-                                <option value="2" selected="@(usuario.idUbicacion == 2 ? "selected" : null)">Buenos Aires</option>
-                                <option value="3" selected="@(usuario.idUbicacion == 3 ? "selected" : null)">Santa Fe</option>
-                                <option value="4" selected="@(usuario.idUbicacion == 4 ? "selected" : null)">Otro</option>
+                                <option value="0" selected="@(ViewBag.usuario.idUbicacion == 0 ? "selected" : null)">Elige tu ciudad</option>
+                                <option value="1" selected="@(ViewBag.usuario.idUbicacion == 1 ? "selected" : null)">CABA</option>
+                                <option value="2" selected="@(ViewBag.usuario.idUbicacion == 2 ? "selected" : null)">Buenos Aires</option>
+                                <option value="3" selected="@(ViewBag.usuario.idUbicacion == 3 ? "selected" : null)">Santa Fe</option>
+                                <option value="4" selected="@(ViewBag.usuario.idUbicacion == 4 ? "selected" : null)">Otro</option>
                             </select>
                         </div>
                     </section>
@@ -139,7 +140,7 @@
                     <section class="perfil-field-group">
                         <div class="mb-3 mt-3">
                             <label for="urlVideo" class="form-label">URL del video principal</label>
-                            <input id="urlVideo" name="urlVideo" type="url" class="form-control form-control-sm" value="@usuario.urlVideo" placeholder="https://youtube.com/watch?v=..." />
+                            <input id="urlVideo" name="urlVideo" type="url" class="form-control form-control-sm" value="@ViewBag.usuario.urlVideo" placeholder="https://youtube.com/watch?v=..." />
                         </div>
 
                         <div class="perfil-videos mt-4">
@@ -150,11 +151,11 @@
                             <div class="video-list">
                                 <div class="video-input">
                                     <span class="video-badge"></span>
-                                    <input type="url" class="form-control form-control-sm" name="videos[0].urlVideo" value="@(usuario.videos.Count > 0 ? usuario.videos[0].urlVideo : usuario.urlVideo)" placeholder="https://youtube.com/..." />
+                                    <input type="url" class="form-control form-control-sm" name="videos[0].urlVideo" value="@(ViewBag.usuario.videos.Count > 0 ? ViewBag.usuario.videos[0].urlVideo : ViewBag.usuario.urlVideo)" placeholder="https://youtube.com/..." />
                                 </div>
                                 <div class="video-input">
                                     <span class="video-badge"></span>
-                                    <input type="url" class="form-control form-control-sm" name="videos[1].urlVideo" value="@(usuario.videos.Count > 1 ? usuario.videos[1].urlVideo : "")" placeholder="https://youtube.com/..." />
+                                    <input type="url" class="form-control form-control-sm" name="videos[1].urlVideo" value="@(ViewBag.usuario.videos.Count > 1 ? ViewBag.usuario.videos[1].urlVideo : "")" placeholder="https://youtube.com/..." />
                                 </div>
                             </div>
                         </div>
