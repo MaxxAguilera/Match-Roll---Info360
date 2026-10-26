@@ -106,21 +106,11 @@ public class HomeController : Controller
         }
     
         if (bd.ValidarNombreUsuario(apodo) && bd.ValidarEmail(email)){
-            List<int> idsEtiquetasFinales = (IdsEtiquetas != null && IdsEtiquetas.Any())
-                ? IdsEtiquetas
-                : bd.ObtenerEtiquetasAleatorias(1);
-
-            List<Etiqueta> etiquetas = bd.DevolverEtiquetasPorIds(idsEtiquetasFinales);
+            List<Etiqueta> etiquetas = bd.DevolverEtiquetasPorIds(IdsEtiquetas);
             Usuario user = new Usuario(email, contraseña, apodo, edad, genero, etiquetas);
             bd.CrearUsuarioNoCompleto(user);
             HttpContext.Session.SetString("id", user.idUsuario.ToString());
-            bd.CrearUsuarioEtiquetas(user.idUsuario, idsEtiquetasFinales);
-
-            if (!idsEtiquetasFinales.Any())
-            {
-                bd.AsegurarEtiquetaAleatoria(user.idUsuario);
-            }
-
+            bd.CrearUsuarioEtiquetas(user.idUsuario, IdsEtiquetas);
             return RedirectToAction("Index");
         }
         return RedirectToAction("VistaRegistrarseConMensaje");
@@ -146,45 +136,21 @@ public class HomeController : Controller
     }
     
     [HttpPost]
-    public IActionResult RegistrarDatosCompleto(Usuario usuario, List<int> IdsEtiquetas, List<Video> videos)
+    public IActionResult RegistrarDatosCompleto(Usuario usuario, List<int> IdsEtiquetas)
     {
         BD bd = new BD();
 
         if (string.IsNullOrWhiteSpace(usuario.genero))
         {
-            usuario.genero = "Prefiero no decirlo";
+            usuario.genero = bd.MostrarUsuario(usuario.idUsuario).genero;
         }
         else
         {
             usuario.genero = ObtenerGeneroValido(usuario.genero);
         }
-
-        var usuarioActual = bd.MostrarUsuario(usuario.idUsuario);
-        if (usuario.idUbicacion <= 0)
-        {
-            usuario.idUbicacion = usuarioActual.idUbicacion > 0 ? usuarioActual.idUbicacion : 1;
-        }
-        else if (usuario.idUbicacion > 0)
-        {
-            var ubicacionesValidas = bd.ObtenerUbicacionesDisponibles();
-            if (!ubicacionesValidas.Contains(usuario.idUbicacion))
-            {
-                usuario.idUbicacion = usuarioActual.idUbicacion > 0 ? usuarioActual.idUbicacion : 1;
-            }
-        }
-
-        if (usuario.idUbicacion <= 0 && usuarioActual.idUbicacion > 0)
-        {
-            usuario.idUbicacion = usuarioActual.idUbicacion;
-        }
-
-        if (usuario.idUbicacion <= 0)
-        {
-            usuario.idUbicacion = 1;
-        }
-
-        bool nombreValido = bd.ValidarNombreUsuario(usuario.apodo, usuario.idUsuario);
-        bool emailValido = bd.ValidarEmail(usuario.email, usuario.idUsuario);
+        
+        bool nombreValido = bd.ValidarCambiodeNombreUsuario(usuario.apodo);
+        bool emailValido = bd.ValidarCambiodeEmail(usuario.email);
 
         if (nombreValido && emailValido)
         {
@@ -194,44 +160,16 @@ public class HomeController : Controller
                 ViewBag.msj = "La edad debe estar entre 1 y 100 años.";
                 return RedirectToAction("VistaPerfil");
             }
-
-            var urlsVideo = new List<string>();
-
-            if (!string.IsNullOrWhiteSpace(usuario.urlVideo))
-            {
-                urlsVideo.Add(usuario.urlVideo);
-            }
-
-            if (videos != null)
-            {
-                urlsVideo.AddRange(videos
-                    .Where(v => v != null)
-                    .Select(v => v.urlVideo)
-                    .Where(v => !string.IsNullOrWhiteSpace(v)));
-            }
-
-            usuario.urlVideo = urlsVideo
-                .Select(v => v.Trim())
-                .FirstOrDefault(v => !string.IsNullOrWhiteSpace(v)) ?? string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(usuario.urlVideo))
-            {
-                bd.GuardarVideoDesdeUsuario(usuario);
-            }
-
-            if (videos != null && videos.Any())
-            {
-                bd.ActualizarVideosUsuario(usuario.idUsuario, videos);
-            }
-
             bd.ActualizarUsuario(usuario);
             bd.ActualizarUsuarioEtiquetas(usuario.idUsuario, IdsEtiquetas);
             return RedirectToAction("Index");
         }
-
-        ViewBag.etiquetas = bd.MostrarEtiquetas();
-        ViewBag.msj = "Nombre y email ya están en uso, por favor elija otros.";
-        return RedirectToAction("VistaPerfil");
+        else
+        {
+            ViewBag.etiquetas = bd.MostrarEtiquetas();
+            ViewBag.msj = "Nombre y email ya están en uso, por favor elija otros.";
+            return RedirectToAction("VistaPerfil");
+        }
     }
 
     public IActionResult Privacy()
@@ -247,19 +185,9 @@ public class HomeController : Controller
 
     public IActionResult VistaMatch(){
         BD bd = new BD();
-        bd.LimpiarEtiquetasDuplicadas();
-        bd.AsegurarEtiquetasParaTodosLosUsuarios();
-
-        int idUsuarioActual = 0;
-        int.TryParse(HttpContext.Session.GetString("id"), out idUsuarioActual);
-
-        List<Usuario> usuarios = bd.ObtenerUsuarios()
-            .Where(u => idUsuarioActual <= 0 || u.idUsuario != idUsuarioActual)
-            .ToList();
-
-        ViewBag.usuarios = usuarios
-            .Select(u => bd.MostrarUsuarioCompleto(u.idUsuario) ?? u)
-            .ToList();
+        List<Usuario> usuarios = bd.ObtenerUsuarios();
+        ViewBag.usuarios = usuarios;
+        ViewBag.idUsuarioActual = HttpContext.Session.GetString("id");
         return View("Match");
     }
     public IActionResult VistaSalas(){
@@ -268,7 +196,7 @@ public class HomeController : Controller
     public IActionResult VistaPerfil(){
         int id = int.Parse(HttpContext.Session.GetString("id"));
         BD bd = new BD();
-        Usuario usuario = bd.MostrarUsuarioCompleto(id);
+        Usuario usuario = bd.MostrarUsuario(id);
         ViewBag.usuario = usuario;
         ViewBag.etiquetas = bd.MostrarEtiquetas();
         ViewBag.etiquetasUsuario = bd.ObtenerEtiquetasPorUsuario(id);

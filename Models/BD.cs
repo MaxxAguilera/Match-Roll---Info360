@@ -28,46 +28,94 @@ namespace MatchRollInfo360.Models
             return id;
         }
 
-        public bool ValidarNombreUsuario(string apodo){
-            return ValidarNombreUsuario(apodo, 0);
-        }
-
-        public bool ValidarNombreUsuario(string apodo, int idUsuario)
+        public bool ValidarNombreUsuario(string apodo)
         {
             string query = @"
                 SELECT COUNT(apodo)
                 FROM Usuarios
-                WHERE apodo = @apodo
-                  AND idUsuario <> @idUsuario";
+                WHERE apodo = @apodo";
 
             int count = 0;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                count = connection.QueryFirstOrDefault<int>(query, new { apodo = apodo, idUsuario = idUsuario });
+                count = connection.QueryFirstOrDefault<int>(query, new { apodo = apodo});
             }
 
-            return count == 0;
+            if (count > 0)
+            {
+                return false; 
+            }
+            else
+            {
+                return true; 
+            }
+        }
+        public bool ValidarCambiodeNombreUsuario(string apodo)
+        {
+            string query = @"
+                SELECT COUNT(apodo)
+                FROM Usuarios
+                WHERE apodo = @apodo";
+
+            int count = 0;
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                count = connection.Query<int>(query, new { apodo = apodo}).ToList().Count;
+            }
+
+            if (count > 1)
+            {
+                return false; 
+            }
+            else
+            {
+                return true; 
+            }
         }
 
-        public bool ValidarEmail(string email){
-            return ValidarEmail(email, 0);
-        }
+        public bool ValidarCambiodeEmail(string email)
+        {
+            string query = @"
+                SELECT COUNT(email)
+                FROM Usuarios
+                WHERE email = @email";
 
-        public bool ValidarEmail(string email, int idUsuario)
+            int count = 0;
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                count = connection.Query<int>(query, new { email = email}).ToList().Count;
+            }
+
+            if (count > 1)
+            {
+                return false; 
+            }
+            else
+            {
+                return true; 
+            }
+        }
+        public bool ValidarEmail(string email)
         {
             string query = @"
                     SELECT COUNT(email)
                     FROM Usuarios
-                    WHERE email = @Email
-                      AND idUsuario <> @idUsuario";
+                    WHERE email = @Email";
             int count = 0;
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                count = connection.QueryFirstOrDefault<int>(query, new { Email = email, idUsuario = idUsuario });
+                count = connection.QueryFirstOrDefault<int>(query, new { Email = email });
             }
 
-            return count == 0;
+            if (count > 0)
+            {
+                return false; 
+            }
+            else
+            {
+                return true; 
+            }
         }
 
         public void ActualizarUsuarioEtiquetas(int idUsuario, List<int> IdsEtiquetas)
@@ -103,42 +151,8 @@ namespace MatchRollInfo360.Models
                 }
             }
         }
-
-        private static string NormalizarTexto(string? valor, string defecto = "")
-        {
-            return string.IsNullOrWhiteSpace(valor) ? defecto : valor.Trim();
-        }
-
-        private static string NormalizarGenero(string? valor)
-        {
-            var genero = NormalizarTexto(valor, "Prefiero no decirlo");
-            return genero switch
-            {
-                "1" => "Masculino",
-                "2" => "Femenino",
-                "3" => "No binario",
-                "Masculino" => "Masculino",
-                "Femenino" => "Femenino",
-                "No binario" => "No binario",
-                "Prefiero no decirlo" => "Prefiero no decirlo",
-                _ => genero
-            };
-        }
-
         public void ActualizarUsuario(Usuario usuario)
         {
-            usuario.apodo = NormalizarTexto(usuario.apodo);
-            usuario.contraseña = NormalizarTexto(usuario.contraseña);
-            usuario.nombre = NormalizarTexto(usuario.nombre);
-            usuario.apellido = NormalizarTexto(usuario.apellido);
-            usuario.tipoUsuario = NormalizarTexto(usuario.tipoUsuario);
-            usuario.email = NormalizarTexto(usuario.email);
-            usuario.biografia = NormalizarTexto(usuario.biografia);
-            usuario.instrumentoPrincipal = NormalizarTexto(usuario.instrumentoPrincipal);
-            usuario.nivelExperiencia = NormalizarTexto(usuario.nivelExperiencia);
-            usuario.genero = NormalizarGenero(usuario.genero);
-            usuario.urlVideo = NormalizarTexto(usuario.urlVideo);
-
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 var sql = @"
@@ -155,7 +169,7 @@ namespace MatchRollInfo360.Models
                         nivelExperiencia = @nivelExperiencia,
                         genero = @genero,
                         edad = @edad,
-                        urlVideo = @urlVideo
+                        videoPrincipal = @videoPrincipal
                     WHERE idUsuario = @idUsuario;";
 
                 connection.Execute(sql, new
@@ -173,46 +187,16 @@ namespace MatchRollInfo360.Models
                     usuario.nivelExperiencia,
                     usuario.genero,
                     usuario.edad,
-                    urlVideo = usuario.urlVideo ?? string.Empty
-                });
+                    usuario.videoPrincipal});
             }
         }
-
-        public void ActualizarVideosUsuario(int idUsuario, List<Video> videos)
-        {
-            if (videos == null || !videos.Any())
-            {
-                return;
-            }
-
-            var urlPrincipal = videos
-                .Where(v => v != null && !string.IsNullOrWhiteSpace(v.urlVideo))
-                .Select(v => v.urlVideo.Trim())
-                .FirstOrDefault();
-
-            if (!string.IsNullOrWhiteSpace(urlPrincipal))
-            {
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    connection.Execute(
-                        "UPDATE Usuarios SET urlVideo = @urlVideo WHERE idUsuario = @idUsuario",
-                        new { idUsuario, urlVideo = urlPrincipal });
-                }
-            }
-        }
-
         public void GuardarVideoDesdeUsuario(Usuario usuario)
         {
-            if (string.IsNullOrWhiteSpace(usuario.urlVideo))
-            {
-                return;
-            }
-
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Execute(
-                    "UPDATE Usuarios SET urlVideo = @urlVideo WHERE idUsuario = @idUsuario",
-                    new { idUsuario = usuario.idUsuario, urlVideo = usuario.urlVideo.Trim() });
+                    "UPDATE Usuarios SET videoPrincipal = @videoPrincipal WHERE idUsuario = @idUsuario",
+                    new { idUsuario = usuario.idUsuario, videoPrincipal = usuario.videoPrincipal.Trim() });
             }
         }
 
@@ -259,11 +243,6 @@ namespace MatchRollInfo360.Models
         }
         public void CrearUsuarioNoCompleto(Usuario usuario)
         {
-            usuario.email = NormalizarTexto(usuario.email);
-            usuario.contraseña = NormalizarTexto(usuario.contraseña);
-            usuario.apodo = NormalizarTexto(usuario.apodo);
-            usuario.genero = NormalizarGenero(usuario.genero);
-
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 var sql = @"
@@ -277,32 +256,11 @@ namespace MatchRollInfo360.Models
 
         public void CrearUsuarioEtiquetas(int id, List<int> IdsEtiquetas)
         {
-            var ids = (IdsEtiquetas ?? new List<int>())
-                .Where(x => x > 0)
-                .Distinct()
-                .ToList();
-
-            if (!ids.Any())
-            {
-                ids = ObtenerEtiquetasAleatorias(1);
-            }
-
-            if (!ids.Any())
-            {
-                return;
-            }
-
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                foreach (var idEtiqueta in ids)
+                foreach (var idEtiqueta in IdsEtiquetas)
                 {
                     var sql = @"
-                        IF NOT EXISTS (
-                            SELECT 1
-                            FROM UsuarioEtiquetas
-                            WHERE idUsuario = @idUsuario
-                              AND idEtiqueta = @idEtiqueta)
-                        BEGIN
                             INSERT INTO UsuarioEtiquetas (idUsuario, idEtiqueta)
                             VALUES (@idUsuario, @idEtiqueta)
                         END;";
@@ -383,7 +341,7 @@ namespace MatchRollInfo360.Models
 
         public Usuario MostrarUsuario(int id)
         {
-            Usuario user = null!;
+            Usuario user = new Usuario();
 
             string query = "SELECT * FROM Usuarios WHERE idUsuario = @Id";
 
@@ -394,47 +352,6 @@ namespace MatchRollInfo360.Models
 
             return user;
         }
-
-        public Usuario? MostrarUsuarioCompleto(int id)
-        {
-            Usuario? usuario = MostrarUsuario(id);
-            if (usuario == null)
-            {
-                return null;
-            }
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                var tieneEtiquetas = connection.QuerySingleOrDefault<int>(@"
-                    SELECT COUNT(*)
-                    FROM UsuarioEtiquetas
-                    WHERE idUsuario = @IdUsuario", new { IdUsuario = id });
-
-                if (tieneEtiquetas == 0)
-                {
-                    var ids = connection.Query<int>("SELECT idEtiqueta FROM Etiquetas").ToList();
-                    if (ids.Any())
-                    {
-                        int idEtiqueta = ids.OrderBy(_ => Guid.NewGuid()).First();
-                        connection.Execute(
-                            "INSERT INTO UsuarioEtiquetas (idUsuario, idEtiqueta) VALUES (@idUsuario, @idEtiqueta)",
-                            new { idUsuario = id, idEtiqueta });
-                    }
-                }
-
-                usuario.etiquetas = connection.Query<Etiqueta>(@"
-                    SELECT e.*
-                    FROM Etiquetas e
-                    INNER JOIN UsuarioEtiquetas ue ON e.idEtiqueta = ue.idEtiqueta
-                    WHERE ue.idUsuario = @IdUsuario
-                    ORDER BY e.nombreEtiqueta", new { IdUsuario = id }).ToList();
-
-                usuario.videos = new List<Video>();
-            }
-
-            return usuario;
-        }
-
         public void AsegurarEtiquetaAleatoria(int idUsuario)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -462,49 +379,7 @@ namespace MatchRollInfo360.Models
             }
         }
 
-        public void AsegurarEtiquetasParaTodosLosUsuarios()
-        {
-            var usuarios = ObtenerUsuarios();
-            foreach (var usuario in usuarios)
-            {
-                AsegurarEtiquetaAleatoria(usuario.idUsuario);
-            }
-        }
 
-        public List<int> ObtenerEtiquetasAleatorias(int cantidad = 1)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                var ids = connection.Query<int>("SELECT idEtiqueta FROM Etiquetas").ToList();
-                if (!ids.Any())
-                {
-                    return new List<int>();
-                }
-
-                return ids
-                    .OrderBy(_ => Guid.NewGuid())
-                    .Take(Math.Max(1, cantidad))
-                    .ToList();
-            }
-        }
-
-        public void LimpiarEtiquetasDuplicadas()
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Execute(@"
-                    WITH duplicados AS (
-                        SELECT idUsuario, idEtiqueta,
-                               ROW_NUMBER() OVER (
-                                   PARTITION BY idUsuario, idEtiqueta
-                                   ORDER BY idUsuario
-                               ) AS rn
-                        FROM UsuarioEtiquetas
-                    )
-                    DELETE FROM duplicados
-                    WHERE rn > 1;");
-            }
-        }
 
         public List<int> ObtenerUbicacionesDisponibles()
         {

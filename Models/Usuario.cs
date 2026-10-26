@@ -15,14 +15,13 @@ namespace MatchRollInfo360.Models
         public string nivelExperiencia { get; set; } = string.Empty;
         public string genero { get; set; } = string.Empty;
         public int edad { get; set; }
-        public string urlVideo { get; set; } = string.Empty;
         public string fotoPerfil { get; set; } = string.Empty;
         public List<ProyectoMusical> proyectos { get; set; } = new List<ProyectoMusical>();
         public List<Match> matchesSolicitante { get; set; } = new List<Match>();
         public List<Match> matchesReceptor { get; set; } = new List<Match>();
         public Ubicacion ubicacion { get; set; } = new Ubicacion();
         public List<Etiqueta> etiquetas { get; set; } = new List<Etiqueta>(); 
-        public List<Video> videos { get; set; } = new List<Video>();
+        public string videoPrincipal { get; set; } = string.Empty;
 
         public Usuario()
         {
@@ -38,7 +37,7 @@ namespace MatchRollInfo360.Models
             this.etiquetas = etiquetas;
         }
 
-        public Usuario(string apodo, string contraseña, string nombre, string apellido, string tipoUsuario, int idUbicacion, string email, string biografia, string instrumentoPrincipal, string nivelExperiencia, string genero, int edad)
+        public Usuario(string apodo, string biografia, string nombre, string apellido, int edad, string genero, string email, string instrumentoPrincipal, string nivelExperiencia, string tipoUsuario, string contraseña, int idUbicacion, string videoPrincipal)
         {
             this.apodo = apodo;
             this.contraseña = contraseña;
@@ -52,6 +51,7 @@ namespace MatchRollInfo360.Models
             this.nivelExperiencia = nivelExperiencia;
             this.genero = genero;
             this.edad = edad;
+            this.videoPrincipal = videoPrincipal;
         }
     }
 }
