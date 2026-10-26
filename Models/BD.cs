@@ -206,6 +206,17 @@ namespace MatchRollInfo360.Models
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 usuarios = connection.Query<Usuario>("SELECT * FROM Usuarios").ToList();
+
+                foreach (var usuario in usuarios)
+                {
+                    usuario.etiquetas = connection.Query<Etiqueta>(@"
+                        SELECT e.idEtiqueta, e.nombreEtiqueta
+                        FROM Etiquetas e
+                        INNER JOIN UsuarioEtiquetas ue ON e.idEtiqueta = ue.idEtiqueta
+                        WHERE ue.idUsuario = @IdUsuario
+                        ORDER BY e.idEtiqueta",
+                        new { IdUsuario = usuario.idUsuario }).ToList();
+                }
             }
             return usuarios;
         }
@@ -399,18 +410,5 @@ namespace MatchRollInfo360.Models
             return idsEtiquetas;
         }
 
-        public List<Usuario> ObtenerEtiquetasPorUsuario(int idUsuario)
-        {
-            List<Usuario> usuarios = new List<Usuario>();
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                usuarios = connection.Query<Usuario>(@"
-                    SELECT u.idUsuario, group by 
-                    FROM Usuarios u
-                    INNER JOIN UsuarioEtiquetas ue ON u.idUsuario = ue.idUsuario
-                    WHERE ue.idUsuario = @idUsuario", new { idUsuario }).ToList();
-            }
-            return usuarios;
-        }
     }
 }
