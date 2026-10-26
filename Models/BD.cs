@@ -398,5 +398,19 @@ namespace MatchRollInfo360.Models
             }
             return idsEtiquetas;
         }
+
+        public List<Usuario> ObtenerEtiquetasPorUsuario(int idUsuario)
+        {
+            List<Usuario> usuarios = new List<Usuario>();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                usuarios = connection.Query<Usuario>(@"
+                    SELECT u.idUsuario, group by 
+                    FROM Usuarios u
+                    INNER JOIN UsuarioEtiquetas ue ON u.idUsuario = ue.idUsuario
+                    WHERE ue.idUsuario = @idUsuario", new { idUsuario }).ToList();
+            }
+            return usuarios;
+        }
     }
 }

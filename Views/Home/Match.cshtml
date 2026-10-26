@@ -2,8 +2,12 @@
 @using System.Text.Json
 
 @{
+@using MatchRollInfo360.Models
+@using System.Text.Json
+
+
     ViewData["Title"] = "Match";
-    
+
     var usuarios = (List<Usuario>)ViewBag.usuarios;
     var idActual = int.Parse((string)ViewBag.idUsuarioActual);
 
@@ -20,9 +24,22 @@
                 u.idUbicacion,
                 u.genero,
                 videoPrincipal = u.videoPrincipal,
-                etiquetas = u.etiquetas.Select(e => e.nombreEtiqueta).ToList()
+                etiquetas = u.etiquetas?
+                    .Select(e => e.nombreEtiqueta)
+                    .ToList() ?? new List<string>()
+                
             })
+            
     );
+}
+@foreach (var usuario in usuarios)
+{
+    <p>
+        @usuario.apodo:
+        @(usuario.etiquetas == null
+            ? "Lista null"
+            : "Cantidad: " + usuario.etiquetas.Count)
+    </p>
 }
 
 <div class="match-page">
