@@ -273,8 +273,7 @@ namespace MatchRollInfo360.Models
                 {
                     var sql = @"
                             INSERT INTO UsuarioEtiquetas (idUsuario, idEtiqueta)
-                            VALUES (@idUsuario, @idEtiqueta)
-                        END;";
+                            VALUES (@idUsuario, @idEtiqueta)";
 
                     connection.Execute(sql, new { idUsuario = id, idEtiqueta = idEtiqueta });
                 }

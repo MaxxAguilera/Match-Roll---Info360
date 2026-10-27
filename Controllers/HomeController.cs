@@ -78,7 +78,8 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    public IActionResult RegistrarDatosPrincipales(string email, string contraseña, string contraseñaConfirmacion, string apodo, int edad, string genero, List<int> IdsEtiquetas){
+    public IActionResult RegistrarDatosPrincipales(string email, string contraseña, string contraseñaConfirmacion, string apodo, int edad, string genero, List<int> IdsEtiquetas)
+    {
         BD bd = new BD();
 
         if (string.IsNullOrWhiteSpace(genero))
