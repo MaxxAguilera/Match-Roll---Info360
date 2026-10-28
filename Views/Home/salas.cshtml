@@ -5,21 +5,20 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-     <meta charset="utf-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>@ViewData["Match&Roll"]</title>
+    <title>@ViewData["Title"]</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/salas.css" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Outfit:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="~/css/matchroll.css" asp-append-version="true" />
 </head>
-<body>
-
+<body class="salas-page">
     <header class="navbar">
         <a href='@Url.Action("Index", "Home")' class="navbar__logo">
-           <img src="~/Img/logo.png" alt="Match&Roll" >
+            <img src="~/Img/logo.png" alt="Match&Roll" />
         </a>
 
         <nav class="navbar__nav">
@@ -34,63 +33,212 @@
         </nav>
     </header>
 
-    <main style="padding:28px;">
-        <div class="page-frame" style="background:#d7cfcf;padding:18px;">
+    <main class="salas-shell">
+        <div class="salas-search-wrap">
+            <label class="salas-search" for="salasBuscar">
+                <input id="salasBuscar" type="search" placeholder="Búsca salas de ensayo..." />
+            </label>
+        </div>
 
-            <!-- Barra de búsqueda principal -->
-            <div class="search-bar" style="background:#e9e6e6;padding:18px;margin-bottom:18px;border-radius:6px;display:flex;justify-content:center;">
-                <label for="global-search" class="visually-hidden">Buscar salas</label>
-                <input id="global-search" type="search" placeholder="Buscar" style="width:60%;padding:10px 14px;border-radius:8px;border:1px solid #bbb;" />
-            </div>
+        <div class="salas-layout">
+            <section class="salas-gallery-panel" aria-label="Listado de salas">
+                <div class="salas-grid">
+                    <div class="card salas-room-card" style="width: 18rem;">
+                        <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=900&q=80" class="card-img-top" alt="El Camino - Balvanera" />
+                        <div class="card-body">
+                            <h4 class="card-title">El Camino - Balvanera</h4>
+                            <p class="card-text">Sala con batería, amplificadores y gran acústica para ensayos intensivos.</p>
+                            <p class="card-text text-muted mb-0"><strong>Balvanera</strong> · $2500 / sesión</p>
+                        </div>
+                    </div>
 
-            <div class="layout" style="display:grid;grid-template-columns:1fr 320px;gap:22px;align-items:start;">
+                    <div class="card salas-room-card" style="width: 18rem;">
+                        <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=900&q=80" class="card-img-top" alt="La Cueva - Palermo" />
+                        <div class="card-body">
+                            <h4 class="card-title">La Cueva - Palermo</h4>
+                            <p class="card-text">Espacio amplio con escenario, foco y sonido profesional para bandas.</p>
+                            <p class="card-text text-muted mb-0"><strong>Palermo</strong> · $3200 / sesión</p>
+                        </div>
+                    </div>
 
-                <!-- Galería central -->
-                <section class="gallery" aria-label="Listado de salas" style="background:#9a9a9a;padding:18px;height:520px;overflow:auto;box-shadow:inset 0 0 0 8px rgba(0,0,0,0.05);">
-                    <div class="row row-cols-1 row-cols-md-3 g-4">
-                        @for (int r = 0; r < 9; r++) {
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="~/Img/ElCaminoSalaDeEnsayo.png" class="card-img-top" alt="Foto sala" style="object-fit:cover;height:160px;" />
-                                <div class="card-body">
-                                    <h4 class="card-title">El Camino - Balvanera</h4>
-                                    <p class="card-text">Sala equipada con 4 amplificadores y batería. Ideal para ensayos y grabaciones.</p>
+                    <div class="card salas-room-card" style="width: 18rem;">
+                        <img src="https://images.unsplash.com/photo-1525201548942-d8732f6617a0?auto=format&fit=crop&w=900&q=80" class="card-img-top" alt="Ritmo Vivo - Villa Crespo" />
+                        <div class="card-body">
+                            <h4 class="card-title">Ritmo Vivo - Villa Crespo</h4>
+                            <p class="card-text">Perfecta para grabar demos y ensayar con buena separación de instrumentos.</p>
+                            <p class="card-text text-muted mb-0"><strong>Villa Crespo</strong> · $2800 / sesión</p>
+                        </div>
+                    </div>
+
+                    <div class="card salas-room-card" style="width: 18rem;">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=900&q=80" class="card-img-top" alt="Noise Lab - Recoleta" />
+                        <div class="card-body">
+                            <h4 class="card-title">Noise Lab - Recoleta</h4>
+                            <p class="card-text">Sala moderna con iluminación y equipo de mezcla profesional.</p>
+                            <p class="card-text text-muted mb-0"><strong>Recoleta</strong> · $3600 / sesión</p>
+                        </div>
+                    </div>
+
+                    <div class="card salas-room-card" style="width: 18rem;">
+                        <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=900&q=80" class="card-img-top" alt="Batería 4 - Caballito" />
+                        <div class="card-body">
+                            <h4 class="card-title">Batería 4 - Caballito</h4>
+                            <p class="card-text">Ambiente cómodo para ensayos de rock, funk y pop.</p>
+                            <p class="card-text text-muted mb-0"><strong>Caballito</strong> · $2300 / sesión</p>
+                        </div>
+                    </div>
+
+                    <div class="card salas-room-card" style="width: 18rem;">
+                        <img src="https://images.unsplash.com/photo-1501612780327-45045538702b?auto=format&fit=crop&w=900&q=80" class="card-img-top" alt="Sonic Room - Belgrano" />
+                        <div class="card-body">
+                            <h4 class="card-title">Sonic Room - Belgrano</h4>
+                            <p class="card-text">Sala equipada con cabina, batería y amplificador de alta potencia.</p>
+                            <p class="card-text text-muted mb-0"><strong>Belgrano</strong> · $3400 / sesión</p>
+                        </div>
+                    </div>
+
+                    <div class="card salas-room-card" style="width: 18rem;">
+                        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80" class="card-img-top" alt="El Estudio - Núñez" />
+                        <div class="card-body">
+                            <h4 class="card-title">El Estudio - Núñez</h4>
+                            <p class="card-text">Ideal para grabaciones y pruebas de setlist con buena respuesta acústica.</p>
+                            <p class="card-text text-muted mb-0"><strong>Núñez</strong> · $2900 / sesión</p>
+                        </div>
+                    </div>
+
+                    <div class="card salas-room-card" style="width: 18rem;">
+                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=900&q=80" class="card-img-top" alt="Faro Sonoro - Congreso" />
+                        <div class="card-body">
+                            <h4 class="card-title">Faro Sonoro - Congreso</h4>
+                            <p class="card-text">Espacio versátil con amplificadores, mesa y buen sonido central.</p>
+                            <p class="card-text text-muted mb-0"><strong>Congreso</strong> · $2700 / sesión</p>
+                        </div>
+                    </div>
+
+                    <div class="card salas-room-card" style="width: 18rem;">
+                        <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=900&q=80" class="card-img-top" alt="La Sala - San Telmo" />
+                        <div class="card-body">
+                            <h4 class="card-title">La Sala - San Telmo</h4>
+                            <p class="card-text">Sala con ambiente cálido, escenario y gran capacidad para ensayos.</p>
+                            <p class="card-text text-muted mb-0"><strong>San Telmo</strong> · $3100 / sesión</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        <section class="filtros-seccion">
+            <aside class="salas-filtros" aria-label="Filtros">
+                <div class="filtros-box salas-filtros-box">
+                
+                    <div class="filtros-list">
+                        <div class="accordion salas-accordion" id="salasAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingBarrio">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBarrio" aria-expanded="false" aria-controls="collapseBarrio">
+                                        Barrio
+                                    </button>
+                                </h2>
+                                <div id="collapseBarrio" class="accordion-collapse collapse" aria-labelledby="headingBarrio" data-bs-parent="#salasAccordion">
+                                    <div class="accordion-body">
+                                        <button type="button" class="filter-option">Balvanera</button>
+                                        <button type="button" class="filter-option">Palermo</button>
+                                        <button type="button" class="filter-option">Villa Crespo</button>
+                                        <button type="button" class="filter-option">Recoleta</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingPrecio">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrecio" aria-expanded="false" aria-controls="collapsePrecio">
+                                        Precio
+                                    </button>
+                                </h2>
+                                <div id="collapsePrecio" class="accordion-collapse collapse" aria-labelledby="headingPrecio" data-bs-parent="#salasAccordion">
+                                    <div class="accordion-body">
+                                        <button type="button" class="filter-option">0 - 1500</button>
+                                        <button type="button" class="filter-option">1500 - 3000</button>
+                                        <button type="button" class="filter-option">3000 - 5000</button>
+                                        <button type="button" class="filter-option">5000+</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingInstrumentos">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstrumentos" aria-expanded="false" aria-controls="collapseInstrumentos">
+                                        Instrumentos
+                                    </button>
+                                </h2>
+                                <div id="collapseInstrumentos" class="accordion-collapse collapse" aria-labelledby="headingInstrumentos" data-bs-parent="#salasAccordion">
+                                    <div class="accordion-body">
+                                        <button type="button" class="filter-option">Amplificadores</button>
+                                        <button type="button" class="filter-option">Batería</button>
+                                        <button type="button" class="filter-option">Guitarra</button>
+                                        <button type="button" class="filter-option">Bajo</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingCapacidad">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCapacidad" aria-expanded="false" aria-controls="collapseCapacidad">
+                                        Capacidad
+                                    </button>
+                                </h2>
+                                <div id="collapseCapacidad" class="accordion-collapse collapse" aria-labelledby="headingCapacidad" data-bs-parent="#salasAccordion">
+                                    <div class="accordion-body">
+                                        <button type="button" class="filter-option">1 - 4</button>
+                                        <button type="button" class="filter-option">4 - 8</button>
+                                        <button type="button" class="filter-option">8 - 12</button>
+                                        <button type="button" class="filter-option">12+</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTamano">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTamano" aria-expanded="false" aria-controls="collapseTamano">
+                                        Tamaño
+                                    </button>
+                                </h2>
+                                <div id="collapseTamano" class="accordion-collapse collapse" aria-labelledby="headingTamano" data-bs-parent="#salasAccordion">
+                                    <div class="accordion-body">
+                                        <button type="button" class="filter-option">Pequeña</button>
+                                        <button type="button" class="filter-option">Mediana</button>
+                                        <button type="button" class="filter-option">Grande</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingEstrellas">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEstrellas" aria-expanded="false" aria-controls="collapseEstrellas">
+                                        Estrellas
+                                    </button>
+                                </h2>
+                                <div id="collapseEstrellas" class="accordion-collapse collapse" aria-labelledby="headingEstrellas" data-bs-parent="#salasAccordion">
+                                    <div class="accordion-body">
+                                        <button type="button" class="filter-option">1 estrella</button>
+                                        <button type="button" class="filter-option">2 estrellas</button>
+                                        <button type="button" class="filter-option">3 estrellas</button>
+                                        <button type="button" class="filter-option">4 estrellas</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        }
                     </div>
-                </section>
-
-                <!-- Panel de filtros -->
-                <aside class="filters" aria-label="Filtros" style="background:#d8cfcf;padding:18px;border-radius:6px;">
-                    <h3 style="margin-top:0;margin-bottom:14px;font-size:20px;">Filtros</h3>
-                    <div style="margin-bottom:14px;">
-                        <label for="filter-search" class="visually-hidden">Buscar filtro</label>
-                        <input id="filter-search" type="search" placeholder="" style="width:100%;padding:8px;border-radius:8px;border:1px solid #bbb;" />
-                    </div>
-
-                    <div class="filter-list" style="display:flex;flex-direction:column;gap:12px;">
-                        <button class="filter-item" style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:#e9e6e6;border:1px solid #bdbdbd;border-radius:6px;">Barrio <span>›</span></button>
-                        <button class="filter-item" style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:#e9e6e6;border:1px solid #bdbdbd;border-radius:6px;">Precio <span>›</span></button>
-                        <button class="filter-item" style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:#e9e6e6;border:1px solid #bdbdbd;border-radius:6px;">Instrumentos <span>›</span></button>
-                        <button class="filter-item" style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:#e9e6e6;border:1px solid #bdbdbd;border-radius:6px;">Capacidad <span>›</span></button>
-                        <button class="filter-item" style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:#e9e6e6;border:1px solid #bdbdbd;border-radius:6px;">Tamaño <span>›</span></button>
-                        <button class="filter-item" style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:#e9e6e6;border:1px solid #bdbdbd;border-radius:6px;">Estrellas <span>›</span></button>
-                    </div>
-                </aside>
-
-            </div>
-
+                </div>
+            </aside>
+        </section>
         </div>
     </main>
+
     <footer class="site-footer">
         <ul class="site-footer__links site-footer__links--left">
             <li><a href="/Sobre-nosotros">Sobre nosotros</a></li>
             <li><a href="/Contacto">Contacto</a></li>
             <li><a href="/Accesibilidad">Accesibilidad</a></li>
         </ul>
-
 
         <div class="site-footer__center">
             <img src="~/img/LOGO.png" alt="Match&Roll" class="site-footer__logo" />
@@ -102,13 +250,13 @@
             <small>Copyright &copy; @DateTime.Now.Year Match&amp;Roll</small>
         </div>
 
-
         <ul class="site-footer__links site-footer__links--right">
             <li><a href="/Que-hacemos">Que hacemos</a></li>
             <li><a href="/Aviso-legal">Aviso legal y privacidad</a></li>
             <li><a href="/Cookies">Cookies</a></li>
         </ul>
-    </footer>   
+    </footer>
 
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
