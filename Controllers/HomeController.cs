@@ -57,7 +57,7 @@ public class HomeController : Controller
 
     public IActionResult CerrarSesion(){
         HttpContext.Session.Clear();
-        return RedirectToAction("Index");
+        return RedirectToAction("IndexSinCuenta");
     }
 
     public IActionResult Registrarse(){

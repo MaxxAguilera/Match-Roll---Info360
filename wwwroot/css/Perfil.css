@@ -216,6 +216,28 @@
     background: #f3f3f3;
 }
 
+.perfil-logout-form {
+    margin-top: 32px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.perfil-cerrar-sesion {
+    width: 100%;
+    height: 42px;
+    border: 1px solid #c62828;
+    background: #d32f2f;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 6px;
+    transition: all .15s ease;
+}
+
+.perfil-cerrar-sesion:hover {
+    background: #b71c1c;
+    color: #fff;
+}
+
 @media (max-width: 900px) {
     .perfil-main {
         grid-template-columns: 1fr;
@@ -237,6 +259,10 @@
 
     .perfil-cancelar,
     .perfil-guardar {
+        width: 100%;
+    }
+
+    .perfil-logout-form {
         width: 100%;
     }
 }
