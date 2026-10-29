@@ -460,28 +460,60 @@ namespace MatchRollInfo360.Models
             }
             return idsEtiquetas;
         }
-
         public int CrearChatSiNoExiste(int u1, int u2)
-{
-         using (SqlConnection connection = new SqlConnection(_connectionString))
-         {
-            return connection.QuerySingle<int>(@"
-            DECLARE @idChat INT;
+        {
+            int idChat = -1;
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                idChat = connection.QuerySingle<int>(@"
+                    DECLARE @idChat INT;
 
-            SELECT @idChat = idChat
-            FROM Chats
-            WHERE (idUsuario1 = @u1 AND idUsuario2 = @u2)
-               OR (idUsuario1 = @u2 AND idUsuario2 = @u1);
+                    SELECT @idChat = idChat
+                    FROM Chats
+                    WHERE (idUsuario1 = @u1 AND idUsuario2 = @u2)
+                    OR (idUsuario1 = @u2 AND idUsuario2 = @u1);
 
-            IF @idChat IS NULL
-            BEGIN
-                INSERT INTO Chats (idUsuario1, idUsuario2) VALUES (@u1, @u2);
-                SET @idChat = SCOPE_IDENTITY();
-            END
+                    IF @idChat IS NULL
+                    BEGIN
+                        INSERT INTO Chats (idUsuario1, idUsuario2, fechaCreacion)
+                        VALUES (@u1, @u2, GETDATE());
 
-            SELECT @idChat;", new { u1, u2 });
+                        SET @idChat = SCOPE_IDENTITY();
+                    END
+
+                    SELECT @idChat;",
+                    new { u1, u2 });
+            }
+            return idChat;
         }
-}
+
+        public List<Chat> ObtenerChatsUsuario(int idUsuario)
+        {
+            List<Chat> chats = new List<Chat>();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"
+                    SELECT
+                        c.idChat,
+                        u.idUsuario AS idOtroUsuario,
+                        u.apodo AS apodo,
+                        '' AS ultimoMensaje
+                    FROM Chats c
+                    INNER JOIN Usuarios u
+                        ON u.idUsuario =
+                            CASE
+                                WHEN c.idUsuario1 = @idUsuario
+                                    THEN c.idUsuario2
+                                ELSE c.idUsuario1
+                            END
+                    WHERE c.idUsuario1 = @idUsuario
+                    OR c.idUsuario2 = @idUsuario
+                    ORDER BY c.fechaCreacion DESC";
+
+                chats = connection.Query<Chat>(query, new { idUsuario }).ToList();
+            }
+            return chats;
+        }
 
     }
 }

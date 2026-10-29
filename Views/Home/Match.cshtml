@@ -539,6 +539,7 @@
                         "¡Hicieron match! " +
                         "Ahora podés chatear con este usuario."
                     );
+                    window.location.href = '@Url.Action("VistaChat", "Home")';
                 } else {
                     if (!likedUsers.some(u => u.idUsuario === usuarioActual.idUsuario)) {
                         likedUsers.push(usuarioActual);

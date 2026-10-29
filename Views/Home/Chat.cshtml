@@ -1,6 +1,12 @@
 @{
     ViewData["Title"] = "Chat";
 }
+@using System.Text.Json
+<script>
+    const chats = @Html.Raw(
+        JsonSerializer.Serialize(ViewBag.chats)
+    );
+</script>
 
 <div class="chat-page">
     <aside class="chat-sidebar">
@@ -38,11 +44,12 @@
     const sendMessageButton = document.getElementById("sendMessageButton");
     const chatSearchInput = document.getElementById("chatSearchInput");
 
-    const chats = [
-        { id: 1, name: "Contacto 1", messages: [] },
-        { id: 2, name: "Contacto 2", messages: [] },
-        { id: 3, name: "Contacto 3", messages: [] }
-    ];
+    const chats = datosChats.map(chat => ({
+    id: chat.idChat,
+    idOtroUsuario: chat.idOtroUsuario,
+    name: chat.apodo,
+    messages: []
+}));
 
     let chatActivo = 1;
 

@@ -22,7 +22,7 @@ public class HomeController : Controller
     {
         if (!TieneCuenta())
         {
-            return RedirectToAction(nameof(IndexSinCuenta));
+            return RedirectToAction("IndexSinCuenta");
         }
 
         return null;
@@ -276,7 +276,13 @@ public class HomeController : Controller
         BD bd = new BD();
 
         bool hayMatch = bd.DarLike(idUsuarioSolicitante, idUsuarioReceptor);
-        return Json(new { hayMatch });
+        int? idChat = null;
+
+        if (hayMatch)
+        {
+            idChat = bd.CrearChatSiNoExiste(idUsuarioSolicitante, idUsuarioReceptor);
+        }
+        return Json(new { hayMatch, idChat });
     }
 
     [HttpGet("Home/Chat")]
@@ -288,6 +294,15 @@ public class HomeController : Controller
         {
             return RedirectToAction("IndexSinCuenta");
         }
+        string idSesion = HttpContext.Session.GetString("id");
+
+        if (!int.TryParse(idSesion, out int idUsuario))
+        {
+            return RedirectToAction("IniciarSesion");
+        }
+
+        BD bd = new BD();
+        ViewBag.chats = bd.ObtenerChatsUsuario(idUsuario);
 
         return View("Chat");
     }
