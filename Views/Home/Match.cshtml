@@ -276,9 +276,7 @@
             const boton = item.querySelector(".liked-user-message");
             if (boton) {
                 boton.addEventListener("click", () => {
-                    boton.disabled = true;
-                    boton.textContent = "✓";
-                    boton.title = "Mensaje pendiente";
+                    window.location.href = '@Url.Action("VistaChat", "Home")';
                 });
             }
 
@@ -516,7 +514,7 @@
 
     if (btnDislike) btnDislike.addEventListener("click", siguienteUsuario);
     if (btnComentario) btnComentario.addEventListener("click", () => {
-        alert("Funcionalidad de comentarios pendiente");
+        window.location.href = "/Home/Chat";
     });
 
     if (buscador) buscador.addEventListener("input", aplicarFiltros);

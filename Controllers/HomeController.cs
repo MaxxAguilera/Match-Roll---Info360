@@ -13,14 +13,30 @@ public class HomeController : Controller
         _logger = logger;
     }
 
+    private bool TieneCuenta()
+    {
+        return int.TryParse(HttpContext.Session.GetString("id"), out int id) && id > 0;
+    }
+
+    private IActionResult? RedirigirSiNoTieneCuenta()
+    {
+        if (!TieneCuenta())
+        {
+            return RedirectToAction(nameof(IndexSinCuenta));
+        }
+
+        return null;
+    }
+
     public IActionResult Index()
     {
-        int id = int.Parse(HttpContext.Session.GetString("id") ?? "0");
-        if (id == 0)
+        bool tieneCuenta = TieneCuenta();
+        if (!tieneCuenta)
         {
             return RedirectToAction("IndexSinCuenta");
         }
 
+        int id = int.Parse(HttpContext.Session.GetString("id") ?? "0");
         BD bd = new BD();
         ViewBag.user = bd.MostrarUsuario(id);
         return View();
@@ -29,10 +45,16 @@ public class HomeController : Controller
     public IActionResult IndexSinCuenta(){
         return View();
     }
+
     public IActionResult salas(){
+        bool tieneCuenta = TieneCuenta();
+        if (!tieneCuenta)
+        {
+            return RedirectToAction("IndexSinCuenta");
+        }
+
         return View();
     }
-    
 
     public IActionResult VistaIniciarSesion(){
         ViewBag.msj = "";
@@ -68,7 +90,6 @@ public class HomeController : Controller
         return View();
     }
 
-    
     public IActionResult VistaRegistrarseConMensaje(){
         BD bd = new BD();
         ViewBag.etiquetas = bd.MostrarEtiquetas();
@@ -122,7 +143,7 @@ public class HomeController : Controller
         if (string.IsNullOrWhiteSpace(genero))
             return "Prefiero no decirlo";
 
-        var valor = genero.Trim();
+        string valor = genero.Trim();
         return valor switch
         {
             "1" => "Masculino",
@@ -139,6 +160,12 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult RegistrarDatosCompleto(Usuario usuario, List<int> IdsEtiquetas)
     {
+        bool tieneCuenta = TieneCuenta();
+        if (!tieneCuenta)
+        {
+            return RedirectToAction("IndexSinCuenta");
+        }
+
         BD bd = new BD();
 
         if (string.IsNullOrWhiteSpace(usuario.genero))
@@ -175,6 +202,12 @@ public class HomeController : Controller
 
     public IActionResult Privacy()
     {
+        bool tieneCuenta = TieneCuenta();
+        if (!tieneCuenta)
+        {
+            return RedirectToAction("IndexSinCuenta");
+        }
+
         return View();
     }
 
@@ -185,17 +218,37 @@ public class HomeController : Controller
     }
 
     public IActionResult VistaMatch(){
+        bool tieneCuenta = TieneCuenta();
+        if (!tieneCuenta)
+        {
+            return RedirectToAction("IndexSinCuenta");
+        }
+
         BD bd = new BD();
         List<Usuario> usuarios = bd.ObtenerUsuarios();
         ViewBag.usuarios = usuarios;
         ViewBag.idUsuarioActual = HttpContext.Session.GetString("id");
         return View("Match");
     }
+
     public IActionResult VistaSalas(){
+        bool tieneCuenta = TieneCuenta();
+        if (!tieneCuenta)
+        {
+            return RedirectToAction("IndexSinCuenta");
+        }
+
         return View("Salas");
     }
+
     public IActionResult VistaPerfil(){
-        int id = int.Parse(HttpContext.Session.GetString("id"));
+        bool tieneCuenta = TieneCuenta();
+        if (!tieneCuenta)
+        {
+            return RedirectToAction("IndexSinCuenta");
+        }
+
+        int id = int.Parse(HttpContext.Session.GetString("id") ?? "0");
         BD bd = new BD();
         Usuario usuario = bd.MostrarUsuario(id);
         ViewBag.usuario = usuario;
@@ -204,5 +257,22 @@ public class HomeController : Controller
         List<int> idsEtiquetasUsuario = bd.ObtenerIdsEtiquetasPorUsuario(id);
         ViewBag.idsEtiquetasUsuario = idsEtiquetasUsuario;
         return View("Perfil");
+    }
+
+    [HttpGet("Home/Chat")]
+    [HttpGet("Home/VistaChat")]
+    public IActionResult Chat()
+    {
+        bool tieneCuenta = TieneCuenta();
+        if (!tieneCuenta)
+        {
+            return RedirectToAction("IndexSinCuenta");
+        }
+
+        return View("Chat");
+    }
+
+    public IActionResult VistaChat(){
+        return RedirectToAction("Chat");
     }
 }

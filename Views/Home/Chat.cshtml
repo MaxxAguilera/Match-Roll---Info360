@@ -1,0 +1,148 @@
+@{
+    ViewData["Title"] = "Chat";
+}
+
+<div class="chat-page">
+    <aside class="chat-sidebar">
+        <div class="chat-search-box">
+            <input id="chatSearchInput" type="text" placeholder="Buscar" />
+            <button type="button" aria-label="Buscar">⌕</button>
+        </div>
+
+        <div id="chatList" class="chat-list"></div>
+    </aside>
+
+    <section class="chat-panel">
+        <div class="chat-panel__header">
+            <div class="chat-panel__user">
+                <div class="chat-avatar chat-avatar--large"></div>
+                <span id="chatTitle">Seleccioná un chat</span>
+            </div>
+        </div>
+
+        <div id="chatMessages" class="chat-panel__body"></div>
+
+        <div class="chat-panel__composer">
+            <button type="button" class="chat-btn chat-btn--ghost" aria-label="Agregar">＋</button>
+            <input id="messageInput" type="text" placeholder="Escribí un mensaje..." />
+            <button id="sendMessageButton" type="button" class="chat-btn chat-btn--send" aria-label="Enviar">➤</button>
+        </div>
+    </section>
+</div>
+
+<script>
+    const chatList = document.getElementById("chatList");
+    const chatMessages = document.getElementById("chatMessages");
+    const chatTitle = document.getElementById("chatTitle");
+    const messageInput = document.getElementById("messageInput");
+    const sendMessageButton = document.getElementById("sendMessageButton");
+    const chatSearchInput = document.getElementById("chatSearchInput");
+
+    const chats = [
+        { id: 1, name: "Contacto 1", messages: [] },
+        { id: 2, name: "Contacto 2", messages: [] },
+        { id: 3, name: "Contacto 3", messages: [] }
+    ];
+
+    let chatActivo = 1;
+
+    function filtrarChats() {
+        const texto = (chatSearchInput.value || "").trim().toLowerCase();
+        const lista = texto
+            ? chats.filter(chat => chat.name.toLowerCase().includes(texto))
+            : chats;
+
+        renderChatList(lista);
+    }
+
+    function renderChatList(listaChats) {
+        chatList.innerHTML = "";
+
+        if (!listaChats.length) {
+            const vacio = document.createElement("div");
+            vacio.className = "chat-empty-state";
+            vacio.textContent = "No hay chats";
+            chatList.appendChild(vacio);
+            return;
+        }
+
+        listaChats.forEach((chat) => {
+            const item = document.createElement("button");
+            item.type = "button";
+            item.className = "chat-item" + (chat.id === chatActivo ? " active" : "");
+            item.innerHTML = `
+                <div class="chat-avatar"></div>
+                <div class="chat-item__meta">
+                    <strong>${chat.name}</strong>
+                    <span>${chat.messages.length ? chat.messages[chat.messages.length - 1].texto : "Sin mensajes"}</span>
+                </div>
+            `;
+
+            item.addEventListener("click", () => {
+                chatActivo = chat.id;
+                renderChatList(chats);
+                renderMensajes();
+            });
+
+            chatList.appendChild(item);
+        });
+    }
+
+    function renderMensajes() {
+        const chat = chats.find(c => c.id === chatActivo);
+        if (!chat) {
+            chatMessages.innerHTML = "";
+            chatTitle.textContent = "Seleccioná un chat";
+            return;
+        }
+
+        chatTitle.textContent = chat.name;
+        chatMessages.innerHTML = "";
+
+        if (!chat.messages.length) {
+            const empty = document.createElement("div");
+            empty.className = "chat-empty-messages";
+            empty.textContent = "Todavía no hay mensajes.";
+            chatMessages.appendChild(empty);
+            return;
+        }
+
+        chat.messages.forEach((mensaje) => {
+            const bubble = document.createElement("div");
+            bubble.className = "chat-bubble " + (mensaje.remitente === "yo" ? "chat-bubble--outgoing" : "chat-bubble--incoming");
+            bubble.textContent = mensaje.texto;
+            chatMessages.appendChild(bubble);
+        });
+
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function enviarMensaje() {
+        const texto = (messageInput.value || "").trim();
+        if (!texto) return;
+
+        const chat = chats.find(c => c.id === chatActivo);
+        if (!chat) return;
+
+        chat.messages.push({
+            remitente: "yo",
+            texto: texto
+        });
+
+        messageInput.value = "";
+        renderChatList(chats);
+        renderMensajes();
+    }
+
+    sendMessageButton.addEventListener("click", enviarMensaje);
+    messageInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            enviarMensaje();
+        }
+    });
+
+    chatSearchInput.addEventListener("input", filtrarChats);
+
+    renderChatList(chats);
+    renderMensajes();
+</script>
