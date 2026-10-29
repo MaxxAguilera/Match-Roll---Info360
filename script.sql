@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [MatchAndRoll]    Script Date: 26/10/2026 14:11:23 ******/
+/****** Object:  Database [MatchAndRoll]    Script Date: 29/10/2026 11:13:04 ******/
 CREATE DATABASE [MatchAndRoll]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -79,10 +79,26 @@ ALTER DATABASE [MatchAndRoll] SET QUERY_STORE = OFF
 GO
 USE [MatchAndRoll]
 GO
-/****** Object:  User [alumno]    Script Date: 26/10/2026 14:11:23 ******/
+/****** Object:  User [alumno]    Script Date: 29/10/2026 11:13:04 ******/
 CREATE USER [alumno] FOR LOGIN [alumno] WITH DEFAULT_SCHEMA=[dbo]
 GO
-/****** Object:  Table [dbo].[Etiquetas]    Script Date: 26/10/2026 14:11:23 ******/
+/****** Object:  Table [dbo].[Chats]    Script Date: 29/10/2026 11:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Chats](
+	[idChat] [int] IDENTITY(1,1) NOT NULL,
+	[idUsuario1] [int] NOT NULL,
+	[idUsuario2] [int] NOT NULL,
+	[fechaCreacion] [datetime] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[idChat] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Etiquetas]    Script Date: 29/10/2026 11:13:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -96,7 +112,7 @@ CREATE TABLE [dbo].[Etiquetas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Matches]    Script Date: 26/10/2026 14:11:23 ******/
+/****** Object:  Table [dbo].[Matches]    Script Date: 29/10/2026 11:13:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -113,7 +129,24 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ProyectosMusicales]    Script Date: 26/10/2026 14:11:23 ******/
+/****** Object:  Table [dbo].[Mensajes]    Script Date: 29/10/2026 11:13:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Mensajes](
+	[idMensaje] [int] IDENTITY(1,1) NOT NULL,
+	[idChat] [int] NOT NULL,
+	[idUsuarioEmisor] [int] NOT NULL,
+	[contenido] [varchar](1000) NOT NULL,
+	[fechaEnvio] [datetime] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[idMensaje] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ProyectosMusicales]    Script Date: 29/10/2026 11:13:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -130,7 +163,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Reservas]    Script Date: 26/10/2026 14:11:23 ******/
+/****** Object:  Table [dbo].[Reservas]    Script Date: 29/10/2026 11:13:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -151,7 +184,7 @@ CREATE TABLE [dbo].[Reservas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[SalasEnsayo]    Script Date: 26/10/2026 14:11:23 ******/
+/****** Object:  Table [dbo].[SalasEnsayo]    Script Date: 29/10/2026 11:13:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -175,7 +208,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Ubicaciones]    Script Date: 26/10/2026 14:11:23 ******/
+/****** Object:  Table [dbo].[Ubicaciones]    Script Date: 29/10/2026 11:13:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -191,7 +224,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UsuarioEtiquetas]    Script Date: 26/10/2026 14:11:23 ******/
+/****** Object:  Table [dbo].[UsuarioEtiquetas]    Script Date: 29/10/2026 11:13:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -206,7 +239,7 @@ CREATE TABLE [dbo].[UsuarioEtiquetas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Usuarios]    Script Date: 26/10/2026 14:11:23 ******/
+/****** Object:  Table [dbo].[Usuarios]    Script Date: 29/10/2026 11:13:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -255,6 +288,30 @@ GO
 INSERT [dbo].[Etiquetas] ([idEtiqueta], [nombreEtiqueta]) VALUES (10, N'Organizado')
 GO
 SET IDENTITY_INSERT [dbo].[Etiquetas] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Matches] ON 
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (1, 51, 1, CAST(N'2026-10-29T10:38:29.933' AS DateTime), N'Match')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (2, 51, 2, CAST(N'2026-10-29T10:38:31.690' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (3, 51, 3, CAST(N'2026-10-29T11:03:16.443' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (4, 51, 4, CAST(N'2026-10-29T11:03:16.627' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (5, 51, 5, CAST(N'2026-10-29T11:03:16.797' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (6, 51, 6, CAST(N'2026-10-29T11:03:16.980' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (7, 51, 7, CAST(N'2026-10-29T11:03:17.157' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (8, 51, 8, CAST(N'2026-10-29T11:03:17.323' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (9, 51, 9, CAST(N'2026-10-29T11:03:17.510' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (10, 51, 21, CAST(N'2026-10-29T11:03:54.683' AS DateTime), N'Pendiente')
+GO
+SET IDENTITY_INSERT [dbo].[Matches] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Ubicaciones] ON 
 GO
@@ -370,6 +427,8 @@ INSERT [dbo].[UsuarioEtiquetas] ([idUsuario], [idEtiqueta]) VALUES (50, 7)
 GO
 INSERT [dbo].[UsuarioEtiquetas] ([idUsuario], [idEtiqueta]) VALUES (51, 3)
 GO
+INSERT [dbo].[UsuarioEtiquetas] ([idUsuario], [idEtiqueta]) VALUES (51, 5)
+GO
 INSERT [dbo].[UsuarioEtiquetas] ([idUsuario], [idEtiqueta]) VALUES (51, 7)
 GO
 INSERT [dbo].[UsuarioEtiquetas] ([idUsuario], [idEtiqueta]) VALUES (51, 10)
@@ -476,17 +535,27 @@ INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseñ
 GO
 INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (50, N'Brisa', N'Gallardo', N'bri.gallardo@yahoo.com', N'brisa2026', N'Músico', N'Cantante de rock nacional.', N'Voz', N'Intermedio', 2, N'Femenino', N'Bri', 22, N'https://youtu.be/La6ePTfimk4?si=oOzAo3u7PgBaVfSF')
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (51, N'MÁXIMO', N'AGUILERA', N'r@gmail.com', N'123', N'Músico', N'hola hola', N'Guitarra', N'Profesional', 1, N'Masculino', N'r', 19, N'https://youtu.be/hBeur29GlfI?si=khPveKkiep-Z3REw')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (51, N'MÁXIMO', N'AGUILERA', N'r@gmail.com', N'123', N'Músico', N'hola hola', N'Guitarra', N'Profesional', 3, N'Masculino', N'r', 19, N'https://youtu.be/hBeur29GlfI?si=khPveKkiep-Z3REw')
 GO
 SET IDENTITY_INSERT [dbo].[Usuarios] OFF
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UQ__Usuarios__A9D1053471765528]    Script Date: 26/10/2026 14:11:23 ******/
+/****** Object:  Index [UQ__Usuarios__A9D1053471765528]    Script Date: 29/10/2026 11:13:04 ******/
 ALTER TABLE [dbo].[Usuarios] ADD  CONSTRAINT [UQ__Usuarios__A9D1053471765528] UNIQUE NONCLUSTERED 
 (
 	[email] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Chats] ADD  DEFAULT (getdate()) FOR [fechaCreacion]
+GO
+ALTER TABLE [dbo].[Mensajes] ADD  DEFAULT (getdate()) FOR [fechaEnvio]
+GO
+ALTER TABLE [dbo].[Chats]  WITH CHECK ADD FOREIGN KEY([idUsuario1])
+REFERENCES [dbo].[Usuarios] ([idUsuario])
+GO
+ALTER TABLE [dbo].[Chats]  WITH CHECK ADD FOREIGN KEY([idUsuario2])
+REFERENCES [dbo].[Usuarios] ([idUsuario])
 GO
 ALTER TABLE [dbo].[Matches]  WITH CHECK ADD  CONSTRAINT [FK_Match_UsuarioReceptor] FOREIGN KEY([idUsuarioReceptor])
 REFERENCES [dbo].[Usuarios] ([idUsuario])
@@ -497,6 +566,12 @@ ALTER TABLE [dbo].[Matches]  WITH CHECK ADD  CONSTRAINT [FK_Match_UsuarioSolicit
 REFERENCES [dbo].[Usuarios] ([idUsuario])
 GO
 ALTER TABLE [dbo].[Matches] CHECK CONSTRAINT [FK_Match_UsuarioSolicitante]
+GO
+ALTER TABLE [dbo].[Mensajes]  WITH CHECK ADD FOREIGN KEY([idChat])
+REFERENCES [dbo].[Chats] ([idChat])
+GO
+ALTER TABLE [dbo].[Mensajes]  WITH CHECK ADD FOREIGN KEY([idUsuarioEmisor])
+REFERENCES [dbo].[Usuarios] ([idUsuario])
 GO
 ALTER TABLE [dbo].[ProyectosMusicales]  WITH CHECK ADD  CONSTRAINT [FK_Proyecto_Usuario] FOREIGN KEY([idUsuarioCreador])
 REFERENCES [dbo].[Usuarios] ([idUsuario])
@@ -538,7 +613,9 @@ REFERENCES [dbo].[Ubicaciones] ([idUbicacion])
 GO
 ALTER TABLE [dbo].[Usuarios] CHECK CONSTRAINT [FK_Usuario_Ubicacion]
 GO
-/****** Object:  StoredProcedure [dbo].[sp_CrearProyectoMusical]    Script Date: 26/10/2026 14:11:23 ******/
+ALTER TABLE [dbo].[Chats]  WITH CHECK ADD CHECK  (([idUsuario1]<>[idUsuario2]))
+GO
+/****** Object:  StoredProcedure [dbo].[sp_CrearProyectoMusical]    Script Date: 29/10/2026 11:13:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -558,7 +635,7 @@ BEGIN
     SELECT 'OK' AS Estado, 'Proyecto creado' AS Mensaje;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_CrearReserva]    Script Date: 26/10/2026 14:11:23 ******/
+/****** Object:  StoredProcedure [dbo].[sp_CrearReserva]    Script Date: 29/10/2026 11:13:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -602,7 +679,7 @@ BEGIN
     END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ObtenerPerfilUsuario]    Script Date: 26/10/2026 14:11:23 ******/
+/****** Object:  StoredProcedure [dbo].[sp_ObtenerPerfilUsuario]    Script Date: 29/10/2026 11:13:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -641,7 +718,7 @@ BEGIN
     WHERE ue.idUsuario = @idUsuario;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_RegistrarInteraccionMatch]    Script Date: 26/10/2026 14:11:23 ******/
+/****** Object:  StoredProcedure [dbo].[sp_RegistrarInteraccionMatch]    Script Date: 29/10/2026 11:13:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -685,7 +762,7 @@ BEGIN
     END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_RegistrarUsuario]    Script Date: 26/10/2026 14:11:23 ******/
+/****** Object:  StoredProcedure [dbo].[sp_RegistrarUsuario]    Script Date: 29/10/2026 11:13:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON

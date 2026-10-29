@@ -277,6 +277,7 @@ public class HomeController : Controller
 
         bool hayMatch = bd.DarLike(idUsuarioSolicitante, idUsuarioReceptor);
         return Json(new { hayMatch });
+    }
 
     [HttpGet("Home/Chat")]
     [HttpGet("Home/VistaChat")]

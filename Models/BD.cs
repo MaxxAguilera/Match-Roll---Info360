@@ -461,5 +461,27 @@ namespace MatchRollInfo360.Models
             return idsEtiquetas;
         }
 
+        public int CrearChatSiNoExiste(int u1, int u2)
+{
+         using (SqlConnection connection = new SqlConnection(_connectionString))
+         {
+            return connection.QuerySingle<int>(@"
+            DECLARE @idChat INT;
+
+            SELECT @idChat = idChat
+            FROM Chats
+            WHERE (idUsuario1 = @u1 AND idUsuario2 = @u2)
+               OR (idUsuario1 = @u2 AND idUsuario2 = @u1);
+
+            IF @idChat IS NULL
+            BEGIN
+                INSERT INTO Chats (idUsuario1, idUsuario2) VALUES (@u1, @u2);
+                SET @idChat = SCOPE_IDENTITY();
+            END
+
+            SELECT @idChat;", new { u1, u2 });
+        }
+}
+
     }
 }
