@@ -1,11 +1,19 @@
 @{
     ViewData["Title"] = "Chat";
+    var chats = ViewBag.chats as List<MatchRollInfo360.Models.Chat> ?? new List<MatchRollInfo360.Models.Chat>();
+    var idUsuarioActual = ViewBag.idUsuarioActual is int id ? id : 0;
+    var idChatSeleccionado = ViewBag.idChatSeleccionado is int idChat ? idChat : (int?)null;
+    var idOtroUsuario = ViewBag.idOtroUsuario is int otro ? otro : (int?)null;
+    var apodoSeleccionado = ViewBag.apodoSeleccionado as string ?? string.Empty;
 }
+
 @using System.Text.Json
 <script>
-    const chats = @Html.Raw(
-        JsonSerializer.Serialize(ViewBag.chats)
-    );
+    const datosChatsDesdeServidor = @Html.Raw(JsonSerializer.Serialize(chats));
+    const idUsuarioActual = @idUsuarioActual;
+    const idChatSeleccionado = @((idChatSeleccionado is null ? "null" : idChatSeleccionado.ToString()));
+    const idOtroUsuario = @((idOtroUsuario is null ? "null" : idOtroUsuario.ToString()));
+    const apodoSeleccionado = @Html.Raw(JsonSerializer.Serialize(apodoSeleccionado));
 </script>
 
 <div class="chat-page">
@@ -44,14 +52,19 @@
     const sendMessageButton = document.getElementById("sendMessageButton");
     const chatSearchInput = document.getElementById("chatSearchInput");
 
-    const chats = datosChats.map(chat => ({
-    id: chat.idChat,
-    idOtroUsuario: chat.idOtroUsuario,
-    name: chat.apodo,
-    messages: []
-}));
+    const chats = datosChatsDesdeServidor.map(chat => ({
+        id: chat.idChat,
+        idOtroUsuario: chat.idOtroUsuario,
+        name: chat.apodo || "Usuario",
+        messages: [],
+        ultimoMensaje: chat.ultimoMensaje || "Sin mensajes"
+    }));
 
-    let chatActivo = 1;
+    let chatActivo = idChatSeleccionado ?? (chats[0]?.id ?? 0);
+
+    function obtenerChatActivo() {
+        return chats.find(c => c.id === chatActivo) ?? chats[0] ?? null;
+    }
 
     function filtrarChats() {
         const texto = (chatSearchInput.value || "").trim().toLowerCase();
@@ -81,7 +94,7 @@
                 <div class="chat-avatar"></div>
                 <div class="chat-item__meta">
                     <strong>${chat.name}</strong>
-                    <span>${chat.messages.length ? chat.messages[chat.messages.length - 1].texto : "Sin mensajes"}</span>
+                    <span>${chat.ultimoMensaje || "Sin mensajes"}</span>
                 </div>
             `;
 
@@ -96,7 +109,7 @@
     }
 
     function renderMensajes() {
-        const chat = chats.find(c => c.id === chatActivo);
+        const chat = obtenerChatActivo();
         if (!chat) {
             chatMessages.innerHTML = "";
             chatTitle.textContent = "Seleccioná un chat";
@@ -128,7 +141,7 @@
         const texto = (messageInput.value || "").trim();
         if (!texto) return;
 
-        const chat = chats.find(c => c.id === chatActivo);
+        const chat = obtenerChatActivo();
         if (!chat) return;
 
         chat.messages.push({
@@ -136,9 +149,28 @@
             texto: texto
         });
 
+        chat.ultimoMensaje = texto;
         messageInput.value = "";
         renderChatList(chats);
         renderMensajes();
+    }
+
+    if (apodoSeleccionado && apodoSeleccionado !== "") {
+        const chatDesdeMatch = chats.find(c => c.id === idChatSeleccionado || c.idOtroUsuario === idOtroUsuario);
+        if (chatDesdeMatch) {
+            chatActivo = chatDesdeMatch.id;
+            chatDesdeMatch.name = apodoSeleccionado;
+            chatDesdeMatch.ultimoMensaje = "Nuevo match";
+        } else {
+            chats.unshift({
+                id: Date.now(),
+                idOtroUsuario: idOtroUsuario,
+                name: apodoSeleccionado,
+                messages: [],
+                ultimoMensaje: "Nuevo match"
+            });
+            chatActivo = chats[0].id;
+        }
     }
 
     sendMessageButton.addEventListener("click", enviarMensaje);
@@ -149,6 +181,10 @@
     });
 
     chatSearchInput.addEventListener("input", filtrarChats);
+
+    if (chats.length === 0) {
+        chatTitle.textContent = "Todavía no tenés chats";
+    }
 
     renderChatList(chats);
     renderMensajes();

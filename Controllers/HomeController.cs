@@ -287,27 +287,34 @@ public class HomeController : Controller
 
     [HttpGet("Home/Chat")]
     [HttpGet("Home/VistaChat")]
-    public IActionResult Chat()
+    public IActionResult Chat(int? idChat = null, int? idOtroUsuario = null, string? apodo = null)
     {
         bool tieneCuenta = TieneCuenta();
         if (!tieneCuenta)
         {
             return RedirectToAction("IndexSinCuenta");
         }
-        string idSesion = HttpContext.Session.GetString("id");
 
+        string idSesion = HttpContext.Session.GetString("id");
         if (!int.TryParse(idSesion, out int idUsuario))
         {
             return RedirectToAction("IniciarSesion");
         }
 
         BD bd = new BD();
-        ViewBag.chats = bd.ObtenerChatsUsuario(idUsuario);
+        var chats = bd.ObtenerChatsUsuario(idUsuario);
+
+        ViewBag.chats = chats;
+        ViewBag.idUsuarioActual = idUsuario;
+        ViewBag.idChatSeleccionado = idChat;
+        ViewBag.idOtroUsuario = idOtroUsuario;
+        ViewBag.apodoSeleccionado = apodo;
 
         return View("Chat");
     }
 
-    public IActionResult VistaChat(){
-        return RedirectToAction("Chat");
+    public IActionResult VistaChat(int? idChat = null, int? idOtroUsuario = null, string? apodo = null)
+    {
+        return RedirectToAction("Chat", new { idChat, idOtroUsuario, apodo });
     }
 }
