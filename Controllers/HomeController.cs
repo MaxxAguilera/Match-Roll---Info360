@@ -205,4 +205,24 @@ public class HomeController : Controller
         ViewBag.idsEtiquetasUsuario = idsEtiquetasUsuario;
         return View("Perfil");
     }
+    [HttpPost]
+    public IActionResult DarLike(int idUsuarioReceptor)
+    {
+        string? idSesion = HttpContext.Session.GetString("id");
+
+        if (!int.TryParse(idSesion, out int idUsuarioSolicitante))
+        {
+            return Unauthorized();
+        }
+
+        if (idUsuarioSolicitante == idUsuarioReceptor)
+        {
+            return BadRequest();
+        }
+
+        BD bd = new BD();
+
+        bool hayMatch = bd.DarLike(idUsuarioSolicitante, idUsuarioReceptor);
+        return Json(new { hayMatch });
+    }
 }

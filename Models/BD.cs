@@ -388,6 +388,58 @@ namespace MatchRollInfo360.Models
                     new { idUsuario, idEtiqueta });
             }
         }
+        public bool DarLike(int idUsuarioSolicitante, int idUsuarioReceptor)
+        {
+            int existeLike = -1;
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"
+                    SELECT COUNT(*)
+                    FROM Matches
+                    WHERE idUsuarioSolicitante = @idUsuarioReceptor
+                    AND idUsuarioReceptor = @idUsuarioSolicitante";
+
+                existeLike = connection.QueryFirstOrDefault<int>(
+                    query,
+                    new { idUsuarioSolicitante, idUsuarioReceptor }
+                );
+
+                if (existeLike > 0)
+                {
+                    connection.Execute(@"
+                        UPDATE Matches
+                        SET estadoMatch = 'Match'
+                        WHERE
+                            (idUsuarioSolicitante = @idUsuarioSolicitante
+                            AND idUsuarioReceptor = @idUsuarioReceptor)
+                            OR
+                            (idUsuarioSolicitante = @idUsuarioReceptor
+                            AND idUsuarioReceptor = @idUsuarioSolicitante)",
+                        new { idUsuarioSolicitante, idUsuarioReceptor });
+
+                    return true;
+                }
+
+                connection.Execute(@"
+                    IF NOT EXISTS (
+                        SELECT 1
+                        FROM Matches
+                        WHERE idUsuarioSolicitante = @idUsuarioSolicitante
+                        AND idUsuarioReceptor = @idUsuarioReceptor
+                    )
+                    BEGIN
+                        INSERT INTO Matches
+                            (idUsuarioSolicitante, idUsuarioReceptor,
+                            fechaMatch, estadoMatch)
+                        VALUES
+                            (@idUsuarioSolicitante, @idUsuarioReceptor,
+                            GETDATE(), 'Pendiente')
+                    END",
+                    new { idUsuarioSolicitante, idUsuarioReceptor });
+
+                return false;
+            }
+        }
 
 
 

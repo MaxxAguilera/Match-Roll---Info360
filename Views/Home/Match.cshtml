@@ -506,13 +506,55 @@
         mostrarVideo();
     });
 
-    if (btnLike) btnLike.addEventListener("click", () => {
+    if (btnLike) {
+        btnLike.addEventListener("click", async () => {
         const usuarioActual = listaFiltrada[indiceUsuario];
-        if (usuarioActual && !likedUsers.some(u => u.idUsuario === usuarioActual.idUsuario)) {
-            likedUsers.push(usuarioActual);
-        }
-        siguienteUsuario();
-    });
+
+        if (!usuarioActual) return;
+
+        btnLike.disabled = true;
+
+        try {
+            const respuesta = await fetch(
+                '@Url.Action("DarLike", "Home")',
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+                    body: new URLSearchParams({
+                        idUsuarioReceptor:
+                            usuarioActual.idUsuario
+                    })
+                }
+                );
+
+                if (!respuesta.ok) {
+                    throw new Error("No se pudo registrar el like");
+                }
+
+                const resultado = await respuesta.json();
+
+                if (resultado.hayMatch) {
+                    alert(
+                        "¡Hicieron match! " +
+                        "Ahora podés chatear con este usuario."
+                    );
+                } else {
+                    if (!likedUsers.some(u => u.idUsuario === usuarioActual.idUsuario)) {
+                        likedUsers.push(usuarioActual);
+                    }
+                }
+
+                siguienteUsuario();
+            } catch (error) {
+                alert("Ocurrió un error al registrar el like.");
+            } finally {
+                btnLike.disabled = false;
+            }
+        });
+    }
 
     if (btnDislike) btnDislike.addEventListener("click", siguienteUsuario);
     if (btnComentario) btnComentario.addEventListener("click", () => {
