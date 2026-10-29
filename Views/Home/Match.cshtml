@@ -82,7 +82,6 @@
             <div class="acciones">
                 <div class="acciones-inner">
                     <button id="btnLike" type="button" aria-label="Me gusta" class="accion-like">👍</button>
-                    <button id="btnComentario" type="button" aria-label="Comentar" class="accion-coment">💬</button>
                     <button id="btnDislike" type="button" aria-label="Pasar perfil" class="accion-dislike">👎</button>
                 </div>
             </div>
@@ -355,7 +354,6 @@
     const contadorVideos = document.getElementById("contadorVideos");
 
     const btnLike = document.getElementById("btnLike");
-    const btnComentario = document.getElementById("btnComentario");
     const btnDislike = document.getElementById("btnDislike");
     const btnAnterior = document.getElementById("videoAnterior");
     const btnSiguiente = document.getElementById("videoSiguiente");
@@ -555,10 +553,6 @@
     }
 
     if (btnDislike) btnDislike.addEventListener("click", siguienteUsuario);
-    if (btnComentario) btnComentario.addEventListener("click", () => {
-        window.location.href = "/Home/Chat";
-    });
-
     if (buscador) buscador.addEventListener("input", aplicarFiltros);
 
     aplicarFiltros();

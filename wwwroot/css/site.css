@@ -102,30 +102,46 @@ h1, h2, h3, h4, h5, h6,
 }
 .navbar__logo { display: flex; align-items: center; height: 100%; }
 .navbar__logo img { height: 44px; width: auto; }
-.navbar__nav { display: flex; align-items: center; gap: 37px; }
+.navbar__nav {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
 
-.navbar__btn {
-    width: 92px;
-    height: 32px;
+.navbar__btn,
+.navbar__msg {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 32px;
     background: var(--rosa);
     color: var(--blanco);
-    font-size: 13px;
     text-decoration: none;
     border-radius: 4px;
 }
-
+.navbar__btn {
+    width: 92px;
+    font-size: 13px;
+}
 .navbar__btn--auth {
-    width: 20%;
-    min-width: 6rem;
-    max-width: 12rem;
-    height: 56%;
-    min-height: 2.1rem;
-    font-size: 85%;
-    font-weight: 600;
-    border-radius: 4px;
+    width: auto;
+    min-width: 110px;
+    padding: 0 18px;
+    font-size: 14px;
+    line-height: 1;
+}
+.navbar__msg {
+    width: 42px;
+    border-radius: 6px;
+}
+.navbar__msg svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .navbar__avatar {
@@ -135,6 +151,9 @@ h1, h2, h3, h4, h5, h6,
     border-radius: 50%;
     background: #444;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .navbar__avatar svg { width: 100%; height: 100%; fill: #c9c9c9; }
 

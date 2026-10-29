@@ -27,6 +27,12 @@
         <nav class="navbar__nav">
             <a href='@Url.Action("VistaMatch", "Home")' class="navbar__btn">match</a>
             <a href='@Url.Action("VistaSalas", "Home")' class="navbar__btn">salas</a>
+            <a href='@Url.Action("VistaChat", "Home")' class="navbar__msg" aria-label="Mensajes">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 7.5A2.5 2.5 0 0 1 7.5 5h9A2.5 2.5 0 0 1 19 7.5v6A2.5 2.5 0 0 1 16.5 16H11l-5 3v-3.5A2.5 2.5 0 0 1 5 13.5v-6Z"/>
+                    <path d="M8.5 9.5h7M8.5 12.5h5"/>
+                </svg>
+            </a>
             <a href='@Url.Action("VistaPerfil", "Home")' class="navbar__avatar" aria-label="Mi perfil">
                 <svg viewBox="0 0 52 52" aria-hidden="true">
                     <circle cx="26" cy="19" r="8" />
