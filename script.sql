@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [MatchAndRoll]    Script Date: 29/10/2026 11:13:04 ******/
+/****** Object:  Database [MatchAndRoll]    Script Date: 3/11/2026 09:01:04 ******/
 CREATE DATABASE [MatchAndRoll]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -79,10 +79,10 @@ ALTER DATABASE [MatchAndRoll] SET QUERY_STORE = OFF
 GO
 USE [MatchAndRoll]
 GO
-/****** Object:  User [alumno]    Script Date: 29/10/2026 11:13:04 ******/
+/****** Object:  User [alumno]    Script Date: 3/11/2026 09:01:04 ******/
 CREATE USER [alumno] FOR LOGIN [alumno] WITH DEFAULT_SCHEMA=[dbo]
 GO
-/****** Object:  Table [dbo].[Chats]    Script Date: 29/10/2026 11:13:04 ******/
+/****** Object:  Table [dbo].[Chats]    Script Date: 3/11/2026 09:01:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -98,7 +98,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Etiquetas]    Script Date: 29/10/2026 11:13:04 ******/
+/****** Object:  Table [dbo].[Etiquetas]    Script Date: 3/11/2026 09:01:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -112,7 +112,7 @@ CREATE TABLE [dbo].[Etiquetas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Matches]    Script Date: 29/10/2026 11:13:04 ******/
+/****** Object:  Table [dbo].[Matches]    Script Date: 3/11/2026 09:01:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -129,7 +129,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Mensajes]    Script Date: 29/10/2026 11:13:04 ******/
+/****** Object:  Table [dbo].[Mensajes]    Script Date: 3/11/2026 09:01:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -146,7 +146,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ProyectosMusicales]    Script Date: 29/10/2026 11:13:04 ******/
+/****** Object:  Table [dbo].[ProyectosMusicales]    Script Date: 3/11/2026 09:01:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -163,7 +163,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Reservas]    Script Date: 29/10/2026 11:13:04 ******/
+/****** Object:  Table [dbo].[Reservas]    Script Date: 3/11/2026 09:01:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -184,7 +184,7 @@ CREATE TABLE [dbo].[Reservas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[SalasEnsayo]    Script Date: 29/10/2026 11:13:04 ******/
+/****** Object:  Table [dbo].[SalasEnsayo]    Script Date: 3/11/2026 09:01:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -208,7 +208,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Ubicaciones]    Script Date: 29/10/2026 11:13:04 ******/
+/****** Object:  Table [dbo].[Ubicaciones]    Script Date: 3/11/2026 09:01:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -224,7 +224,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UsuarioEtiquetas]    Script Date: 29/10/2026 11:13:04 ******/
+/****** Object:  Table [dbo].[UsuarioEtiquetas]    Script Date: 3/11/2026 09:01:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -239,7 +239,7 @@ CREATE TABLE [dbo].[UsuarioEtiquetas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Usuarios]    Script Date: 29/10/2026 11:13:04 ******/
+/****** Object:  Table [dbo].[Usuarios]    Script Date: 3/11/2026 09:01:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -259,11 +259,12 @@ CREATE TABLE [dbo].[Usuarios](
 	[apodo] [varchar](50) NOT NULL,
 	[edad] [int] NOT NULL,
 	[videoPrincipal] [varchar](500) NULL,
+	[fotoPerfil] [varbinary](max) NULL,
  CONSTRAINT [PK__Usuarios__5B65BF9779E2A8E8] PRIMARY KEY CLUSTERED 
 (
 	[idUsuario] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 SET IDENTITY_INSERT [dbo].[Etiquetas] ON 
 GO
@@ -310,6 +311,28 @@ GO
 INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (9, 51, 9, CAST(N'2026-10-29T11:03:17.510' AS DateTime), N'Pendiente')
 GO
 INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (10, 51, 21, CAST(N'2026-10-29T11:03:54.683' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (11, 51, 10, CAST(N'2026-11-03T08:51:32.633' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (12, 51, 11, CAST(N'2026-11-03T08:51:32.827' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (13, 51, 12, CAST(N'2026-11-03T08:51:33.180' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (14, 51, 13, CAST(N'2026-11-03T08:51:33.203' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (15, 51, 14, CAST(N'2026-11-03T08:51:33.403' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (16, 51, 15, CAST(N'2026-11-03T08:51:33.963' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (17, 51, 16, CAST(N'2026-11-03T08:51:34.193' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (18, 51, 17, CAST(N'2026-11-03T08:51:34.610' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (19, 51, 18, CAST(N'2026-11-03T08:51:34.963' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (20, 51, 19, CAST(N'2026-11-03T08:51:35.477' AS DateTime), N'Pendiente')
+GO
+INSERT [dbo].[Matches] ([idMatch], [idUsuarioSolicitante], [idUsuarioReceptor], [fechaMatch], [estadoMatch]) VALUES (21, 51, 20, CAST(N'2026-11-03T08:51:35.827' AS DateTime), N'Pendiente')
 GO
 SET IDENTITY_INSERT [dbo].[Matches] OFF
 GO
@@ -435,113 +458,113 @@ INSERT [dbo].[UsuarioEtiquetas] ([idUsuario], [idEtiqueta]) VALUES (51, 10)
 GO
 SET IDENTITY_INSERT [dbo].[Usuarios] ON 
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (1, N'Lucas', N'Gómez', N'lucas.gomez1@gmail.com', N'pass1234', N'Músico', N'Bajista buscando banda de rock alternativo.', N'Bajo', N'Intermedio', 1, N'Masculino', N'Luquitas', 24, N'https://youtu.be/bwxXcZkfC8Q?si=yYTfU4WGo_rx9tAW')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (1, N'Lucas', N'Gómez', N'lucas.gomez1@gmail.com', N'pass1234', N'Músico', N'Bajista buscando banda de rock alternativo.', N'Bajo', N'Intermedio', 1, N'Masculino', N'Luquitas', 24, N'https://youtu.be/bwxXcZkfC8Q?si=yYTfU4WGo_rx9tAW', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (2, N'Sofia', N'Martínez', N'sofia.m@hotmail.com', N'sofia2024', N'Músico', N'Vocalista con experiencia en jazz y blues.', N'Voz', N'Avanzado', 2, N'Femenino', N'Sofi', 28, N'https://youtu.be/Mzb05Gh0RVo?si=WVWy9wvwSoI5pFeY')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (2, N'Sofia', N'Martínez', N'sofia.m@hotmail.com', N'sofia2024', N'Músico', N'Vocalista con experiencia en jazz y blues.', N'Voz', N'Avanzado', 2, N'Femenino', N'Sofi', 28, N'https://youtu.be/Mzb05Gh0RVo?si=WVWy9wvwSoI5pFeY', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (3, N'Mateo', N'Fernández', N'mateo.f@yahoo.com', N'mateopass', N'Músico', N'Baterista con sala propia y doble pedal.', N'Batería', N'Avanzado', 3, N'Masculino', N'Matu', 22, N'https://youtu.be/K125X_RFyaE?si=5RRrZDxld2XtaR_a')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (3, N'Mateo', N'Fernández', N'mateo.f@yahoo.com', N'mateopass', N'Músico', N'Baterista con sala propia y doble pedal.', N'Batería', N'Avanzado', 3, N'Masculino', N'Matu', 22, N'https://youtu.be/K125X_RFyaE?si=5RRrZDxld2XtaR_a', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (4, N'Camila', N'López', N'cami.lopez@gmail.com', N'cami1234', N'Músico', N'Guitarrista rítmica aprendiendo producción.', N'Guitarra', N'Principiante', 4, N'Femenino', N'Cami', 20, N'https://youtu.be/X7IhwlFIrCY?si=tpZFWdB4gKnZrrd5')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (4, N'Camila', N'López', N'cami.lopez@gmail.com', N'cami1234', N'Músico', N'Guitarrista rítmica aprendiendo producción.', N'Guitarra', N'Principiante', 4, N'Femenino', N'Cami', 20, N'https://youtu.be/X7IhwlFIrCY?si=tpZFWdB4gKnZrrd5', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (5, N'Joaquín', N'Díaz', N'joaco.diaz@outlook.com', N'joaco999', N'Músico', N'Tecladista influenciado por el synthwave.', N'Teclado', N'Intermedio', 1, N'Masculino', N'Joaco', 26, N'https://youtu.be/j-5TLouMrM4?si=9OvGivGEfVNaUqsY')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (5, N'Joaquín', N'Díaz', N'joaco.diaz@outlook.com', N'joaco999', N'Músico', N'Tecladista influenciado por el synthwave.', N'Teclado', N'Intermedio', 1, N'Masculino', N'Joaco', 26, N'https://youtu.be/j-5TLouMrM4?si=9OvGivGEfVNaUqsY', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (6, N'Valentina', N'Pérez', N'valen.perez@gmail.com', N'valen2026', N'Músico', N'Violinista clásica explorando el folclore.', N'Violín', N'Avanzado', 2, N'Femenino', N'Valen', 25, N'https://youtu.be/hUtEOEyEk6U?si=vFRwivOmLdmAlS_f')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (6, N'Valentina', N'Pérez', N'valen.perez@gmail.com', N'valen2026', N'Músico', N'Violinista clásica explorando el folclore.', N'Violín', N'Avanzado', 2, N'Femenino', N'Valen', 25, N'https://youtu.be/hUtEOEyEk6U?si=vFRwivOmLdmAlS_f', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (7, N'Nicolás', N'Romero', N'nico.romero@hotmail.com', N'nico1234', N'Músico', N'Guitarrista líder, fan de los solos de los 80s.', N'Guitarra', N'Avanzado', 3, N'Masculino', N'Nico', 31, N'https://youtu.be/iAwl_an5XUA?si=3FlZpt7s1wEIuCZh')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (7, N'Nicolás', N'Romero', N'nico.romero@hotmail.com', N'nico1234', N'Músico', N'Guitarrista líder, fan de los solos de los 80s.', N'Guitarra', N'Avanzado', 3, N'Masculino', N'Nico', 31, N'https://youtu.be/iAwl_an5XUA?si=3FlZpt7s1wEIuCZh', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (8, N'Mariana', N'Sosa', N'marian.sosa@gmail.com', N'marianpass', N'Músico', N'Cantautora acústica.', N'Voz', N'Intermedio', 4, N'Femenino', N'Mari', 23, N'https://youtu.be/rZcbB5ZaDaI?si=OxgcjM2odfSgxz_l')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (8, N'Mariana', N'Sosa', N'marian.sosa@gmail.com', N'marianpass', N'Músico', N'Cantautora acústica.', N'Voz', N'Intermedio', 4, N'Femenino', N'Mari', 23, N'https://youtu.be/rZcbB5ZaDaI?si=OxgcjM2odfSgxz_l', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (9, N'Agustín', N'Torres', N'agus.torres@gmail.com', N'agus3210', N'Músico', N'Percusionista enfocado en ritmos latinos.', N'Percusión', N'Intermedio', 1, N'Masculino', N'Agus', 29, N'https://youtu.be/3sUENMc-Vc0?si=9zlS8h67mip1sFVf')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (9, N'Agustín', N'Torres', N'agus.torres@gmail.com', N'agus3210', N'Músico', N'Percusionista enfocado en ritmos latinos.', N'Percusión', N'Intermedio', 1, N'Masculino', N'Agus', 29, N'https://youtu.be/3sUENMc-Vc0?si=9zlS8h67mip1sFVf', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (10, N'Lucía', N'Benítez', N'lu.benitez@yahoo.com', N'lulu2024', N'Músico', N'Bajista funk y groove.', N'Bajo', N'Avanzado', 2, N'Femenino', N'Lula', 27, N'https://youtu.be/_0vu-SjbtmU?si=J3CNxRT7FWQ2XXBz')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (10, N'Lucía', N'Benítez', N'lu.benitez@yahoo.com', N'lulu2024', N'Músico', N'Bajista funk y groove.', N'Bajo', N'Avanzado', 2, N'Femenino', N'Lula', 27, N'https://youtu.be/_0vu-SjbtmU?si=J3CNxRT7FWQ2XXBz', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (11, N'Tomas', N'Ramírez', N'tomi.ramirez@outlook.com', N'tomi5555', N'Músico', N'Baterista buscando proyecto de metal.', N'Batería', N'Avanzado', 3, N'Masculino', N'Tomi', 21, N'https://youtu.be/eY2uwZUm7Oc?si=PGXJMDhyYm1czutF')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (11, N'Tomas', N'Ramírez', N'tomi.ramirez@outlook.com', N'tomi5555', N'Músico', N'Baterista buscando proyecto de metal.', N'Batería', N'Avanzado', 3, N'Masculino', N'Tomi', 21, N'https://youtu.be/eY2uwZUm7Oc?si=PGXJMDhyYm1czutF', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (12, N'Martina', N'Flores', N'marti.flores@gmail.com', N'marti123', N'Músico', N'Flautista e interesada en ensamble de viento.', N'Flauta', N'Principiante', 4, N'Femenino', N'Martu', 19, N'https://youtu.be/M0mTOWITHB8?si=C-SruqBj9fDGafpM')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (12, N'Martina', N'Flores', N'marti.flores@gmail.com', N'marti123', N'Músico', N'Flautista e interesada en ensamble de viento.', N'Flauta', N'Principiante', 4, N'Femenino', N'Martu', 19, N'https://youtu.be/M0mTOWITHB8?si=C-SruqBj9fDGafpM', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (13, N'Jeffrey', N'Epstein', N'jeff@gmail.com', N'jeff123', N'Músico', N'Productor y saxofonista.', N'Saxofón', N'Avanzado', 1, N'Masculino', N'jeff', 34, N'https://youtu.be/C_AqnLoFMig?si=WWLUT_jcBymBierP')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (13, N'Jeffrey', N'Epstein', N'jeff@gmail.com', N'jeff123', N'Músico', N'Productor y saxofonista.', N'Saxofón', N'Avanzado', 1, N'Masculino', N'jeff', 34, N'https://youtu.be/C_AqnLoFMig?si=WWLUT_jcBymBierP', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (14, N'Elena', N'Medina', N'elena.m@gmail.com', N'elena987', N'Músico', N'Pianista clásica abriéndose al pop.', N'Teclado', N'Intermedio', 2, N'Femenino', N'Ele', 26, N'https://youtu.be/9khZ-CksRDY?si=DQmodhYNZvKUT81q')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (14, N'Elena', N'Medina', N'elena.m@gmail.com', N'elena987', N'Músico', N'Pianista clásica abriéndose al pop.', N'Teclado', N'Intermedio', 2, N'Femenino', N'Ele', 26, N'https://youtu.be/9khZ-CksRDY?si=DQmodhYNZvKUT81q', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (15, N'Facundo', N'Castro', N'facu.castro@yahoo.com', N'facu1234', N'Músico', N'Guitarrista rítmico para indie rock.', N'Guitarra', N'Intermedio', 3, N'Masculino', N'Facu', 22, N'https://youtu.be/sfhz6IUiRgs?si=evaW4rDjneCVx_Ze')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (15, N'Facundo', N'Castro', N'facu.castro@yahoo.com', N'facu1234', N'Músico', N'Guitarrista rítmico para indie rock.', N'Guitarra', N'Intermedio', 3, N'Masculino', N'Facu', 22, N'https://youtu.be/sfhz6IUiRgs?si=evaW4rDjneCVx_Ze', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (16, N'Clara', N'Mendoza', N'clara.m@gmail.com', N'clarita1', N'Músico', N'Vocalista mezzosoprano.', N'Voz', N'Avanzado', 4, N'Femenino', N'Clari', 28, N'https://youtu.be/9Pg3BoyFQ-k?si=17YK_dS5RAOinTae')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (16, N'Clara', N'Mendoza', N'clara.m@gmail.com', N'clarita1', N'Músico', N'Vocalista mezzosoprano.', N'Voz', N'Avanzado', 4, N'Femenino', N'Clari', 28, N'https://youtu.be/9Pg3BoyFQ-k?si=17YK_dS5RAOinTae', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (17, N'Santiago', N'Alvarez', N'santi.alvarez@outlook.com', N'santi2026', N'Músico', N'Bajista de sesión con disponibilidad.', N'Bajo', N'Avanzado', 1, N'Masculino', N'Santi', 30, N'https://youtu.be/QEiVlE4wfOg?si=9i0n9Q8FjYRyLLCU')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (17, N'Santiago', N'Alvarez', N'santi.alvarez@outlook.com', N'santi2026', N'Músico', N'Bajista de sesión con disponibilidad.', N'Bajo', N'Avanzado', 1, N'Masculino', N'Santi', 30, N'https://youtu.be/QEiVlE4wfOg?si=9i0n9Q8FjYRyLLCU', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (18, N'Victoria', N'Rojas', N'vicky.rojas@hotmail.com', N'vicky123', N'Músico', N'Baterista de indie y pop.', N'Batería', N'Intermedio', 2, N'Femenino', N'Vicky', 24, N'https://youtu.be/2ihxzCYiodA?si=4qfucZGn9rIp_2AC')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (18, N'Victoria', N'Rojas', N'vicky.rojas@hotmail.com', N'vicky123', N'Músico', N'Baterista de indie y pop.', N'Batería', N'Intermedio', 2, N'Femenino', N'Vicky', 24, N'https://youtu.be/2ihxzCYiodA?si=4qfucZGn9rIp_2AC', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (19, N'Gabriel', N'Molina', N'gabi.molina@gmail.com', N'gabi4567', N'Músico', N'Guitarrista acústico y compositor.', N'Guitarra', N'Intermedio', 3, N'Masculino', N'Gabi', 27, N'https://youtu.be/Tu4obryAP34?si=KZczyDhV1HdWBCnh')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (19, N'Gabriel', N'Molina', N'gabi.molina@gmail.com', N'gabi4567', N'Músico', N'Guitarrista acústico y compositor.', N'Guitarra', N'Intermedio', 3, N'Masculino', N'Gabi', 27, N'https://youtu.be/Tu4obryAP34?si=KZczyDhV1HdWBCnh', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (20, N'Paula', N'Ortiz', N'pau.ortiz@yahoo.com', N'paupass', N'Músico', N'Tecladista y corista.', N'Teclado', N'Principiante', 4, N'Femenino', N'Pau', 21, N'https://youtu.be/NNLOZS4ouw0?si=W_joMNdhkqEgj4Ni')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (20, N'Paula', N'Ortiz', N'pau.ortiz@yahoo.com', N'paupass', N'Músico', N'Tecladista y corista.', N'Teclado', N'Principiante', 4, N'Femenino', N'Pau', 21, N'https://youtu.be/NNLOZS4ouw0?si=W_joMNdhkqEgj4Ni', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (21, N'Kanye', N'West', N'ye@gmail.com', N'ye123', N'Músico', N'Mejor artista/productor de la historia', N'Voz', N'Avanzado', 1, N'Masculino', N'ye', 33, N'https://youtu.be/_ABk7TmjnVk?si=rnodovn1HSzz-u9Y')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (21, N'Kanye', N'West', N'ye@gmail.com', N'ye123', N'Músico', N'Mejor artista/productor de la historia', N'Voz', N'Avanzado', 1, N'Masculino', N'ye', 33, N'https://youtu.be/_ABk7TmjnVk?si=rnodovn1HSzz-u9Y', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (22, N'Daniela', N'Nuñez', N'dani.nunez@outlook.com', N'dani2024', N'Músico', N'Cellista explorando música experimental.', N'Cello', N'Avanzado', 2, N'Femenino', N'Dani', 29, N'https://youtu.be/MyPt0VAWyKM?si=6HCzQEUjsjB5_wWR')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (22, N'Daniela', N'Nuñez', N'dani.nunez@outlook.com', N'dani2024', N'Músico', N'Cellista explorando música experimental.', N'Cello', N'Avanzado', 2, N'Femenino', N'Dani', 29, N'https://youtu.be/MyPt0VAWyKM?si=6HCzQEUjsjB5_wWR', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (23, N'Ignacio', N'Luna', N'nacho.luna@hotmail.com', N'nacho999', N'Músico', N'Baterista de punk rock.', N'Batería', N'Intermedio', 3, N'Masculino', N'Nacho', 20, N'https://youtu.be/ir49RgrGI7w?si=WoVLzI5ndTmuKak_')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (23, N'Ignacio', N'Luna', N'nacho.luna@hotmail.com', N'nacho999', N'Músico', N'Baterista de punk rock.', N'Batería', N'Intermedio', 3, N'Masculino', N'Nacho', 20, N'https://youtu.be/ir49RgrGI7w?si=WoVLzI5ndTmuKak_', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (24, N'Abril', N'Juárez', N'abril.j@gmail.com', N'abril123', N'Músico', N'Bajista de pop rock.', N'Bajo', N'Principiante', 4, N'Femenino', N'Abby', 18, N'https://youtu.be/TfIsl6tZI68?si=ZfRNx9XUSyWNs4oP')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (24, N'Abril', N'Juárez', N'abril.j@gmail.com', N'abril123', N'Músico', N'Bajista de pop rock.', N'Bajo', N'Principiante', 4, N'Femenino', N'Abby', 18, N'https://youtu.be/TfIsl6tZI68?si=ZfRNx9XUSyWNs4oP', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (25, N'Manuel', N'Cabrera', N'manu.cabrera@yahoo.com', N'manuPass', N'Músico', N'Guitarrista flamenco y criollo.', N'Guitarra', N'Avanzado', 1, N'Masculino', N'Manu', 35, N'https://youtu.be/F4rGQ7gKYx0?si=apOZ9fwGWm64msPC')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (25, N'Manuel', N'Cabrera', N'manu.cabrera@yahoo.com', N'manuPass', N'Músico', N'Guitarrista flamenco y criollo.', N'Guitarra', N'Avanzado', 1, N'Masculino', N'Manu', 35, N'https://youtu.be/F4rGQ7gKYx0?si=apOZ9fwGWm64msPC', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (26, N'Rocío', N'Rios', N'ro.rios@gmail.com', N'ro123456', N'Músico', N'Cantante R&B y soul.', N'Voz', N'Avanzado', 2, N'Femenino', N'Rochi', 25, N'https://youtu.be/f2c_OGRzLv8?si=1Bu8J801vzs5BBmr')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (26, N'Rocío', N'Rios', N'ro.rios@gmail.com', N'ro123456', N'Músico', N'Cantante R&B y soul.', N'Voz', N'Avanzado', 2, N'Femenino', N'Rochi', 25, N'https://youtu.be/f2c_OGRzLv8?si=1Bu8J801vzs5BBmr', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (27, N'Felipe', N'Godoy', N'felipe.g@outlook.com', N'feli2026', N'Músico', N'Productor y DJ que busca vocalistas.', N'Teclado', N'Intermedio', 3, N'Masculino', N'Feli', 23, N'https://youtu.be/lF6bm8J9vlk?si=wXD_ANrc-WRFOlo4')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (27, N'Felipe', N'Godoy', N'felipe.g@outlook.com', N'feli2026', N'Músico', N'Productor y DJ que busca vocalistas.', N'Teclado', N'Intermedio', 3, N'Masculino', N'Feli', 23, N'https://youtu.be/lF6bm8J9vlk?si=wXD_ANrc-WRFOlo4', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (28, N'Micaela', N'Morales', N'mica.m@hotmail.com', N'micapass', N'Músico', N'Sintetizadores y diseño sonoro.', N'Teclado', N'Intermedio', 4, N'Femenino', N'Mica', 26, N'https://youtu.be/MIh2EueRmk0?si=f91UHwXV9gUz5ypI')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (28, N'Micaela', N'Morales', N'mica.m@hotmail.com', N'micapass', N'Músico', N'Sintetizadores y diseño sonoro.', N'Teclado', N'Intermedio', 4, N'Femenino', N'Mica', 26, N'https://youtu.be/MIh2EueRmk0?si=f91UHwXV9gUz5ypI', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (29, N'Julian', N'Peralta', N'juli.peralta@gmail.com', N'juli1234', N'Músico', N'Trompetista de ska y regaee.', N'Trompeta', N'Avanzado', 1, N'Masculino', N'Juli', 32, N'https://youtu.be/38vsGG1m8RI?si=guvMT59BA4qm0D7Y')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (29, N'Julian', N'Peralta', N'juli.peralta@gmail.com', N'juli1234', N'Músico', N'Trompetista de ska y regaee.', N'Trompeta', N'Avanzado', 1, N'Masculino', N'Juli', 32, N'https://youtu.be/38vsGG1m8RI?si=guvMT59BA4qm0D7Y', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (30, N'Lola', N'Carrizo', N'lola.c@yahoo.com', N'lolita99', N'Músico', N'Guitarrista rítmica alternativo.', N'Guitarra', N'Principiante', 2, N'Femenino', N'Lola', 19, N'https://youtu.be/FzRIt0VOAIo?si=6G0umozlyUvJgkLT')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (30, N'Lola', N'Carrizo', N'lola.c@yahoo.com', N'lolita99', N'Músico', N'Guitarrista rítmica alternativo.', N'Guitarra', N'Principiante', 2, N'Femenino', N'Lola', 19, N'https://youtu.be/FzRIt0VOAIo?si=6G0umozlyUvJgkLT', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (31, N'Esteban', N'Vega', N'esteban.v@gmail.com', N'estebanPass', N'Músico', N'Baterista de jazz fusion.', N'Batería', N'Avanzado', 3, N'Masculino', N'Es', 38, N'https://youtu.be/VH3QTjcfUrc?si=m1-wt9dVypbcD0Mr')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (31, N'Esteban', N'Vega', N'esteban.v@gmail.com', N'estebanPass', N'Músico', N'Baterista de jazz fusion.', N'Batería', N'Avanzado', 3, N'Masculino', N'Es', 38, N'https://youtu.be/VH3QTjcfUrc?si=m1-wt9dVypbcD0Mr', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (32, N'Julieta', N'Quiroga', N'julieta.q@outlook.com', N'julieta12', N'Músico', N'Vocalista soprano para rock sinfónico.', N'Voz', N'Avanzado', 4, N'Femenino', N'Juli', 27, N'https://youtu.be/hxvBjtsXV64?si=L0JtFDzG4lixvjn2')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (32, N'Julieta', N'Quiroga', N'julieta.q@outlook.com', N'julieta12', N'Músico', N'Vocalista soprano para rock sinfónico.', N'Voz', N'Avanzado', 4, N'Femenino', N'Juli', 27, N'https://youtu.be/hxvBjtsXV64?si=L0JtFDzG4lixvjn2', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (33, N'Bruno', N'Navarro', N'bruno.n@hotmail.com', N'bruno123', N'Músico', N'Bajista de hard rock.', N'Bajo', N'Intermedio', 1, N'Masculino', N'Bruno', 28, N'https://youtu.be/76yAo3aHPmM?si=ELc-6IJJomg_Skji')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (33, N'Bruno', N'Navarro', N'bruno.n@hotmail.com', N'bruno123', N'Músico', N'Bajista de hard rock.', N'Bajo', N'Intermedio', 1, N'Masculino', N'Bruno', 28, N'https://youtu.be/76yAo3aHPmM?si=ELc-6IJJomg_Skji', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (34, N'Florencia', N'Correa', N'flor.c@gmail.com', N'flor2024', N'Músico', N'Ukulele y voz acústica.', N'Voz', N'Principiante', 2, N'Femenino', N'Flor', 21, N'https://youtu.be/OoepEabGb9E?si=HxrJyL-xK8IudTw-')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (34, N'Florencia', N'Correa', N'flor.c@gmail.com', N'flor2024', N'Músico', N'Ukulele y voz acústica.', N'Voz', N'Principiante', 2, N'Femenino', N'Flor', 21, N'https://youtu.be/OoepEabGb9E?si=HxrJyL-xK8IudTw-', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (35, N'Rodrigo', N'Ledesma', N'rodri.l@yahoo.com', N'rodripass', N'Músico', N'Guitarrista de blues tradicional.', N'Guitarra', N'Avanzado', 3, N'Masculino', N'Rodri', 40, N'https://youtu.be/us5xN06GhKU?si=9x4uNQUbv7hLukk_')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (35, N'Rodrigo', N'Ledesma', N'rodri.l@yahoo.com', N'rodripass', N'Músico', N'Guitarrista de blues tradicional.', N'Guitarra', N'Avanzado', 3, N'Masculino', N'Rodri', 40, N'https://youtu.be/us5xN06GhKU?si=9x4uNQUbv7hLukk_', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (36, N'Sol', N'Mercado', N'sol.m@gmail.com', N'solcito1', N'Músico', N'Tecladista e influencias de funk.', N'Teclado', N'Intermedio', 4, N'Femenino', N'Sol', 23, N'https://youtu.be/YpCeD61WAsU?si=0LZ1yJyIbJEMP2FN')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (36, N'Sol', N'Mercado', N'sol.m@gmail.com', N'solcito1', N'Músico', N'Tecladista e influencias de funk.', N'Teclado', N'Intermedio', 4, N'Femenino', N'Sol', 23, N'https://youtu.be/YpCeD61WAsU?si=0LZ1yJyIbJEMP2FN', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (37, N'Federico', N'Aguirre', N'fede.a@outlook.com', N'fede1234', N'Músico', N'Baterista versátil para sesionar.', N'Batería', N'Avanzado', 1, N'Masculino', N'Fede', 29, N'https://youtu.be/1YACQ8Lc1Tw?si=qBTjrZM7K3Z4kRSE')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (37, N'Federico', N'Aguirre', N'fede.a@outlook.com', N'fede1234', N'Músico', N'Baterista versátil para sesionar.', N'Batería', N'Avanzado', 1, N'Masculino', N'Fede', 29, N'https://youtu.be/1YACQ8Lc1Tw?si=qBTjrZM7K3Z4kRSE', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (38, N'Milagros', N'Duarte', N'mili.d@hotmail.com', N'miliPass', N'Músico', N'Vocalista y compositora.', N'Voz', N'Intermedio', 2, N'Femenino', N'Mili', 22, N'https://youtu.be/QwPjG3IcRBM?list=PLzav_cAW0Ug9VZ8_FjENtSiP401tZVjwA')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (38, N'Milagros', N'Duarte', N'mili.d@hotmail.com', N'miliPass', N'Músico', N'Vocalista y compositora.', N'Voz', N'Intermedio', 2, N'Femenino', N'Mili', 22, N'https://youtu.be/QwPjG3IcRBM?list=PLzav_cAW0Ug9VZ8_FjENtSiP401tZVjwA', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (39, N'Leandro', N'Soria', N'lea.soria@gmail.com', N'lea12345', N'Músico', N'Bajista de disco y funk.', N'Bajo', N'Intermedio', 3, N'Masculino', N'Lea', 30, N'https://youtu.be/ZUzy5EmXixg?si=dD0Tg0n2GLStRfUX')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (39, N'Leandro', N'Soria', N'lea.soria@gmail.com', N'lea12345', N'Músico', N'Bajista de disco y funk.', N'Bajo', N'Intermedio', 3, N'Masculino', N'Lea', 30, N'https://youtu.be/ZUzy5EmXixg?si=dD0Tg0n2GLStRfUX', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (40, N'Candela', N'Ojeda', N'cande.o@yahoo.com', N'cande2026', N'Músico', N'Guitarrista solista.', N'Guitarra', N'Intermedio', 4, N'Femenino', N'Cande', 24, N'https://youtu.be/vXHOorXZ8qY?si=KXqxdPsKkHhhmL-H')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (40, N'Candela', N'Ojeda', N'cande.o@yahoo.com', N'cande2026', N'Músico', N'Guitarrista solista.', N'Guitarra', N'Intermedio', 4, N'Femenino', N'Cande', 24, N'https://youtu.be/vXHOorXZ8qY?si=KXqxdPsKkHhhmL-H', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (41, N'Marcos', N'Valenzuela', N'marcos.v@gmail.com', N'marcos12', N'Músico', N'Productor y beatmaker.', N'Teclado', N'Avanzado', 1, N'Masculino', N'Marquitos', 26, N'https://youtu.be/VG4HvhzKhwE?si=i_zLAoNi7m8bXgNp')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (41, N'Marcos', N'Valenzuela', N'marcos.v@gmail.com', N'marcos12', N'Músico', N'Productor y beatmaker.', N'Teclado', N'Avanzado', 1, N'Masculino', N'Marquitos', 26, N'https://youtu.be/VG4HvhzKhwE?si=i_zLAoNi7m8bXgNp', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (42, N'Delfina', N'Bustos', N'delfi.b@outlook.com', N'delfi123', N'Músico', N'Vocalista pop y urbana.', N'Voz', N'Intermedio', 2, N'Femenino', N'Delfi', 20, N'https://youtu.be/jPulLuBRfWQ?list=PLzav_cAW0Ug9VZ8_FjENtSiP401tZVjwA')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (42, N'Delfina', N'Bustos', N'delfi.b@outlook.com', N'delfi123', N'Músico', N'Vocalista pop y urbana.', N'Voz', N'Intermedio', 2, N'Femenino', N'Delfi', 20, N'https://youtu.be/jPulLuBRfWQ?list=PLzav_cAW0Ug9VZ8_FjENtSiP401tZVjwA', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (43, N'Ezequiel', N'Nunez', N'eze.n@hotmail.com', N'ezepass1', N'Músico', N'Guitarrista de post-punk.', N'Guitarra', N'Intermedio', 3, N'Masculino', N'Eze', 25, N'https://youtu.be/W6qHrdqWT_A?si=7dVYFJiI1CI4daW-')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (43, N'Ezequiel', N'Nunez', N'eze.n@hotmail.com', N'ezepass1', N'Músico', N'Guitarrista de post-punk.', N'Guitarra', N'Intermedio', 3, N'Masculino', N'Eze', 25, N'https://youtu.be/W6qHrdqWT_A?si=7dVYFJiI1CI4daW-', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (44, N'Guadalupe', N'Franco', N'guada.f@gmail.com', N'guada2024', N'Músico', N'Baterista de pop rock.', N'Batería', N'Principiante', 4, N'Femenino', N'Guada', 19, N'https://youtu.be/PC-ZdPrFzdk?si=efqEKeC1AZCguB7T')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (44, N'Guadalupe', N'Franco', N'guada.f@gmail.com', N'guada2024', N'Músico', N'Baterista de pop rock.', N'Batería', N'Principiante', 4, N'Femenino', N'Guada', 19, N'https://youtu.be/PC-ZdPrFzdk?si=efqEKeC1AZCguB7T', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (45, N'Kevin', N'Sosa', N'kevin.s@yahoo.com', N'kevin1234', N'Músico', N'Bajista de reggae y dub.', N'Bajo', N'Avanzado', 1, N'Masculino', N'Kev', 27, N'https://youtu.be/RTthLmEYLbg?si=_EJv6lqxwqkOQbbs')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (45, N'Kevin', N'Sosa', N'kevin.s@yahoo.com', N'kevin1234', N'Músico', N'Bajista de reggae y dub.', N'Bajo', N'Avanzado', 1, N'Masculino', N'Kev', 27, N'https://youtu.be/RTthLmEYLbg?si=_EJv6lqxwqkOQbbs', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (46, N'Antonella', N'Roldan', N'anto.r@gmail.com', N'antopass', N'Músico', N'Tecladista con piano clásico.', N'Teclado', N'Avanzado', 2, N'Femenino', N'Anto', 28, N'https://youtu.be/WFsdhTDezg4?si=xUFTzEqM4RlIQ6t8')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (46, N'Antonella', N'Roldan', N'anto.r@gmail.com', N'antopass', N'Músico', N'Tecladista con piano clásico.', N'Teclado', N'Avanzado', 2, N'Femenino', N'Anto', 28, N'https://youtu.be/WFsdhTDezg4?si=xUFTzEqM4RlIQ6t8', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (47, N'Luciano', N'Paz', N'lucho.paz@outlook.com', N'lucho123', N'Músico', N'Vocalista y segunda guitarra.', N'Guitarra', N'Intermedio', 3, N'Masculino', N'Lucho', 23, N'https://youtu.be/xpRgR-tZEpk?si=_y-NyZEpDcKH4NMC')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (47, N'Luciano', N'Paz', N'lucho.paz@outlook.com', N'lucho123', N'Músico', N'Vocalista y segunda guitarra.', N'Guitarra', N'Intermedio', 3, N'Masculino', N'Lucho', 23, N'https://youtu.be/xpRgR-tZEpk?si=_y-NyZEpDcKH4NMC', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (48, N'Catalina', N'Molina', N'cata.m@hotmail.com', N'catita12', N'Músico', N'Sintetizadores e instrumentos virtuales.', N'Teclado', N'Principiante', 4, N'Femenino', N'Cata', 21, N'https://youtu.be/3Li1LnqfxQU?si=4TwvS2GI3rCiM3_Y')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (48, N'Catalina', N'Molina', N'cata.m@hotmail.com', N'catita12', N'Músico', N'Sintetizadores e instrumentos virtuales.', N'Teclado', N'Principiante', 4, N'Femenino', N'Cata', 21, N'https://youtu.be/3Li1LnqfxQU?si=4TwvS2GI3rCiM3_Y', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (49, N'Ivan', N'Ferreyra', N'ivan.f@gmail.com', N'ivanpass', N'Músico', N'Baterista sesionista.', N'Batería', N'Avanzado', 1, N'Masculino', N'Ivan', 9, N'https://youtu.be/EqPRRkFQnk0?si=zsKsC3IXt2RqOl0g')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (49, N'Ivan', N'Ferreyra', N'ivan.f@gmail.com', N'ivanpass', N'Músico', N'Baterista sesionista.', N'Batería', N'Avanzado', 1, N'Masculino', N'Ivan', 9, N'https://youtu.be/EqPRRkFQnk0?si=zsKsC3IXt2RqOl0g', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (50, N'Brisa', N'Gallardo', N'bri.gallardo@yahoo.com', N'brisa2026', N'Músico', N'Cantante de rock nacional.', N'Voz', N'Intermedio', 2, N'Femenino', N'Bri', 22, N'https://youtu.be/La6ePTfimk4?si=oOzAo3u7PgBaVfSF')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (50, N'Brisa', N'Gallardo', N'bri.gallardo@yahoo.com', N'brisa2026', N'Músico', N'Cantante de rock nacional.', N'Voz', N'Intermedio', 2, N'Femenino', N'Bri', 22, N'https://youtu.be/La6ePTfimk4?si=oOzAo3u7PgBaVfSF', NULL)
 GO
-INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal]) VALUES (51, N'MÁXIMO', N'AGUILERA', N'r@gmail.com', N'123', N'Músico', N'hola hola', N'Guitarra', N'Profesional', 3, N'Masculino', N'r', 19, N'https://youtu.be/hBeur29GlfI?si=khPveKkiep-Z3REw')
+INSERT [dbo].[Usuarios] ([idUsuario], [nombre], [apellido], [email], [contraseña], [tipoUsuario], [biografia], [instrumentoPrincipal], [nivelExperiencia], [idUbicacion], [genero], [apodo], [edad], [videoPrincipal], [fotoPerfil]) VALUES (51, N'MÁXIMO', N'AGUILERA', N'r@gmail.com', N'123', N'Músico', N'hola hola', N'Guitarra', N'Profesional', 3, N'Masculino', N'r', 19, N'https://youtu.be/hBeur29GlfI?si=khPveKkiep-Z3REw', NULL)
 GO
 SET IDENTITY_INSERT [dbo].[Usuarios] OFF
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UQ__Usuarios__A9D1053471765528]    Script Date: 29/10/2026 11:13:04 ******/
+/****** Object:  Index [UQ__Usuarios__A9D1053471765528]    Script Date: 3/11/2026 09:01:04 ******/
 ALTER TABLE [dbo].[Usuarios] ADD  CONSTRAINT [UQ__Usuarios__A9D1053471765528] UNIQUE NONCLUSTERED 
 (
 	[email] ASC
@@ -615,7 +638,7 @@ ALTER TABLE [dbo].[Usuarios] CHECK CONSTRAINT [FK_Usuario_Ubicacion]
 GO
 ALTER TABLE [dbo].[Chats]  WITH CHECK ADD CHECK  (([idUsuario1]<>[idUsuario2]))
 GO
-/****** Object:  StoredProcedure [dbo].[sp_CrearProyectoMusical]    Script Date: 29/10/2026 11:13:04 ******/
+/****** Object:  StoredProcedure [dbo].[sp_CrearProyectoMusical]    Script Date: 3/11/2026 09:01:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -635,7 +658,7 @@ BEGIN
     SELECT 'OK' AS Estado, 'Proyecto creado' AS Mensaje;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_CrearReserva]    Script Date: 29/10/2026 11:13:04 ******/
+/****** Object:  StoredProcedure [dbo].[sp_CrearReserva]    Script Date: 3/11/2026 09:01:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -679,7 +702,7 @@ BEGIN
     END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ObtenerPerfilUsuario]    Script Date: 29/10/2026 11:13:04 ******/
+/****** Object:  StoredProcedure [dbo].[sp_ObtenerPerfilUsuario]    Script Date: 3/11/2026 09:01:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -718,7 +741,7 @@ BEGIN
     WHERE ue.idUsuario = @idUsuario;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_RegistrarInteraccionMatch]    Script Date: 29/10/2026 11:13:04 ******/
+/****** Object:  StoredProcedure [dbo].[sp_RegistrarInteraccionMatch]    Script Date: 3/11/2026 09:01:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -762,7 +785,7 @@ BEGIN
     END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_RegistrarUsuario]    Script Date: 29/10/2026 11:13:04 ******/
+/****** Object:  StoredProcedure [dbo].[sp_RegistrarUsuario]    Script Date: 3/11/2026 09:01:04 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
