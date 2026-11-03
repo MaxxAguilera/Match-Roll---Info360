@@ -259,7 +259,7 @@ public class HomeController : Controller
         return View("Perfil");
     }
     [HttpPost]
-    public IActionResult DarLike(int idUsuarioReceptor)
+    public IActionResult DarLike([FromBody] DarLikeRequest? request)
     {
         string? idSesion = HttpContext.Session.GetString("id");
 
@@ -268,13 +268,14 @@ public class HomeController : Controller
             return Unauthorized();
         }
 
-        if (idUsuarioSolicitante == idUsuarioReceptor)
+        int idUsuarioReceptor = request?.idUsuarioReceptor ?? 0;
+
+        if (idUsuarioSolicitante == idUsuarioReceptor || idUsuarioReceptor <= 0)
         {
             return BadRequest();
         }
 
         BD bd = new BD();
-
         bool hayMatch = bd.DarLike(idUsuarioSolicitante, idUsuarioReceptor);
         int? idChat = null;
 
@@ -282,11 +283,82 @@ public class HomeController : Controller
         {
             idChat = bd.CrearChatSiNoExiste(idUsuarioSolicitante, idUsuarioReceptor);
         }
+
         return Json(new { hayMatch, idChat });
     }
 
-    [HttpGet("Home/Chat")]
-    [HttpGet("Home/VistaChat")]
+    [HttpPost]
+    public IActionResult GuardarMensajeChat([FromBody] MensajeChatRequest request)
+    {
+        if (request == null || request.idChat <= 0 || request.idUsuarioEmisor <= 0 || string.IsNullOrWhiteSpace(request.contenido))
+        {
+            return BadRequest();
+        }
+
+        string? idSesion = HttpContext.Session.GetString("id");
+        if (!int.TryParse(idSesion, out int idUsuarioActual) || idUsuarioActual != request.idUsuarioEmisor)
+        {
+            return Unauthorized();
+        }
+
+        BD bd = new BD();
+        bd.GuardarMensaje(request.idChat, request.idUsuarioEmisor, request.contenido);
+
+        var mensajes = bd.ObtenerMensajesChat(request.idChat);
+        return Json(new { ok = true, mensajes });
+    }
+
+    [HttpGet]
+    public IActionResult ObtenerMensajesChat(int idChat)
+    {
+        if (idChat <= 0)
+        {
+            return BadRequest();
+        }
+
+        bool tieneCuenta = TieneCuenta();
+        if (!tieneCuenta)
+        {
+            return RedirectToAction("IndexSinCuenta");
+        }
+
+        BD bd = new BD();
+        var mensajes = bd.ObtenerMensajesChat(idChat)
+            .Select(m => new
+            {
+                idUsuarioEmisor = m.idUsuarioEmisor,
+                contenido = m.contenido,
+                fechaEnvio = m.fechaEnvio
+            }).ToList();
+
+        return Json(mensajes);
+    }
+
+    [HttpGet]
+    public IActionResult ObtenerChatPorUsuarios(int idOtroUsuario)
+    {
+        if (idOtroUsuario <= 0)
+        {
+            return BadRequest();
+        }
+
+        string? idSesion = HttpContext.Session.GetString("id");
+        if (!int.TryParse(idSesion, out int idUsuarioActual))
+        {
+            return Unauthorized();
+        }
+
+        BD bd = new BD();
+        int? idChat = bd.ObtenerIdChatEntreUsuarios(idUsuarioActual, idOtroUsuario);
+        if (!idChat.HasValue)
+        {
+            idChat = bd.CrearChatSiNoExiste(idUsuarioActual, idOtroUsuario);
+        }
+
+        return Json(new { idChat, idOtroUsuario });
+    }
+
+    [HttpGet]
     public IActionResult Chat(int? idChat = null, int? idOtroUsuario = null, string? apodo = null)
     {
         bool tieneCuenta = TieneCuenta();
@@ -295,7 +367,7 @@ public class HomeController : Controller
             return RedirectToAction("IndexSinCuenta");
         }
 
-        string idSesion = HttpContext.Session.GetString("id");
+        string? idSesion = HttpContext.Session.GetString("id");
         if (!int.TryParse(idSesion, out int idUsuario))
         {
             return RedirectToAction("IniciarSesion");
@@ -316,5 +388,17 @@ public class HomeController : Controller
     public IActionResult VistaChat(int? idChat = null, int? idOtroUsuario = null, string? apodo = null)
     {
         return RedirectToAction("Chat", new { idChat, idOtroUsuario, apodo });
+    }
+
+    public class DarLikeRequest
+    {
+        public int idUsuarioReceptor { get; set; }
+    }
+
+    public class MensajeChatRequest
+    {
+        public int idChat { get; set; }
+        public int idUsuarioEmisor { get; set; }
+        public string contenido { get; set; } = string.Empty;
     }
 }

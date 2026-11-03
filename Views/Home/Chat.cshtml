@@ -56,8 +56,8 @@
         id: chat.idChat,
         idOtroUsuario: chat.idOtroUsuario,
         name: chat.apodo || "Usuario",
-        messages: [],
-        ultimoMensaje: chat.ultimoMensaje || "Sin mensajes"
+        ultimoMensaje: chat.ultimoMensaje || "Sin mensajes",
+        messages: []
     }));
 
     let chatActivo = idChatSeleccionado ?? (chats[0]?.id ?? 0);
@@ -66,10 +66,38 @@
         return chats.find(c => c.id === chatActivo) ?? chats[0] ?? null;
     }
 
+    async function cargarMensajesDelChat(idChat) {
+        if (!idChat) return;
+
+        try {
+            const response = await fetch(`@Url.Action("ObtenerMensajesChat", "Home")?idChat=${idChat}`);
+            if (!response.ok) return;
+
+            const mensajes = await response.json();
+            const chat = chats.find(c => c.id === idChat);
+            if (!chat) return;
+
+            chat.messages = mensajes.map(m => ({
+                remitente: Number(m.idUsuarioEmisor) === Number(idUsuarioActual) ? "yo" : "otro",
+                texto: m.contenido,
+                fechaEnvio: m.fechaEnvio
+            }));
+
+            if (chat.messages.length > 0) {
+                chat.ultimoMensaje = chat.messages[chat.messages.length - 1].texto;
+            }
+
+            renderChatList(chats);
+            renderMensajes();
+        } catch (error) {
+            console.error("Error al cargar mensajes:", error);
+        }
+    }
+
     function filtrarChats() {
         const texto = (chatSearchInput.value || "").trim().toLowerCase();
         const lista = texto
-            ? chats.filter(chat => chat.name.toLowerCase().includes(texto))
+            ? chats.filter(chat => (chat.name || "").toLowerCase().includes(texto))
             : chats;
 
         renderChatList(lista);
@@ -101,7 +129,7 @@
             item.addEventListener("click", () => {
                 chatActivo = chat.id;
                 renderChatList(chats);
-                renderMensajes();
+                cargarMensajesDelChat(chat.id);
             });
 
             chatList.appendChild(item);
@@ -137,40 +165,55 @@
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    function enviarMensaje() {
+    async function enviarMensaje() {
         const texto = (messageInput.value || "").trim();
         if (!texto) return;
 
         const chat = obtenerChatActivo();
         if (!chat) return;
 
-        chat.messages.push({
-            remitente: "yo",
-            texto: texto
-        });
+        try {
+            const response = await fetch('@Url.Action("GuardarMensajeChat", "Home")', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    idChat: chat.id,
+                    idUsuarioEmisor: idUsuarioActual,
+                    contenido: texto
+                })
+            });
 
-        chat.ultimoMensaje = texto;
-        messageInput.value = "";
-        renderChatList(chats);
-        renderMensajes();
+            if (!response.ok) {
+                throw new Error('No se pudo guardar el mensaje');
+            }
+
+            chat.messages.push({ remitente: "yo", texto: texto });
+            chat.ultimoMensaje = texto;
+            messageInput.value = "";
+            renderChatList(chats);
+            renderMensajes();
+            await cargarMensajesDelChat(chat.id);
+        } catch (error) {
+            console.error("Error al enviar mensaje:", error);
+            alert("No se pudo enviar el mensaje.");
+        }
     }
 
     if (apodoSeleccionado && apodoSeleccionado !== "") {
-        const chatDesdeMatch = chats.find(c => c.id === idChatSeleccionado || c.idOtroUsuario === idOtroUsuario);
-        if (chatDesdeMatch) {
-            chatActivo = chatDesdeMatch.id;
+        const chatDesdeMatch = chats.find(c => c.id === idChatSeleccionado || Number(c.idOtroUsuario) === Number(idOtroUsuario));
+        if (!chatDesdeMatch) {
+            chats.unshift({
+                id: idChatSeleccionado ?? Date.now(),
+                idOtroUsuario: Number(idOtroUsuario) || 0,
+                name: apodoSeleccionado,
+                ultimoMensaje: "Nuevo match",
+                messages: []
+            });
+        } else {
             chatDesdeMatch.name = apodoSeleccionado;
             chatDesdeMatch.ultimoMensaje = "Nuevo match";
-        } else {
-            chats.unshift({
-                id: Date.now(),
-                idOtroUsuario: idOtroUsuario,
-                name: apodoSeleccionado,
-                messages: [],
-                ultimoMensaje: "Nuevo match"
-            });
-            chatActivo = chats[0].id;
         }
+        chatActivo = chats[0]?.id ?? 0;
     }
 
     sendMessageButton.addEventListener("click", enviarMensaje);
@@ -187,5 +230,7 @@
     }
 
     renderChatList(chats);
-    renderMensajes();
+    if (chatActivo) {
+        cargarMensajesDelChat(chatActivo);
+    }
 </script>

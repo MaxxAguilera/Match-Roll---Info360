@@ -390,101 +390,74 @@ namespace MatchRollInfo360.Models
         }
         public bool DarLike(int idUsuarioSolicitante, int idUsuarioReceptor)
         {
-            int existeLike = -1;
+            bool yaHabiaLikeReciproco = false;
+            int existeLikeReciproco = 0;
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"
+                existeLikeReciproco = connection.QueryFirstOrDefault<int>(@"
                     SELECT COUNT(*)
                     FROM Matches
                     WHERE idUsuarioSolicitante = @idUsuarioReceptor
-                    AND idUsuarioReceptor = @idUsuarioSolicitante";
+                      AND idUsuarioReceptor = @idUsuarioSolicitante",
+                    new { idUsuarioSolicitante, idUsuarioReceptor });
 
-                existeLike = connection.QueryFirstOrDefault<int>(
-                    query,
-                    new { idUsuarioSolicitante, idUsuarioReceptor }
-                );
-
-                if (existeLike > 0)
+                if (existeLikeReciproco > 0)
                 {
+                    yaHabiaLikeReciproco = true;
+
                     connection.Execute(@"
                         UPDATE Matches
                         SET estadoMatch = 'Match'
-                        WHERE
-                            (idUsuarioSolicitante = @idUsuarioSolicitante
-                            AND idUsuarioReceptor = @idUsuarioReceptor)
-                            OR
-                            (idUsuarioSolicitante = @idUsuarioReceptor
-                            AND idUsuarioReceptor = @idUsuarioSolicitante)",
+                        WHERE (idUsuarioSolicitante = @idUsuarioSolicitante AND idUsuarioReceptor = @idUsuarioReceptor)
+                           OR (idUsuarioSolicitante = @idUsuarioReceptor AND idUsuarioReceptor = @idUsuarioSolicitante)",
                         new { idUsuarioSolicitante, idUsuarioReceptor });
 
                     return true;
                 }
 
-                connection.Execute(@"
-                    IF NOT EXISTS (
-                        SELECT 1
-                        FROM Matches
-                        WHERE idUsuarioSolicitante = @idUsuarioSolicitante
-                        AND idUsuarioReceptor = @idUsuarioReceptor
-                    )
-                    BEGIN
-                        INSERT INTO Matches
-                            (idUsuarioSolicitante, idUsuarioReceptor,
-                            fechaMatch, estadoMatch)
-                        VALUES
-                            (@idUsuarioSolicitante, @idUsuarioReceptor,
-                            GETDATE(), 'Pendiente')
-                    END",
+                var existeRelacion = connection.QueryFirstOrDefault<int>(@"
+                    SELECT COUNT(*)
+                    FROM Matches
+                    WHERE idUsuarioSolicitante = @idUsuarioSolicitante
+                      AND idUsuarioReceptor = @idUsuarioReceptor",
                     new { idUsuarioSolicitante, idUsuarioReceptor });
 
-                return false;
+                if (existeRelacion == 0)
+                {
+                    connection.Execute(@"
+                        INSERT INTO Matches (idUsuarioSolicitante, idUsuarioReceptor, fechaMatch, estadoMatch)
+                        VALUES (@idUsuarioSolicitante, @idUsuarioReceptor, GETDATE(), 'Pendiente')",
+                        new { idUsuarioSolicitante, idUsuarioReceptor });
+                }
             }
+
+            return yaHabiaLikeReciproco;
         }
 
-
-
-        public List<int> ObtenerUbicacionesDisponibles()
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                return connection.Query<int>("SELECT idUbicacion FROM Ubicaciones").ToList();
-            }
-        }
-
-        public List<int> ObtenerIdsEtiquetasPorUsuario(int idUsuario)
-        {
-            List<int> idsEtiquetas = new List<int>();
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                idsEtiquetas = connection.Query<int>("SELECT idEtiqueta FROM UsuarioEtiquetas WHERE idUsuario = @idUsuario", new { idUsuario }).ToList();
-            }
-            return idsEtiquetas;
-        }
         public int CrearChatSiNoExiste(int u1, int u2)
         {
-            int idChat = -1;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                idChat = connection.QuerySingle<int>(@"
-                    DECLARE @idChat INT;
-
-                    SELECT @idChat = idChat
+                var existente = connection.QueryFirstOrDefault<int?>(@"
+                    SELECT TOP 1 idChat
                     FROM Chats
                     WHERE (idUsuario1 = @u1 AND idUsuario2 = @u2)
-                    OR (idUsuario1 = @u2 AND idUsuario2 = @u1);
-
-                    IF @idChat IS NULL
-                    BEGIN
-                        INSERT INTO Chats (idUsuario1, idUsuario2, fechaCreacion)
-                        VALUES (@u1, @u2, GETDATE());
-
-                        SET @idChat = SCOPE_IDENTITY();
-                    END
-
-                    SELECT @idChat;",
+                       OR (idUsuario1 = @u2 AND idUsuario2 = @u1)",
                     new { u1, u2 });
+
+                if (existente.HasValue)
+                {
+                    return existente.Value;
+                }
+
+                connection.Execute(@"
+                    INSERT INTO Chats (idUsuario1, idUsuario2, fechaCreacion)
+                    VALUES (@u1, @u2, GETDATE())",
+                    new { u1, u2 });
+
+                return connection.QuerySingle<int>(@"SELECT CAST(SCOPE_IDENTITY() AS INT)");
             }
-            return idChat;
         }
 
         public List<Chat> ObtenerChatsUsuario(int idUsuario)
@@ -495,25 +468,86 @@ namespace MatchRollInfo360.Models
                 string query = @"
                     SELECT
                         c.idChat,
-                        u.idUsuario AS idOtroUsuario,
-                        u.apodo AS apodo,
-                        '' AS ultimoMensaje
+                        CASE
+                            WHEN c.idUsuario1 = @idUsuario THEN c.idUsuario2
+                            ELSE c.idUsuario1
+                        END AS idOtroUsuario,
+                        u.apodo,
+                        ISNULL(m.contenido, '') AS ultimoMensaje,
+                        ISNULL(m.fechaEnvio, c.fechaCreacion) AS fechaUltimoMensaje
                     FROM Chats c
                     INNER JOIN Usuarios u
-                        ON u.idUsuario =
-                            CASE
-                                WHEN c.idUsuario1 = @idUsuario
-                                    THEN c.idUsuario2
-                                ELSE c.idUsuario1
-                            END
-                    WHERE c.idUsuario1 = @idUsuario
-                    OR c.idUsuario2 = @idUsuario
-                    ORDER BY c.fechaCreacion DESC";
+                        ON u.idUsuario = CASE
+                            WHEN c.idUsuario1 = @idUsuario THEN c.idUsuario2
+                            ELSE c.idUsuario1
+                        END
+                    LEFT JOIN (
+                        SELECT idChat, contenido, fechaEnvio,
+                               ROW_NUMBER() OVER (PARTITION BY idChat ORDER BY fechaEnvio DESC, idMensaje DESC) AS rn
+                        FROM Mensajes
+                    ) m ON m.idChat = c.idChat AND m.rn = 1
+                    WHERE c.idUsuario1 = @idUsuario OR c.idUsuario2 = @idUsuario
+                    ORDER BY fechaUltimoMensaje DESC, c.idChat DESC";
 
                 chats = connection.Query<Chat>(query, new { idUsuario }).ToList();
             }
             return chats;
         }
 
+        public List<(int idUsuarioEmisor, string contenido, DateTime fechaEnvio)> ObtenerMensajesChat(int idChat)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                return connection.Query<(int idUsuarioEmisor, string contenido, DateTime fechaEnvio)>(@"
+                    SELECT idUsuarioEmisor, contenido, fechaEnvio
+                    FROM Mensajes
+                    WHERE idChat = @idChat
+                    ORDER BY fechaEnvio ASC, idMensaje ASC",
+                    new { idChat }).ToList();
+            }
+        }
+
+        public void GuardarMensaje(int idChat, int idUsuarioEmisor, string contenido)
+        {
+            if (idChat <= 0 || idUsuarioEmisor <= 0 || string.IsNullOrWhiteSpace(contenido))
+            {
+                return;
+            }
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Execute(@"
+                    INSERT INTO Mensajes (idChat, idUsuarioEmisor, contenido, fechaEnvio)
+                    VALUES (@idChat, @idUsuarioEmisor, @contenido, GETDATE())",
+                    new { idChat, idUsuarioEmisor, contenido = contenido.Trim() });
+            }
+        }
+
+        public int? ObtenerIdChatEntreUsuarios(int idUsuario1, int idUsuario2)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                return connection.QueryFirstOrDefault<int?>(@"
+                    SELECT TOP 1 idChat
+                    FROM Chats
+                    WHERE (idUsuario1 = @idUsuario1 AND idUsuario2 = @idUsuario2)
+                       OR (idUsuario1 = @idUsuario2 AND idUsuario2 = @idUsuario1)",
+                    new { idUsuario1, idUsuario2 });
+            }
+        }
+
+        public List<int> ObtenerIdsEtiquetasPorUsuario(int idUsuario)
+        {
+            List<int> idsEtiquetas = new List<int>();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                idsEtiquetas = connection.Query<int>(@"
+                    SELECT idEtiqueta
+                    FROM UsuarioEtiquetas
+                    WHERE idUsuario = @idUsuario",
+                    new { idUsuario }).ToList();
+            }
+            return idsEtiquetas;
+        }
     }
 }

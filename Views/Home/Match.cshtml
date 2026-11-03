@@ -2,10 +2,6 @@
 @using System.Text.Json
 
 @{
-@using MatchRollInfo360.Models
-@using System.Text.Json
-
-
     ViewData["Title"] = "Match";
 
     var usuarios = (List<Usuario>)ViewBag.usuarios;
@@ -23,13 +19,11 @@
                 u.instrumentoPrincipal,
                 u.idUbicacion,
                 u.genero,
-                videoPrincipal = u.videoPrincipal,
+                videoPrincipal = u.videoPrincipal ?? "",
                 etiquetas = u.etiquetas?
                     .Select(e => e.nombreEtiqueta)
                     .ToList() ?? new List<string>()
-                
             })
-            
     );
 }
 <div class="match-page">
@@ -198,10 +192,7 @@
 </script>
 
 <script>
-    const usuarios = JSON.parse(
-        document.getElementById("datosUsuarios").textContent
-    );
-
+    const usuarios = JSON.parse(document.getElementById("datosUsuarios").textContent);
     const matchModal = document.getElementById("matchModal");
     const cerrarMatchModalBtn = document.getElementById("cerrarMatchModalBtn");
     const chatMatchModalBtn = document.getElementById("chatMatchModalBtn");
@@ -333,7 +324,7 @@
             const boton = item.querySelector(".liked-user-message");
             if (boton) {
                 boton.addEventListener("click", () => {
-                    window.location.href = '@Url.Action("VistaChat", "Home")';
+                    window.location.href = '@Url.Action("VistaChat", "Home")' + `?idOtroUsuario=${usuario.idUsuario}&apodo=${encodeURIComponent(usuario.apodo || "Usuario")}`;
                 });
             }
 
@@ -439,29 +430,23 @@
 
     function mostrarVideo() {
         const usuario = listaFiltrada[indiceUsuario];
-        const videos = usuario?.videos || [];
-        const media = [];
-
-        const urlPrincipal = (usuario?.videoPrincipal || "").trim();
-        if (urlPrincipal) {
-            media.push(urlPrincipal);
+        if (!usuario) {
+            if (videoContainer) videoContainer.innerHTML = "";
+            if (sinVideo) sinVideo.hidden = false;
+            if (contadorVideos) contadorVideos.textContent = "0 videos";
+            return;
         }
 
-        videos.forEach(url => {
-            const value = (url || "").trim();
-            if (value && !media.includes(value)) {
-                media.push(value);
-            }
-        });
+        const media = [];
+        const urlPrincipal = (usuario.videoPrincipal || "").trim();
+        if (urlPrincipal) media.push(urlPrincipal);
 
         if (media.length === 0) {
             if (videoContainer) videoContainer.innerHTML = "";
             if (sinVideo) sinVideo.hidden = false;
             if (contadorVideos) contadorVideos.textContent = "0 videos";
-
             if (btnAnterior) btnAnterior.hidden = true;
             if (btnSiguiente) btnSiguiente.hidden = true;
-
             return;
         }
 
@@ -487,20 +472,19 @@
             iframe.style.borderRadius = "16px";
             if (videoContainer) videoContainer.appendChild(iframe);
         } else {
-            const video = document.createElement("video");
-            video.controls = true;
-            video.autoplay = true;
-            video.muted = true;
-            video.playsInline = true;
-            video.src = url;
-            video.style.width = "100%";
-            video.style.height = "100%";
-            video.style.borderRadius = "16px";
-            if (videoContainer) videoContainer.appendChild(video);
+            const videoEl = document.createElement("video");
+            videoEl.controls = true;
+            videoEl.autoplay = true;
+            videoEl.muted = true;
+            videoEl.playsInline = true;
+            videoEl.src = url;
+            videoEl.style.width = "100%";
+            videoEl.style.height = "100%";
+            videoEl.style.borderRadius = "16px";
+            if (videoContainer) videoContainer.appendChild(videoEl);
         }
 
         if (contadorVideos) contadorVideos.textContent = `${indiceVideo + 1} / ${media.length}`;
-
         if (btnAnterior) btnAnterior.hidden = media.length <= 1;
         if (btnSiguiente) btnSiguiente.hidden = media.length <= 1;
     }
@@ -562,45 +546,35 @@
 
     if (btnLike) {
         btnLike.addEventListener("click", async () => {
-        const usuarioActual = listaFiltrada[indiceUsuario];
+            const usuarioActual = listaFiltrada[indiceUsuario];
+            if (!usuarioActual) return;
 
-        if (!usuarioActual) return;
+            btnLike.disabled = true;
 
-        btnLike.disabled = true;
+            try {
+                const response = await fetch('@Url.Action("DarLike", "Home")', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ idUsuarioReceptor: usuarioActual.idUsuario })
+                });
 
-        try {
-            const respuesta = await fetch(
-                '@Url.Action("DarLike", "Home")',
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type":
-                            "application/x-www-form-urlencoded"
-                    },
-                    body: new URLSearchParams({
-                        idUsuarioReceptor:
-                            usuarioActual.idUsuario
-                    })
-                }
-                );
-
-                if (!respuesta.ok) {
+                if (!response.ok) {
                     throw new Error("No se pudo registrar el like");
                 }
 
-                const resultado = await respuesta.json();
+                const data = await response.json();
 
-                if (resultado.hayMatch) {
+                if (data.hayMatch) {
                     abrirMatchModal(usuarioActual);
-                    return;
+                    siguienteUsuario();
+                } else {
+                    if (!likedUsers.some(u => u.idUsuario === usuarioActual.idUsuario)) {
+                        likedUsers.push(usuarioActual);
+                    }
+                    siguienteUsuario();
                 }
-
-                if (!likedUsers.some(u => u.idUsuario === usuarioActual.idUsuario)) {
-                    likedUsers.push(usuarioActual);
-                }
-
-                siguienteUsuario();
             } catch (error) {
+                console.error("Error al registrar el like:", error);
                 alert("Ocurrió un error al registrar el like.");
             } finally {
                 btnLike.disabled = false;
