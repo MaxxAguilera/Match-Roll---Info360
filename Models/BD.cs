@@ -437,27 +437,31 @@ namespace MatchRollInfo360.Models
 
         public int CrearChatSiNoExiste(int u1, int u2)
         {
+            int existente = -1;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                var existente = connection.QueryFirstOrDefault<int?>(@"
+                    existente = connection.QueryFirstOrDefault<int>(@"
                     SELECT TOP 1 idChat
                     FROM Chats
                     WHERE (idUsuario1 = @u1 AND idUsuario2 = @u2)
                        OR (idUsuario1 = @u2 AND idUsuario2 = @u1)",
                     new { u1, u2 });
 
-                if (existente.HasValue)
+                if (existente > 0)
                 {
-                    return existente.Value;
+                    return existente;
                 }
-
-                connection.Execute(@"
+                else
+                {
+                    existente = connection.QuerySingle<int>(@"
                     INSERT INTO Chats (idUsuario1, idUsuario2, fechaCreacion)
-                    VALUES (@u1, @u2, GETDATE())",
-                    new { u1, u2 });
-
-                return connection.QuerySingle<int>(@"SELECT CAST(SCOPE_IDENTITY() AS INT)");
+                    VALUES (@u1, @u2, GETDATE());
+                    SELECT CAST(SCOPE_IDENTITY() AS INT);",
+                    new { u1, u2 });   
+                }
+                 
             }
+            return existente;
         }
 
         public List<Chat> ObtenerChatsUsuario(int idUsuario)
@@ -496,15 +500,17 @@ namespace MatchRollInfo360.Models
 
         public List<(int idUsuarioEmisor, string contenido, DateTime fechaEnvio)> ObtenerMensajesChat(int idChat)
         {
+            List<(int idUsuarioEmisor, string contenido, DateTime fechaEnvio)> mensajes = new List<(int, string, DateTime)>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                return connection.Query<(int idUsuarioEmisor, string contenido, DateTime fechaEnvio)>(@"
+                mensajes = connection.Query<(int idUsuarioEmisor, string contenido, DateTime fechaEnvio)>(@"
                     SELECT idUsuarioEmisor, contenido, fechaEnvio
                     FROM Mensajes
                     WHERE idChat = @idChat
                     ORDER BY fechaEnvio ASC, idMensaje ASC",
                     new { idChat }).ToList();
             }
+            return mensajes;
         }
 
         public void GuardarMensaje(int idChat, int idUsuarioEmisor, string contenido)
@@ -523,17 +529,19 @@ namespace MatchRollInfo360.Models
             }
         }
 
-        public int? ObtenerIdChatEntreUsuarios(int idUsuario1, int idUsuario2)
+        public int ObtenerIdChatEntreUsuarios(int idUsuario1, int idUsuario2)
         {
+            int idChat = -1;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                return connection.QueryFirstOrDefault<int?>(@"
+                idChat = connection.QueryFirstOrDefault<int>(@"
                     SELECT TOP 1 idChat
                     FROM Chats
                     WHERE (idUsuario1 = @idUsuario1 AND idUsuario2 = @idUsuario2)
                        OR (idUsuario1 = @idUsuario2 AND idUsuario2 = @idUsuario1)",
                     new { idUsuario1, idUsuario2 });
             }
+            return idChat;
         }
 
         public List<int> ObtenerIdsEtiquetasPorUsuario(int idUsuario)
