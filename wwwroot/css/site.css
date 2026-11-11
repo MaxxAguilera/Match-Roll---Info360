@@ -37,7 +37,10 @@ body {
     flex-direction: column;
 }
 
-main { flex: 1; padding-bottom: 28px; }
+main { 
+    flex: 1;
+    padding-bottom: 2%;
+}
 main > .container { padding-top: 24px; margin-bottom: 14px; } /*Se aplica solo a los .container (de Bootstrap) que están directamente dentro del main*/
 
 img { max-width: 100%; display: block; }
@@ -463,6 +466,7 @@ h1, h2, h3, h4, h5, h6,
     border-top: 1px solid #555;
     border-bottom: 1px solid #555;
     font-family: var(--font-texto);
+    
 }
 .site-footer__links {
     list-style: none;

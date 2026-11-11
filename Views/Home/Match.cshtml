@@ -26,9 +26,7 @@
             })
     );
 }
-<div class="match-page">
-
-    <main class="match-layout">
+<main class="match-layout">
 
         <section class="perfil-seccion">
 
@@ -170,22 +168,22 @@
 
             </aside>
         </section>
-
-    </main>
-
-</div>
-
-<div id="matchModal" class="match-modal-backdrop" aria-hidden="true">
-    <div class="match-modal" role="dialog" aria-modal="true" aria-labelledby="matchModalTitle">
-        <div class="match-modal-burst"></div>
-        <h3 id="matchModalTitle">¡Hicieron match!</h3>
-        <p>Ahora podés seguir explorando o ir directamente al chat.</p>
-        <div class="match-modal-actions">
-            <button id="cerrarMatchModalBtn" type="button" class="match-modal-btn match-modal-btn--ghost">Continuar</button>
-            <button id="chatMatchModalBtn" type="button" class="match-modal-btn match-modal-btn--primary">Ir al chat</button>
+        <div id="matchModal" class="match-modal-backdrop" aria-hidden="true">
+            <div class="match-modal" role="dialog" aria-modal="true" aria-labelledby="matchModalTitle">
+                <div class="match-modal-burst">
+                </div>
+                <h3 id="matchModalTitle">¡Hicieron match!</h3>
+                <p>Ahora podés seguir explorando o ir directamente al chat.</p>
+                <div class="match-modal-actions">
+                    <button id="cerrarMatchModalBtn" type="button" class="match-modal-btn match-modal-btn--ghost">Continuar</button>
+                    <button id="chatMatchModalBtn" type="button" class="match-modal-btn match-modal-btn--primary">Ir al chat</button>
+            </div>
+            </div>
         </div>
-    </div>
-</div>
+
+    </main> 
+    
+
 
 <script id="datosUsuarios" type="application/json">
     @Html.Raw(usuariosJson)

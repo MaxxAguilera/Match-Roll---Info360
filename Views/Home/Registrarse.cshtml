@@ -88,18 +88,7 @@
                                 </section>
                             </form>
 
-                            <script>
-                                document.getElementById('formRegistro')?.addEventListener('submit', function (event) {
-                                    const edadInput = document.getElementById('edad');
-                                    const edad = Number(edadInput.value);
 
-                                    if (edad < 1 || edad > 100) {
-                                        event.preventDefault();
-                                        alert('La edad debe estar entre 1 y 100 años.');
-                                        edadInput.focus();
-                                    }
-                                });
-                            </script>
                         </div>
                     </div>
                 </div>
@@ -107,3 +96,16 @@
         </div>
     </section>
 </main>
+
+<script>
+    document.getElementById('formRegistro')?.addEventListener('submit', function (event) {
+    const edadInput = document.getElementById('edad');
+    const edad = Number(edadInput.value);
+
+    if (edad < 1 || edad > 100) {
+        event.preventDefault();
+        alert('La edad debe estar entre 1 y 100 años.');
+        edadInput.focus();
+    }
+    });
+</script>

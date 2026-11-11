@@ -1,5 +1,4 @@
 ﻿@{
-    Layout = null;
     ViewData["Match"] = "Match&Roll";
 }
 <!DOCTYPE html>
@@ -16,37 +15,7 @@
     <link rel="stylesheet" href="~/css/matchroll.css" asp-append-version="true" />
 </head>
 <body>
-
-
-    <!-- ================= HEADER ================ -->
-    <header class="navbar">
-        <a href='@Url.Action("Index", "Home")' class="navbar__logo">
-           <img src="~/Img/logo.png" alt="Match&Roll" >
-        </a>
-
-        <nav class="navbar__nav">
-            <a href='@Url.Action("VistaMatch", "Home")' class="navbar__btn">match</a>
-            <a href='@Url.Action("VistaSalas", "Home")' class="navbar__btn">salas</a>
-            <a href='@Url.Action("VistaChat", "Home")' class="navbar__msg" aria-label="Mensajes">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M5 7.5A2.5 2.5 0 0 1 7.5 5h9A2.5 2.5 0 0 1 19 7.5v6A2.5 2.5 0 0 1 16.5 16H11l-5 3v-3.5A2.5 2.5 0 0 1 5 13.5v-6Z"/>
-                    <path d="M8.5 9.5h7M8.5 12.5h5"/>
-                </svg>
-            </a>
-            <a href='@Url.Action("VistaPerfil", "Home")' class="navbar__avatar" aria-label="Mi perfil">
-                <svg viewBox="0 0 52 52" aria-hidden="true">
-                    <circle cx="26" cy="19" r="8" />
-                    <path d="M9 52c0-11 7.5-17 17-17s17 6 17 17z" />
-                </svg>
-            </a>
-        </nav>
-    </header>
-
-
     <main>
-
-
-        <!-- ================= HERO ================= -->
         <section class="hero">
             <div class="card hero-card">
                 <img src="~/img/landing1foto.png" class="card-img" alt="primera foto landing">
@@ -57,8 +26,6 @@
             </div>
         </section>
 
-
-        <!-- ================= QUÉ HACEMOS ================= -->
         <section class="que-hacemos">
             <h2>Qué hacemos</h2>
 
@@ -98,8 +65,6 @@
             </div>
         </section>
 
-
-        <!-- ================= LOGO + FOTO ================= -->
         <section class="brand-photo">
             <img class="deco deco--headphones-right" src="~/img/deco/auriculares.svg" alt="" />
             <img class="deco deco--mic-left" src="~/img/deco/microfono.svg" alt="" />
@@ -116,8 +81,6 @@
             </figure>
         </section>
 
-
-        <!-- ================= CREÁ TU CUENTA ================= -->
         <section class="crear-cuenta">
             <img class="deco deco--squiggle-purple-left" src="~/img/violeta.png" alt="violeta" />
             <img class="deco deco--vinyl-left-2" src="~/img/disco.png" alt="" />
@@ -142,8 +105,6 @@
             </div>
         </section>
 
-
-        <!-- ================= POR QUÉ ================= -->
         <section class="por-que">
             <h2>Por qué deberías usar Match&amp;Roll</h2>
             <div class="por-que__cols">
@@ -152,40 +113,8 @@
                 <p>Queremos ayudar porque tambien somos artistas y estivimos en su situación.</p>
             </div>
         </section>
-
-
     </main>
-
-
-    <!-- ================= FOOTER ================= -->
-    <footer class="site-footer">
-        <ul class="site-footer__links site-footer__links--left">
-            <li><a href="/Sobre-nosotros">Sobre nosotros</a></li>
-            <li><a href="/Contacto">Contacto</a></li>
-            <li><a href="/Accesibilidad">Accesibilidad</a></li>
-        </ul>
-
-
-        <div class="site-footer__center">
-            <img src="~/img/LOGO.png" alt="Match&Roll" class="site-footer__logo" />
-            <div class="site-footer__social">
-                <a href="#" aria-label="X"><img src="~/img/x.png" alt="" /></a>
-                <a href="#" aria-label="Facebook"><img src="~/img/facebook.png" alt="" /></a>
-                <a href="#" aria-label="Instagram"><img src="~/img/instagram.png" alt="" /></a>
-            </div>
-            <small>Copyright &copy; @DateTime.Now.Year Match&amp;Roll</small>
-        </div>
-
-
-        <ul class="site-footer__links site-footer__links--right">
-            <li><a href="/Que-hacemos">Que hacemos</a></li>
-            <li><a href="/Aviso-legal">Aviso legal y privacidad</a></li>
-            <li><a href="/Cookies">Cookies</a></li>
-        </ul>
-    </footer>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
