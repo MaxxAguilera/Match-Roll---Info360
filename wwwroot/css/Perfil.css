@@ -96,6 +96,13 @@
     box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
 }
 
+.perfil-etiqueta:hover,
+.perfil-cancelar:hover,
+.perfil-guardar:hover,
+.perfil-cerrar-sesion:hover {
+    filter: brightness(1.08);
+}
+
 .perfil-form-section {
     width: 100%;
 }
@@ -234,8 +241,15 @@
 }
 
 .perfil-cerrar-sesion:hover {
-    background: #b71c1c;
-    color: #fff;
+    filter: brightness(1.08);
+}
+
+.perfil-foto-form .btn-primary:hover,
+.perfil-guardar:hover {
+    background: var(--rosa);
+    border-color: var(--rosa);
+    color: #111;
+    filter: none;
 }
 
 @media (max-width: 900px) {

@@ -557,5 +557,15 @@ namespace MatchRollInfo360.Models
             }
             return idsEtiquetas;
         }
+
+        public void ActualizarFotoPerfil(int idUsuario, byte[] fotoPerfil)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Execute(
+                    "UPDATE Usuarios SET fotoPerfil = @fotoPerfil WHERE idUsuario = @idUsuario",
+                    new { idUsuario, fotoPerfil });
+            }
+        }
     }
 }

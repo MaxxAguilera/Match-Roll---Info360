@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using MatchRollInfo360.Models
+@{
+    Usuario? usuarioHeader = null;
+    if (int.TryParse(Context.Session.GetString("id"), out int idUsuarioHeader) && idUsuarioHeader > 0)
+    {
+        usuarioHeader = new BD().MostrarUsuario(idUsuarioHeader);
+    }
+}
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
@@ -25,10 +33,17 @@
                     </svg>
                 </a>
                 <a href="@Url.Action("VistaPerfil", "Home")" class="navbar__avatar" aria-label="Mi perfil">
-                    <svg viewBox="0 0 52 52" aria-hidden="true">
-                        <circle cx="26" cy="19" r="8" />
-                        <path d="M9 52c0-11 7.5-17 17-17s17 6 17 17z" />
-                    </svg>
+                    @if (usuarioHeader?.fotoPerfil != null && usuarioHeader.fotoPerfil.Length > 0)
+                    {
+                        <img src="@Url.Action("FotoPerfil", "Home", new { id = usuarioHeader.idUsuario })" alt="Foto de perfil" />
+                    }
+                    else
+                    {
+                        <svg viewBox="0 0 52 52" aria-hidden="true">
+                            <circle cx="26" cy="19" r="8" />
+                            <path d="M9 52c0-11 7.5-17 17-17s17 6 17 17z" />
+                        </svg>
+                    }
                 </a>
             </nav>
         }

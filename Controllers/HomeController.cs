@@ -390,6 +390,75 @@ public class HomeController : Controller
         return RedirectToAction("Chat", new { idChat, idOtroUsuario, apodo });
     }
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> SubirFotoPerfil(IFormFile fotoPerfil)
+    {
+        if (!TieneCuenta())
+        {
+            return RedirectToAction("IndexSinCuenta");
+        }
+
+        if (fotoPerfil == null || fotoPerfil.Length == 0)
+        {
+            TempData["FotoPerfilMensaje"] = "Seleccioná una imagen.";
+            return RedirectToAction("VistaPerfil");
+        }
+
+        string[] tiposPermitidos = { "image/jpeg", "image/png", "image/webp", "image/gif" };
+        if (!tiposPermitidos.Contains(fotoPerfil.ContentType))
+        {
+            TempData["FotoPerfilMensaje"] = "Solo se permiten imágenes JPG, PNG, WEBP o GIF.";
+            return RedirectToAction("VistaPerfil");
+        }
+
+        if (fotoPerfil.Length > 5 * 1024 * 1024)
+        {
+            TempData["FotoPerfilMensaje"] = "La imagen no puede superar los 5 MB.";
+            return RedirectToAction("VistaPerfil");
+        }
+
+        using MemoryStream memoria = new MemoryStream();
+        await fotoPerfil.CopyToAsync(memoria);
+
+        int id = int.Parse(HttpContext.Session.GetString("id") ?? "0");
+        BD bd = new BD();
+        bd.ActualizarFotoPerfil(id, memoria.ToArray());
+
+        TempData["FotoPerfilMensaje"] = "Foto de perfil actualizada.";
+        return RedirectToAction("VistaPerfil");
+    }
+
+    [HttpGet]
+    public IActionResult FotoPerfil(int id)
+    {
+        if (id <= 0)
+        {
+            return NotFound();
+        }
+
+        Usuario usuario = new BD().MostrarUsuario(id);
+        if (usuario.fotoPerfil == null || usuario.fotoPerfil.Length == 0)
+        {
+            return NotFound();
+        }
+
+        string tipoContenido = "application/octet-stream";
+        byte[] datos = usuario.fotoPerfil;
+
+        if (datos.Length >= 8 && datos[0] == 0x89 && datos[1] == 0x50 && datos[2] == 0x4E && datos[3] == 0x47)
+            tipoContenido = "image/png";
+        else if (datos.Length >= 3 && datos[0] == 0x47 && datos[1] == 0x49 && datos[2] == 0x46)
+            tipoContenido = "image/gif";
+        else if (datos.Length >= 12 && datos[0] == 0x52 && datos[1] == 0x49 && datos[2] == 0x46 && datos[3] == 0x46
+            && datos[8] == 0x57 && datos[9] == 0x45 && datos[10] == 0x42 && datos[11] == 0x50)
+            tipoContenido = "image/webp";
+        else if (datos.Length >= 2 && datos[0] == 0xFF && datos[1] == 0xD8)
+            tipoContenido = "image/jpeg";
+
+        return File(datos, tipoContenido);
+    }
+
     public class DarLikeRequest
     {
         public int idUsuarioReceptor { get; set; }

@@ -5,7 +5,30 @@
 <main class="perfil-shell">
     <section class="perfil-main">
         <section class="perfil-visual">
-            <div class="perfil-avatar" aria-label="Foto de perfil"></div>
+            <div class="perfil-avatar-wrap">
+                <span class="avatar perfil-avatar-bootstrap" style="--bs-avatar-size: 18rem;">
+                    @if (ViewBag.usuario.fotoPerfil != null && ViewBag.usuario.fotoPerfil.Length > 0)
+                    {
+                        <img id="perfilFotoPreview" class="avatar-img" src="@Url.Action("FotoPerfil", "Home", new { id = ViewBag.usuario.idUsuario })" alt="Foto de perfil" />
+                    }
+                    else
+                    {
+                        <div id="perfilFotoPreview" class="perfil-avatar-placeholder" aria-label="Foto de perfil predeterminada"></div>
+                    }
+                </span>
+
+                <form method="post" action="@Url.Action("SubirFotoPerfil", "Home")" enctype="multipart/form-data" class="perfil-foto-form">
+                    @Html.AntiForgeryToken()
+                    <label for="fotoPerfil" class="btn btn-light btn-sm">Elegir foto</label>
+                    <input id="fotoPerfil" name="fotoPerfil" type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="d-none" />
+                    <button type="submit" class="btn btn-primary btn-sm">Guardar foto</button>
+                </form>
+
+                @if (TempData["FotoPerfilMensaje"] != null)
+                {
+                    <p class="perfil-foto-mensaje">@TempData["FotoPerfilMensaje"]</p>
+                }
+            </div>
 
             <div class="perfil-etiquetas-box">
                 <strong>Mis etiquetas</strong>
@@ -146,3 +169,22 @@
         </section>
     </section>
 </main>
+
+@section Scripts {
+    <script>
+        document.getElementById('fotoPerfil')?.addEventListener('change', function () {
+            if (!this.files || !this.files[0]) return;
+
+            let preview = document.getElementById('perfilFotoPreview');
+            if (!preview || preview.tagName !== 'IMG') {
+                preview = document.createElement('img');
+                preview.id = 'perfilFotoPreview';
+                preview.className = 'avatar-img';
+                preview.alt = 'Vista previa de foto de perfil';
+                document.querySelector('.perfil-avatar-bootstrap')?.replaceChildren(preview);
+            }
+
+            preview.src = URL.createObjectURL(this.files[0]);
+        });
+    </script>
+}

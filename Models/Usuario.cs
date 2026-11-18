@@ -15,7 +15,7 @@ namespace MatchRollInfo360.Models
         public string nivelExperiencia { get; set; } = string.Empty;
         public string genero { get; set; } = string.Empty;
         public int edad { get; set; }
-        public string fotoPerfil { get; set; } = string.Empty;
+        public byte[]? fotoPerfil { get; set; }
         public List<ProyectoMusical> proyectos { get; set; } = new List<ProyectoMusical>();
         public List<Match> matchesSolicitante { get; set; } = new List<Match>();
         public List<Match> matchesReceptor { get; set; } = new List<Match>();
