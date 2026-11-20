@@ -567,5 +567,20 @@ namespace MatchRollInfo360.Models
                     new { idUsuario, fotoPerfil });
             }
         }
+
+        public List<Usuario> ObtenerUsuariosParaMatch(int idUsuarioActual)
+        {
+            List<Usuario> usuarios = new List<Usuario>();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                usuarios = connection.Query<Usuario>("SELECT * FROM Usuarios WHERE tipoUsuario = 'Músico' AND idUsuario != @idUsuario").ToList();
+
+                foreach (Usuario usuario in usuarios)
+                {
+                    usuario.etiquetas = ObtenerEtiquetasPorUsuario(usuario.idUsuario);
+                }
+            }
+            return usuarios;
+        }
     }
 }

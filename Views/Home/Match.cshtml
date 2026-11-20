@@ -4,27 +4,29 @@
 @{
     ViewData["Title"] = "Match";
 
-    var usuarios = (List<Usuario>)ViewBag.usuarios;
-    var idActual = int.Parse((string)ViewBag.idUsuarioActual);
+    List<Usuario> usuarios = ViewBag.usuarios as List<Usuario> ?? new List<Usuario>();
 
-    var usuariosJson = JsonSerializer.Serialize(
-        usuarios
-            .Where(u => u.idUsuario != idActual)
-            .Select(u => new
-            {
-                u.idUsuario,
-                u.apodo,
-                u.edad,
-                u.biografia,
-                u.instrumentoPrincipal,
-                u.idUbicacion,
-                u.genero,
-                videoPrincipal = u.videoPrincipal ?? "",
-                etiquetas = u.etiquetas?
-                    .Select(e => e.nombreEtiqueta)
-                    .ToList() ?? new List<string>()
-            })
-    );
+    var usuariosParaJavascript = usuarios.Select(usuario => new
+    {
+        usuario.idUsuario,
+        usuario.apodo,
+        usuario.edad,
+        usuario.genero,
+        usuario.idUbicacion,
+        usuario.instrumentoPrincipal,
+        usuario.biografia,
+        usuario.videoPrincipal,
+        etiquetas = usuario.etiquetas
+            .Select(etiqueta => etiqueta.nombreEtiqueta)
+            .ToList()
+    }).ToList();
+
+    string usuariosJson = JsonSerializer.Serialize(
+        usuariosParaJavascript,
+        new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
 }
 <main class="match-layout">
 

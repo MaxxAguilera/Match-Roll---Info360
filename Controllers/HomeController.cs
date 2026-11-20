@@ -225,9 +225,10 @@ public class HomeController : Controller
         }
 
         BD bd = new BD();
-        List<Usuario> usuarios = bd.ObtenerUsuarios();
+        int idUsuarioActual = int.Parse(HttpContext.Session.GetString("id"));
+        List<Usuario> usuarios = bd.ObtenerUsuariosParaMatch(idUsuarioActual);
         ViewBag.usuarios = usuarios;
-        ViewBag.idUsuarioActual = HttpContext.Session.GetString("id");
+        ViewBag.idUsuarioActual = idUsuarioActual;
         return View("Match");
     }
 
