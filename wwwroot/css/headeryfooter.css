@@ -26,3 +26,14 @@ footer img {
     width: 5%;
     padding: 0.5%;
 }
+
+.redesSociales{
+    width: 12%;
+    margin: 2% auto;
+    display: flex;
+    justify-content: space-between;
+}
+.redesSociales img {
+    width: 40%;
+    height: auto;
+}
