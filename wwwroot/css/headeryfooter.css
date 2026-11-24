@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #b0e3e8;
+}
+header img {
+    width: 5%;
+    padding: 0.5%;
+}
+
+header a {
+    margin-left:3%; 
+}
+
+footer {
+    background-color: #b0e3e8;
+    text-align: center;
+    padding: 1%;
+
+}
+
+footer img {
+    width: 5%;
+    padding: 0.5%;
+}

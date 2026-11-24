@@ -460,6 +460,12 @@ public class HomeController : Controller
         return File(datos, tipoContenido);
     }
 
+    public IActionResult VistaIniciarSesionBeta()
+    {
+        ViewData["HideNav"] = true;
+        return View("IniciarSesionBeta");
+    }
+
     public class DarLikeRequest
     {
         public int idUsuarioReceptor { get; set; }
