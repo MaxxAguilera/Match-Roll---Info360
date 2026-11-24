@@ -1,120 +1,153 @@
-﻿@{
-    ViewData["Match"] = "Match&Roll";
+﻿@using MatchRollInfo360.Models
+@{
+    Layout = null;
+    Usuario? usuarioHeader = null;
+    if (int.TryParse(Context.Session.GetString("id"), out int idUsuarioHeader) && idUsuarioHeader > 0)
+    {
+        usuarioHeader = new BD().MostrarUsuario(idUsuarioHeader);
+    }
+    ViewData["Title"] = "Match&Roll";
 }
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>@ViewData["Match&Roll"]</title>
+    <title>@ViewData["Title"]</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Outfit:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="~/css/matchroll.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-<body>
+<body class="landing-page">
+    <header class="navbar">
+        <a href="@Url.Action("Index", "Home")" class="navbar__logo" aria-label="Ir al inicio">
+            <img src="~/img/logo.png" alt="Match&Roll" />
+        </a>
+
+        <nav class="navbar__nav">
+            <a href="@Url.Action("VistaMatch", "Home")" class="navbar__btn">match</a>
+            <a href="@Url.Action("VistaSalas", "Home")" class="navbar__btn">salas</a>
+            <a href="@Url.Action("VistaChat", "Home")" class="navbar__msg" aria-label="Mensajes">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 7.5A2.5 2.5 0 0 1 7.5 5h9A2.5 2.5 0 0 1 19 7.5v6A2.5 2.5 0 0 1 16.5 16H11l-5 3v-3.5A2.5 2.5 0 0 1 5 13.5v-6Z" />
+                    <path d="M8.5 9.5h7M8.5 12.5h5" />
+                </svg>
+            </a>
+            <a href="@Url.Action("VistaPerfil", "Home")" class="navbar__avatar" aria-label="Mi perfil">
+                @if (usuarioHeader?.fotoPerfil != null && usuarioHeader.fotoPerfil.Length > 0)
+                {
+                    <img src="@Url.Action("FotoPerfil", "Home", new { id = usuarioHeader.idUsuario })" alt="Foto de perfil" />
+                }
+                else
+                {
+                    <svg viewBox="0 0 52 52" aria-hidden="true">
+                        <circle cx="26" cy="19" r="8" />
+                        <path d="M9 52c0-11 7.5-17 17-17s17 6 17 17z" />
+                    </svg>
+                }
+            </a>
+        </nav>
+    </header>
+
     <main>
-        <section class="hero">
-            <div class="card hero-card">
-                <img src="~/img/landing1foto.png" class="card-img" alt="primera foto landing">
-                <div class="card-img-overlay hero-card__overlay">
-                    <h4 class="card-title">Formá tu banda.<br />Matchéa</h4>
-                    <a href='@Url.Action("VistaMatch", "Home")' class="hero-card__btn">Empezá ahora</a>
+        <section class="landing-hero">
+            <div class="landing-hero__card">
+                <img src="~/img/landing1foto.png" alt="Músicos conectándose en Match&Roll" />
+                <div class="landing-hero__content">
+                    <h1>Formá tu banda.<br /><span>Matchéa</span></h1>
+                    <a href="@Url.Action("VistaMatch", "Home")" class="landing-button">Empezá ahora</a>
                 </div>
             </div>
         </section>
 
-        <section class="que-hacemos">
-            <h2>Qué hacemos</h2>
-
-
-            <div class="que-hacemos__content">
-                <div class="que-hacemos__gallery">
-                    <div id="carouselStackedBottom" class="carousel slide">
-                        <div class="carousel-inner rounded-5">
-                            <div class="carousel-item active">
-                                <img src="~/img/fototano1.jpg" class="d-block w-100" alt="Banda tocando en vivo">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="~/img/fotosalva.jpg" class="d-block w-100" alt="Banda en un bar">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="~/img/fotojuan.jpg" class="d-block w-100" alt="Banda posando">
-                            </div>
-                        </div>
-                    </div>
-                    <p class="photo-caption">Fotos de resultados</p>
-                    <div class="carousel-controls">
-                        <button class="btn-icon btn-sm" type="button" data-bs-target="#carouselStackedBottom" data-bs-slide="prev">
-                            <span class="carousel-icon-prev" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="btn-icon btn-sm" type="button" data-bs-target="#carouselStackedBottom" data-bs-slide="next">
-                            <span class="carousel-icon-next" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
+        <section class="how-it-works">
+            <div class="how-it-works__inner">
+                <div class="how-it-works__steps">
+                    <h2>¿Cómo funciona?</h2>
+                    <article>
+                        <span class="step-icon" aria-hidden="true">●</span>
+                        <div><strong>Creá tu perfil</strong><small>Contanos qué música te gusta y qué instrumento tocás.</small></div>
+                    </article>
+                    <article>
+                        <span class="step-icon step-icon--heart" aria-hidden="true">♥</span>
+                        <div><strong>Encontrá músicos</strong><small>Conocé otros músicos con los gustos y objetivos que buscás.</small></div>
+                    </article>
+                    <article>
+                        <span class="step-icon" aria-hidden="true">♥</span>
+                        <div><strong>¡Hagan match!</strong><small>Conectá, charlá y empezá a formar tu banda.</small></div>
+                    </article>
                 </div>
 
-
-                <p class="que-hacemos__text">
-                    Conectamos músicos y artistas de todo tipo para que puedan formar bandas, colaborar en proyectos y compartir su música. Nuestra plataforma facilita el encuentro entre talentos, ofreciendo herramientas para crear perfiles, mostrar habilidades y encontrar compañeros de banda con intereses similares.
-                </p>
-            </div>
-        </section>
-
-        <section class="brand-photo">
-            <img class="deco deco--headphones-right" src="~/img/deco/auriculares.svg" alt="" />
-            <img class="deco deco--mic-left" src="~/img/deco/microfono.svg" alt="" />
-            <img class="deco deco--bolt-mic" src="~/img/deco/rayo.svg" alt="" />
-
-
-            <p class="brand-photo__wordmark">MATCH&amp;ROLL</p>
-            <img class="brand-photo__logo" src="~/img/logo.png" alt="Match&Roll" />
-
-
-            <figure class="photo-frame photo-frame--wide">
-                <img src="~/img/patioort.jpg" alt="Banda en un bar" />
-                <figcaption>Fotos de resultados</figcaption>
-            </figure>
-        </section>
-
-        <section class="crear-cuenta">
-            <img class="deco deco--squiggle-purple-left" src="~/img/violeta.png" alt="violeta" />
-            <img class="deco deco--vinyl-left-2" src="~/img/disco.png" alt="" />
-            <img class="deco deco--guitar-right-2" src="~/img/guitarra.png" alt="" />
-            <img class="deco deco--bolt-right-3" src="~/img/deco/rayo.svg" alt="" />
-
-
-            <h2>Creá tu cuenta</h2>
-
-
-            <div class="crear-cuenta__content">
-                <figure class="photo-frame photo-frame--portrait">
-                    <img src="~/img/banda.jpg" alt="Banda posando" />
-                    <figcaption>Fotos de resultados</figcaption>
-                </figure>
-
-
-                <div class="crear-cuenta__box">
-                    <a href='@Url.Action("VistaIniciarSesion", "Home")' class="mr-btn mr-btn--xs">inicia sesion</a>
-                    <a href='@Url.Action("Registrarse", "Home")' class="mr-btn mr-btn--xs">crea tu cuenta</a>
+                <div class="how-it-works__photo">
+                    <img src="~/img/fototano1.JPG" alt="Banda tocando en vivo" />
                 </div>
             </div>
         </section>
 
-        <section class="por-que">
+        <section class="why-matchroll">
             <h2>Por qué deberías usar Match&amp;Roll</h2>
-            <div class="por-que__cols">
-                <p>Somos la unica red social para artistas como vos.</p>
-                <p>Ya hemos conseguido resultados muy buenos en el ambiente.</p>
-                <p>Queremos ayudar porque tambien somos artistas y estivimos en su situación.</p>
+            <div class="why-matchroll__cards">
+                <article>
+                    <strong>1.</strong>
+                    <p>Somos <b>la única red social</b> para artistas como vos.</p>
+                </article>
+                <article>
+                    <strong>2.</strong>
+                    <p>Si sos músico, esta app está <b>hecha para vos.</b></p>
+                </article>
+                <article>
+                    <strong>3.</strong>
+                    <p>Queremos ayudar porque también somos artistas y estuvimos en tu situación.</p>
+                </article>
             </div>
         </section>
+
+        <section class="landing-cta landing-cta--logged">
+            <h2>Información nueva solamente para ti</h2>
+            <div class="new-room-card">
+                <img src="~/img/ElCaminoSalaDeEnsayo.jpg" alt="Sala de ensayo El Camino" />
+                <div class="new-room-card__text">
+                    <p><strong>¡Encontramos esta sala de ensayo a tan solo 3km de tu ubicación!</strong></p>
+                    <div class="new-room-card__place">
+                        <b>Roc-A-Fella - Palermo</b>
+                        <span>Juan B. Justo 3161</span>
+                        <span>4000 p/m</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+         <img class="landing-cta__logo" src="~/img/logo.png" alt="Match&Roll" />
+
+            <img class="landing-cta__wide" src="~/img/patioort.JPG" alt="Banda tocando para una audiencia" />
     </main>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <footer class="site-footer">
+        <ul class="site-footer__links site-footer__links--left">
+            <li><a href="/Sobre-nosotros">Sobre nosotros</a></li>
+            <li><a href="/Contacto">Contacto</a></li>
+            <li><a href="/Accesibilidad">Accesibilidad</a></li>
+        </ul>
+
+        <div class="site-footer__center">
+            <img src="~/img/logo.png" alt="Match&Roll" class="site-footer__logo" />
+            <div class="site-footer__social">
+                <a href="#" aria-label="X"><img src="~/img/x.png" alt="" /></a>
+                <a href="#" aria-label="Facebook"><img src="~/img/facebook.png" alt="" /></a>
+                <a href="#" aria-label="Instagram"><img src="~/img/instagram.png" alt="" /></a>
+            </div>
+            <small>Copyright &copy; @DateTime.Now.Year Match&amp;Roll</small>
+        </div>
+
+        <ul class="site-footer__links site-footer__links--right">
+            <li><a href="/Que-hacemos">Qué hacemos</a></li>
+            <li><a href="/Aviso-legal">Aviso legal y privacidad</a></li>
+            <li><a href="/Cookies">Cookies</a></li>
+        </ul>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
