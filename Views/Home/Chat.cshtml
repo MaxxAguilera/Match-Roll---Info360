@@ -70,6 +70,7 @@
         idOtroUsuario: chat.idOtroUsuario,
         name: chat.apodo || "Usuario",
         ultimoMensaje: chat.ultimoMensaje || "Sin mensajes",
+        mensajesNoLeidos: Number(chat.mensajesNoLeidos || 0),
         messages: []
     }));
 
@@ -100,6 +101,13 @@
                 chat.ultimoMensaje = chat.messages[chat.messages.length - 1].texto;
             }
 
+            await fetch('@Url.Action("MarcarMensajesComoLeidos", "Home")', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ idChat: idChat })
+            });
+
+            chat.mensajesNoLeidos = 0;
             renderChatList(chats);
             renderMensajes();
         } catch (error) {
@@ -137,6 +145,9 @@
                     <strong>${chat.name}</strong>
                     <span>${chat.ultimoMensaje || "Sin mensajes"}</span>
                 </div>
+                ${chat.mensajesNoLeidos > 0
+                    ? `<span class="chat-item__badge">${chat.mensajesNoLeidos}</span>`
+                    : ""}
             `;
 
             item.addEventListener("click", () => {
@@ -186,11 +197,28 @@
         if (!chat) return;
 
         try {
+            let idChatReal = Number(chat.id);
+
+            if (chat.idOtroUsuario > 0) {
+                const chatResponse = await fetch(`@Url.Action("ObtenerChatPorUsuarios", "Home")?idOtroUsuario=${chat.idOtroUsuario}`);
+                if (!chatResponse.ok) {
+                    throw new Error("No se pudo obtener el chat");
+                }
+
+                const datosChat = await chatResponse.json();
+                idChatReal = Number(datosChat.idChat);
+                chat.id = idChatReal;
+            }
+
+            if (idChatReal <= 0) {
+                throw new Error("El chat no es válido");
+            }
+
             const response = await fetch('@Url.Action("GuardarMensajeChat", "Home")', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    idChat: chat.id,
+                    idChat: idChatReal,
                     idUsuarioEmisor: idUsuarioActual,
                     contenido: texto
                 })

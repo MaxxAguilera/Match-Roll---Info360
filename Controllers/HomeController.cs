@@ -477,4 +477,36 @@ public class HomeController : Controller
         public int idUsuarioEmisor { get; set; }
         public string contenido { get; set; } = string.Empty;
     }
+
+    public class MensajesLeidosRequest
+    {
+        public int idChat { get; set; }
+    }
+
+    [HttpGet]
+    public IActionResult ObtenerMensajesNoLeidos()
+    {
+        if (!TieneCuenta()) return Unauthorized();
+
+        int idUsuario = int.Parse(HttpContext.Session.GetString("id") ?? "0");
+        int cantidad = new BD().ObtenerMensajesNoLeidos(idUsuario);
+        return Json(new { cantidad });
+    }
+
+    [HttpPost]
+    public IActionResult MarcarMensajesComoLeidos([FromBody] MensajesLeidosRequest request)
+    {
+        if (request == null || request.idChat <= 0) return BadRequest();
+        if (!TieneCuenta()) return Unauthorized();
+
+        int idUsuario = int.Parse(HttpContext.Session.GetString("id") ?? "0");
+        BD bd = new BD();
+        bd.MarcarMensajesComoLeidos(request.idChat, idUsuario);
+
+        return Json(new
+        {
+            ok = true,
+            cantidad = bd.ObtenerMensajesNoLeidos(idUsuario)
+        });
+    }
 }

@@ -140,7 +140,8 @@ CREATE TABLE [dbo].[Mensajes](
 	[idUsuarioEmisor] [int] NOT NULL,
 	[contenido] [varchar](1000) NOT NULL,
 	[fechaEnvio] [datetime] NOT NULL,
-PRIMARY KEY CLUSTERED 
+	[leido] [bit] NOT NULL,
+PRIMARY KEY CLUSTERED
 (
 	[idMensaje] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]

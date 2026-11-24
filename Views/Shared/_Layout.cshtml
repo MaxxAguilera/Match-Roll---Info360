@@ -31,6 +31,7 @@
                         <path d="M5 7.5A2.5 2.5 0 0 1 7.5 5h9A2.5 2.5 0 0 1 19 7.5v6A2.5 2.5 0 0 1 16.5 16H11l-5 3v-3.5A2.5 2.5 0 0 1 5 13.5v-6Z"/>
                         <path d="M8.5 9.5h7M8.5 12.5h5"/>
                     </svg>
+                    <span class="navbar__msg-badge" id="mensajesNoLeidosBadge" hidden>0</span>
                 </a>
                 <a href="@Url.Action("VistaPerfil", "Home")" class="navbar__avatar" aria-label="Mi perfil">
                     @if (usuarioHeader?.fotoPerfil != null && usuarioHeader.fotoPerfil.Length > 0)
@@ -80,6 +81,34 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @if (Context.Session.GetString("id") != null)
+    {
+        <script>
+            (() => {
+                const badge = document.getElementById("mensajesNoLeidosBadge");
+
+                async function actualizarMensajesNoLeidos() {
+                    try {
+                        const response = await fetch('@Url.Action("ObtenerMensajesNoLeidos", "Home")');
+                        if (!response.ok) return;
+
+                        const data = await response.json();
+                        const cantidad = Number(data.cantidad || 0);
+
+                        if (badge) {
+                            badge.textContent = cantidad > 99 ? "99+" : cantidad.toString();
+                            badge.hidden = cantidad === 0;
+                        }
+                    } catch (error) {
+                        console.error("No se pudo actualizar mensajes no leídos:", error);
+                    }
+                }
+
+                actualizarMensajesNoLeidos();
+                setInterval(actualizarMensajesNoLeidos, 10000);
+            })();
+        </script>
+    }
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

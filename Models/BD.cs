@@ -478,7 +478,8 @@ namespace MatchRollInfo360.Models
                         END AS idOtroUsuario,
                         u.apodo,
                         ISNULL(m.contenido, '') AS ultimoMensaje,
-                        ISNULL(m.fechaEnvio, c.fechaCreacion) AS fechaUltimoMensaje
+                        ISNULL(m.fechaEnvio, c.fechaCreacion) AS fechaUltimoMensaje,
+                        0 AS mensajesNoLeidos
                     FROM Chats c
                     INNER JOIN Usuarios u
                         ON u.idUsuario = CASE
@@ -529,6 +530,14 @@ namespace MatchRollInfo360.Models
             }
         }
 
+        public int ObtenerMensajesNoLeidos(int idUsuario)
+        {
+            return 0;
+        }
+
+        public void MarcarMensajesComoLeidos(int idChat, int idUsuario)
+        {
+        }
         public int ObtenerIdChatEntreUsuarios(int idUsuario1, int idUsuario2)
         {
             int idChat = -1;
@@ -573,7 +582,9 @@ namespace MatchRollInfo360.Models
             List<Usuario> usuarios = new List<Usuario>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                usuarios = connection.Query<Usuario>("SELECT * FROM Usuarios WHERE tipoUsuario = 'Músico' AND idUsuario != @idUsuario").ToList();
+                usuarios = connection.Query<Usuario>(
+                    "SELECT * FROM Usuarios WHERE tipoUsuario = 'Músico' AND idUsuario != @idUsuario",
+                    new { idUsuario = idUsuarioActual }).ToList();
 
                 foreach (Usuario usuario in usuarios)
                 {

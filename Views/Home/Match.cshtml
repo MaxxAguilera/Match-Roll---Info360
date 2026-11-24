@@ -2,6 +2,7 @@
 @using System.Text.Json
 
 @{
+    Layout = "_Layout";
     ViewData["Title"] = "Match";
 
     List<Usuario> usuarios = ViewBag.usuarios as List<Usuario> ?? new List<Usuario>();
@@ -28,9 +29,11 @@
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });
 }
-<main class="match-layout">
-
+<div class="match-layout">
         <section class="perfil-seccion">
+            <div class="match-search-top">
+                <input id="buscarPerfil" type="search" placeholder="Busca usuarios..." aria-label="Buscar usuarios" />
+            </div>
 
             <div class="perfil-card">
 
@@ -95,12 +98,6 @@
             <aside class="filtros">
 
                 <div class="filtros-box">
-                    <h2>Filtros</h2>
-
-                    <input id="buscarPerfil"
-                           type="search"
-                           placeholder="Buscar usuario..." />
-
                     <div class="filtros-list">
                         <div class="match-form-field">
                             <button class="form-control match-combobox-toggle" type="button"
@@ -183,7 +180,7 @@
             </div>
         </div>
 
-    </main> 
+    </div> 
     
 
 
