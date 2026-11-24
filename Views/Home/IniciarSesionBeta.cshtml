@@ -8,14 +8,13 @@
     <title>Iniciar Sesión</title>
 </head>
 <body>
-    <header class="navbar">
+    <header>
         <a href="@Url.Action("Index", "Home")" class="navbar__logo">
             <img src="~/img/LOGO.png" alt="Match&Roll" />
         </a>
     </header>
     <main>
         <section>
-            <div>
                 <h2>Iniciar Sesión</h2>
                 <form method="post" action="@Url.Action("IniciarSesion", "Home")">
                     <div>
@@ -23,25 +22,24 @@
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div>
-                        <label for="password">Contraseña:</label>
-                        <input type="password" id="password" name="password" required>
+                        <label for="contraseña">Contraseña:</label>
+                        <input type="password" name="contraseña" required>
                     </div>
                     <button type="submit">Iniciar Sesión</button>
                 </form>
                 <p>¿No tienes una cuenta? <a href="@Url.Action("Registrarse", "Home")">Regístrate aquí</a></p>
-            </div>
         </section>
     </main>
     <footer>
-        <ul class="site-footer__links site-footer__links--left">
-            <li><a href="/Sobre-nosotros">Sobre nosotros</a></li>
-            <li><a href="/Contacto">Contacto</a></li>
-            <li><a href="/Accesibilidad">Accesibilidad</a></li>
+        <ul>
+            <li><a href="">Sobre nosotros</a></li>
+            <li><a href="">Contacto</a></li>
+            <li><a href="">Accesibilidad</a></li>
         </ul>
 
-        <div class="site-footer__center">
+        <div>
             <img src="~/img/LOGO.png" alt="Match&Roll" class="site-footer__logo" />
-            <div class="site-footer__social">
+            <div class="redesSociales">
                 <a href="#" aria-label="X"><img src="~/img/x.png" alt="" /></a>
                 <a href="#" aria-label="Facebook"><img src="~/img/facebook.png" alt="" /></a>
                 <a href="#" aria-label="Instagram"><img src="~/img/instagram.png" alt="" /></a>
@@ -49,10 +47,10 @@
             <small>Copyright &copy; @DateTime.Now.Year Match&amp;Roll</small>
         </div>
 
-        <ul class="site-footer__links site-footer__links--right">
-            <li><a href="/Que-hacemos">Que hacemos</a></li>
-            <li><a href="/Aviso-legal">Aviso legal y privacidad</a></li>
-            <li><a href="/Cookies">Cookies</a></li>
+        <ul>
+            <li><a href="">Que hacemos</a></li>
+            <li><a href="">Aviso legal y privacidad</a></li>
+            <li><a href="">Cookies</a></li>
         </ul>
     </footer>
     

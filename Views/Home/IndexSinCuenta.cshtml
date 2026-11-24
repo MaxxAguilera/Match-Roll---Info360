@@ -12,22 +12,14 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Outfit:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="~/css/matchroll.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/inciarsesionBeta.css"/>
 </head>
 <body>
-    <header class="navbar">
-        <a href='@Url.Action("Index", "Home")' class="navbar__logo">
-            <img src="~/img/LOGO.png" alt="Match&Roll" >
-        </a>
-
-        <nav class="navbar__nav">
-            <a href='@Url.Action("VistaIniciarSesionBeta","Home")' class="navbar__btn navbar__btn--auth">Iniciar sesión</a>
-            <a href='@Url.Action("Registrarse","Home")' class="navbar__btn navbar__btn--auth">Crear cuenta</a>
-        </nav>
+    <header>
+        <a href="@Url.Action("Index", "Home")" class="navbar__logo">
+            <img src="~/img/LOGO.png" alt="Match&Roll" />
+        </a>  
     </header>
-
-
     <main>
         <section class="hero">
             <div class="card hero-card">
