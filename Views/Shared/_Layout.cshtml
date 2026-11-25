@@ -1,6 +1,8 @@
-﻿@using MatchRollInfo360.Models
+﻿@using System.Diagnostics.Eventing.Reader
+@using MatchRollInfo360.Models
 @{
     Usuario? usuarioHeader = null;
+    var bodyClass = ViewData["BodyClass"] as string ?? string.Empty;
     if (int.TryParse(Context.Session.GetString("id"), out int idUsuarioHeader) && idUsuarioHeader > 0)
     {
         usuarioHeader = new BD().MostrarUsuario(idUsuarioHeader);
@@ -12,13 +14,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MatchandRoll</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/headeryfooter.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Outfit:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="~/css/site.css"/>
+    @await RenderSectionAsync("Styles", required: false)
 </head>
-<body>
+<body class="@bodyClass">
     <header>
         <a href="@Url.Action("Index", "Home")" class="navbar__logo">
             <img src="~/img/logo.png" alt="Match&Roll" />
@@ -49,6 +53,13 @@
                         </svg>
                     }
                 </a>
+            </nav>
+        }
+        else
+        {
+            <nav class="navbar__nav">
+                <a href="@Url.Action("VistaIniciarSesionBeta", "Home")" class="navbar__btn navbar__btn--auth">Iniciar sesión</a>
+                <a href="@Url.Action("Registrarse", "Home")" class="navbar__btn navbar__btn--auth">Crear cuenta</a>
             </nav>
         }
     </header>

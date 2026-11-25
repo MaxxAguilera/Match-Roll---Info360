@@ -1,31 +1,8 @@
 @{
-    Layout = null;
     ViewData["Title"] = "Match&Roll";
+    ViewData["HideNav"] = true;
+    ViewData["BodyClass"] = "landing-page";
 }
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>@ViewData["Title"]</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-</head>
-<body class="landing-page">
-    <header class="navbar">
-        <a href='@Url.Action("Index", "Home")' class="navbar__logo" aria-label="Ir al inicio">
-            <img src="~/img/logo.png" alt="Match&Roll" />
-        </a>
-        <nav class="navbar__nav">
-            <a href='@Url.Action("VistaIniciarSesionBeta", "Home")' class="navbar__btn navbar__btn--auth">Iniciar sesión</a>
-            <a href='@Url.Action("Registrarse", "Home")' class="navbar__btn navbar__btn--auth">Crear cuenta</a>
-        </nav>
-    </header>
-
-    <main>
         <section class="landing-hero">
             <div class="landing-hero__card">
                 <img src="~/img/landing1foto.png" alt="Músicos conectándose en Match&Roll" />
@@ -91,36 +68,3 @@
             <img class="landing-cta__logo" src="~/img/logo.png" alt="Match&Roll" />
 
             <img class="landing-cta__wide" src="~/img/patioort.JPG" alt="Banda tocando para una audiencia" />
-       
-    </main>
-
-    <footer class="site-footer">
-        <ul class="site-footer__links site-footer__links--left">
-            <li><a href="/Sobre-nosotros">Sobre nosotros</a></li>
-            <li><a href="/Contacto">Contacto</a></li>
-            <li><a href="/Accesibilidad">Accesibilidad</a></li>
-        </ul>
-
-        <div class="site-footer__center">
-            <img src="~/img/logo.png" alt="Match&Roll" class="site-footer__logo" />
-            <div class="site-footer__social">
-                <a href="#" aria-label="X"><img src="~/img/x.png" alt="" /></a>
-                <a href="#" aria-label="Facebook"><img src="~/img/facebook.png" alt="" /></a>
-                <a href="#" aria-label="Instagram"><img src="~/img/instagram.png" alt="" /></a>
-            </div>
-            <small>Copyright &copy; @DateTime.Now.Year Match&amp;Roll</small>
-        </div>
-
-        <ul class="site-footer__links site-footer__links--right">
-            <li><a href="/Que-hacemos">Qué hacemos</a></li>
-            <li><a href="/Aviso-legal">Aviso legal y privacidad</a></li>
-            <li><a href="/Cookies">Cookies</a></li>
-        </ul>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-
-
-

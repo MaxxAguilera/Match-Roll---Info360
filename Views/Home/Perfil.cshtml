@@ -1,8 +1,13 @@
 @{
     ViewData["Title"] = "Perfil";
+    ViewData["BodyClass"] = "perfil-page";
 }
 
-<main class="perfil-shell">
+@section Styles {
+    <link rel="stylesheet" href="~/css/Perfil.css" asp-append-version="true" />
+}
+
+<div class="perfil-shell">
     <section class="perfil-main">
         <section class="perfil-visual">
             <div class="perfil-avatar-wrap">
@@ -168,7 +173,7 @@
             </form>
         </section>
     </section>
-</main>
+</div>
 
 @section Scripts {
     <script>
