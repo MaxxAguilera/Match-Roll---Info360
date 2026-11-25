@@ -24,27 +24,27 @@
         @RenderBody()
     </main>
 
-    <footer>
-        <ul>
-            <li><a href="">Sobre nosotros</a></li>
-            <li><a href="">Contacto</a></li>
-            <li><a href="">Accesibilidad</a></li>
+    <footer class="site-footer">
+        <ul class="site-footer__links site-footer__links--left">
+            <li><a href="#">Sobre nosotros</a></li>
+            <li><a href="#">Contacto</a></li>
+            <li><a href="#">Accesibilidad</a></li>
         </ul>
 
-        <div>
+        <div class="site-footer__center">
             <img src="~/img/LOGO.png" alt="Match&Roll" class="site-footer__logo" />
-            <div class="redesSociales">
+            <div class="site-footer__social">
                 <a href="#" aria-label="X"><img src="~/img/x.png" alt="" /></a>
                 <a href="#" aria-label="Facebook"><img src="~/img/facebook.png" alt="" /></a>
                 <a href="#" aria-label="Instagram"><img src="~/img/instagram.png" alt="" /></a>
             </div>
-            <small>Copyright &copy; @DateTime.Now.Year Match&amp;Roll</small>
+            <small>Copyright © @DateTime.Now.Year Match&amp;Roll</small>
         </div>
 
-        <ul>
-            <li><a href="">Que hacemos</a></li>
-            <li><a href="">Aviso legal y privacidad</a></li>
-            <li><a href="">Cookies</a></li>
+        <ul class="site-footer__links site-footer__links--right">
+            <li><a href="#">Que hacemos</a></li>
+            <li><a href="#">Aviso legal y privacidad</a></li>
+            <li><a href="#">Cookies</a></li>
         </ul>
     </footer>
 
