@@ -46,3 +46,20 @@ form input{
 form div {
     margin-bottom: 4%;
 }
+
+button {
+    display: flex;
+    padding: 2.5%;
+    align-items: center;
+    justify-content: center;
+    background: var(--rosa);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+button:hover {
+    background: rgb(248, 132, 200);
+    color: white;
+    text-decoration: none;
+}

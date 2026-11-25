@@ -38,7 +38,9 @@ public class HomeController : Controller
 
         int id = int.Parse(HttpContext.Session.GetString("id") ?? "0");
         BD bd = new BD();
-        ViewBag.user = bd.MostrarUsuario(id);
+        Usuario user = bd.MostrarUsuario(id);
+        ViewBag.user = user;
+        ViewBag.fotoPerfilUrl = user.fotoPerfil;
         return View();
     }
 

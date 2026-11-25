@@ -1,12 +1,7 @@
 ﻿@using System.Diagnostics.Eventing.Reader
 @using MatchRollInfo360.Models
 @{
-    Usuario? usuarioHeader = null;
     var bodyClass = ViewData["BodyClass"] as string ?? string.Empty;
-    if (int.TryParse(Context.Session.GetString("id"), out int idUsuarioHeader) && idUsuarioHeader > 0)
-    {
-        usuarioHeader = new BD().MostrarUsuario(idUsuarioHeader);
-    }
 }
 <!DOCTYPE html>
 <html lang="es">
@@ -14,7 +9,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MatchandRoll</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/headeryfooter.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Outfit:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -33,7 +27,7 @@
             <nav class="navbar__nav">
                 <a href="@Url.Action("VistaMatch", "Home")">Match</a>
                 <a href="@Url.Action("VistaSalas", "Home")">Salas</a>
-                <a href="@Url.Action("VistaChat", "Home")" class="navbar__msg" aria-label="Mensajes">
+                <a href="@Url.Action("VistaChat", "Home")">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M5 7.5A2.5 2.5 0 0 1 7.5 5h9A2.5 2.5 0 0 1 19 7.5v6A2.5 2.5 0 0 1 16.5 16H11l-5 3v-3.5A2.5 2.5 0 0 1 5 13.5v-6Z"/>
                         <path d="M8.5 9.5h7M8.5 12.5h5"/>
@@ -41,9 +35,9 @@
                     <span class="navbar__msg-badge" id="mensajesNoLeidosBadge" hidden>0</span>
                 </a>
                 <a href="@Url.Action("VistaPerfil", "Home")" class="navbar__avatar" aria-label="Mi perfil">
-                    @if (usuarioHeader?.fotoPerfil != null && usuarioHeader.fotoPerfil.Length > 0)
+                    @if (!string.IsNullOrEmpty(ViewBag.fotoPerfilUrl))
                     {
-                        <img src="@Url.Action("FotoPerfil", "Home", new { id = usuarioHeader.idUsuario })" alt="Foto de perfil" />
+                        <img src="@ViewBag.fotoPerfilUrl" alt="Foto de perfil" />
                     }
                     else
                     {
