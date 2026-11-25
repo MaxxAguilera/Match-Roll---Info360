@@ -602,6 +602,10 @@ h1, h2, h3, h4, h5, h6,
     z-index: 1;
 }
 
+.no-video[hidden] {
+    display: none;
+}
+
 /* Datos del perfil */
 .video-meta { 
     padding: 14px 20px 18px; 

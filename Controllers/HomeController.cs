@@ -30,17 +30,37 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        bool tieneCuenta = TieneCuenta();
-        if (!tieneCuenta)
+        if (!TieneCuenta())
         {
             return RedirectToAction("IndexSinCuenta");
         }
 
         int id = int.Parse(HttpContext.Session.GetString("id") ?? "0");
-        BD bd = new BD();
-        Usuario user = bd.MostrarUsuario(id);
-        ViewBag.user = user;
-        ViewBag.fotoPerfilUrl = user.fotoPerfil;
+
+        try
+        {
+            Usuario user = new BD().MostrarUsuario(id);
+
+            if (user.idUsuario <= 0)
+            {
+                HttpContext.Session.Clear();
+                return RedirectToAction("IndexSinCuenta");
+            }
+
+            ViewBag.user = user;
+
+            if (user.fotoPerfil != null && user.fotoPerfil.Length > 0)
+            {
+                ViewBag.fotoPerfilUrl = Url.Action("FotoPerfil", "Home", new { id = user.idUsuario });
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "No se pudo cargar el usuario {UserId} al abrir la landing", id);
+            HttpContext.Session.Clear();
+            return RedirectToAction("IndexSinCuenta");
+        }
+
         return View();
     }
 
