@@ -1,0 +1,112 @@
+body{
+    background-image: url('../img/fondoLoginMatch&Roll.png');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.registro-wrap {
+    /* max-width: 540px; */
+    margin: 0 auto;
+    width: 55%;
+}
+.registro-header {
+    /* padding: 18px 20px; */
+    background: #9b5de5 !important;
+    color: #fff !important;
+    border-bottom: 2px solid #000000;
+    padding: 1%;
+    text-align: center;
+}
+
+form {
+    border: 1px solid #FF4D6D;
+    /* border-radius: 5px; */
+    background-color: white;
+    padding: 3%;
+    /* position: relative; */
+    /* text-align: start; */
+}
+
+.registro-form .form-control, .registro-form .form-select {
+    /* min-height: 44px; */
+    background: #ffffff;
+    border: 1px solid #d9d9d9;
+    border-radius: 0;
+    color: #111;
+}
+form input {
+    width: 100%;
+    padding: 1%;
+    border: 1px solid #D3D3D3;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+section {
+    /* width: 40%; */
+    /* margin: 3% auto; */
+    /* text-align: center; */
+}
+
+.registro-form .form-label {
+    font-size: 0.9rem;
+    /* margin-bottom: 8px; */
+    color: #111;
+}
+
+.registro-form .btn {
+    /* min-height: 48px; */
+    background: #ff5a5f;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    /* text-transform: lowercase; */
+    margin: 1% auto;
+    padding: 1%;
+    display: block;
+    width: auto !important;
+    /* justify-content: center; */
+    /* display: flow; */
+}
+
+.registro-form div {
+    margin-bottom: 2%;
+}
+
+.etiqueta-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 8px 14px;
+    border: 2px solid var(--negro);
+    border-radius: 999px;
+    background: #f5f5f5;
+    box-shadow: 0 2px 0 var(--negro);
+    font-size: .9rem;
+    font-weight: 500;
+    color: #111;
+    text-transform: capitalize;
+}
+.etiquetas-simple { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.form-check-etiqueta { margin: 0; padding: 0; }
+.form-check-etiqueta .form-check-input { display: none; }
+.form-check-etiqueta .form-check-label { cursor: pointer; transition: all .2s ease; }
+.form-check-etiqueta .form-check-input:checked + .form-check-label { background: var(--celeste); }
+
+.registro-form .etiqueta-chip {
+    background: #fff;
+    border: 1px solid #b7b7b7;
+    box-shadow: none;
+}

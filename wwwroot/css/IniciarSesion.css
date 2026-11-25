@@ -49,7 +49,7 @@ form div {
 
 button {
     display: flex;
-    padding: 2.5%;
+    padding: 1.5%;
     align-items: center;
     justify-content: center;
     background: var(--rosa);

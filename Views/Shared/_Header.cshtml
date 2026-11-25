@@ -1,0 +1,43 @@
+@{
+    var hideNav = ViewData["HideNav"] as bool? ?? false;
+}
+
+<header class="app-header">
+    <a href="@Url.Action("Index", "Home")" class="navbar__logo" aria-label="Ir al inicio">
+        <img src="~/img/logo.png" alt="Match & Roll" />
+    </a>
+
+    @if (!hideNav)
+    {
+        <nav class="navbar__nav" aria-label="Navegación principal">
+            <a href="@Url.Action("VistaMatch", "Home")" class="navbar__link">Match</a>
+            <a href="@Url.Action("VistaSalas", "Home")" class="navbar__link">Salas</a>
+
+            <a href="@Url.Action("VistaChat", "Home")" class="navbar__chat" aria-label="Chat">
+                <img src="~/img/mensajes.png" alt="" />
+                <span id="mensajesNoLeidosBadge" class="navbar__chat-badge" hidden>0</span>
+            </a>
+
+            <a href="@Url.Action("VistaPerfil", "Home")" class="navbar__avatar" aria-label="Mi perfil">
+                @if (!string.IsNullOrEmpty(ViewBag.fotoPerfilUrl))
+                {
+                    <img src="@ViewBag.fotoPerfilUrl" alt="Foto de perfil" />
+                }
+                else
+                {
+                    <svg viewBox="0 0 52 52" aria-hidden="true">
+                        <circle cx="26" cy="19" r="8" />
+                        <path d="M9 52c0-11 7.5-17 17-17s17 6 17 17z" />
+                    </svg>
+                }
+            </a>
+        </nav>
+    }
+    else
+    {
+        <nav class="navbar__nav navbar__nav--auth" aria-label="Opciones de cuenta">
+            <a href="@Url.Action("VistaIniciarSesionBeta", "Home")" class="navbar__link">Iniciar sesión</a>
+            <a href="@Url.Action("Registrarse", "Home")" class="navbar__link">Crear cuenta</a>
+        </nav>
+    }
+</header>

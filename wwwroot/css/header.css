@@ -1,0 +1,137 @@
+* {
+    box-sizing: border-box;
+}
+
+.app-header {
+    width: 100%;
+    height: 64px;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #b5e4e9;
+}
+
+.app-header .navbar__logo {
+    display: flex;
+    align-items: center;
+    width: 92px;
+    height: 52px;
+    margin: 0;
+}
+
+.app-header .navbar__logo img {
+    width: 92px;
+    height: auto;
+}
+
+.app-header .navbar__nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.app-header .navbar__nav a {
+    margin: 0;
+    text-decoration: none;
+}
+
+.app-header .navbar__link {
+    width: 82px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    background: #ff6f78;
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.app-header .navbar__link:hover {
+    background: #f65d68;
+    color: #ffffff;
+}
+
+.app-header .navbar__chat {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ff6f78;
+}
+
+.app-header .navbar__chat img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.app-header .navbar__chat-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+}
+
+.app-header .navbar__avatar {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 0;
+    border-radius: 50%;
+    background: #ffffff;
+}
+
+.app-header .navbar__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.app-header .navbar__avatar svg {
+    width: 34px;
+    height: 34px;
+    fill: #111111;
+}
+
+.app-header .navbar__nav--auth .navbar__link {
+    width: auto;
+    min-width: 82px;
+    padding: 0 14px;
+}
+
+@media (max-width: 600px) {
+    .app-header {
+        height: 72px;
+        padding: 0 16px;
+    }
+
+    .app-header .navbar__logo,
+    .app-header .navbar__logo img {
+        width: 72px;
+    }
+
+    .app-header .navbar__nav {
+        gap: 8px;
+    }
+
+    .app-header .navbar__link {
+        width: 68px;
+        height: 36px;
+        font-size: 12px;
+    }
+
+    .app-header .navbar__chat,
+    .app-header .navbar__avatar {
+        width: 40px;
+        height: 40px;
+    }
+}

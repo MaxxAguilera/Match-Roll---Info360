@@ -2,7 +2,9 @@
     ViewData["Title"] = "Registrarse";
     ViewData["HideNav"] = true;
 }
-
+@section Styles {
+    <link rel="stylesheet" href="~/css/registrarse.css" />
+}
 <div class="registro-page">
     <section class="registro-section">
         <div class="container mt-5">
@@ -21,8 +23,7 @@
                                 </div>
                             }
 
-                            <form action="@Url.Action("RegistrarDatosPrincipales", "Home")" method="post" id="formRegistro" class="registro-form">
-                                <section class="registro-form-section">
+                            <form action="@Url.Action("RegistrarDatosPrincipales", "Home")" method="post" class="registro-form">
                                     <div class="mb-3">
                                         <label for="apodo" class="form-label">Nombre de usuario</label>
                                         <input type="text" class="form-control" id="apodo" name="apodo" required>
@@ -39,9 +40,6 @@
                                         <label for="contraseñaConfirmacion" class="form-label">Confirmar contraseña</label>
                                         <input type="password" class="form-control" id="contraseñaConfirmacion" name="contraseñaConfirmacion" required>
                                     </div>
-                                </section>
-
-                                <section class="registro-form-section">
                                     <div class="mb-3">
                                         <label for="edad" class="form-label">Edad</label>
                                         <input type="number" class="form-control" id="edad" name="edad" min="1" max="100" required>
@@ -56,9 +54,6 @@
                                             <option value="Prefiero no decirlo">Prefiero no decirlo</option>
                                         </select>
                                     </div>
-                                </section>
-
-                                <section class="registro-form-section">
                                     <div class="mb-3">
                                         <label class="form-label">Etiquetas</label>
                                         <div class="etiquetas-simple">
@@ -81,11 +76,7 @@
                                             }
                                         </div>
                                     </div>
-                                </section>
-
-                                <section class="registro-form-section">
-                                    <button type="submit" class="btn w-100 mb-3">Crear cuenta</button>
-                                </section>
+                                <button type="submit" class="btn w-100 mb-3">Crear cuenta</button>
                             </form>
 
 
