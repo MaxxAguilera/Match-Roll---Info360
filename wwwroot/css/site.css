@@ -1606,14 +1606,14 @@ h1, h2, h3, h4, h5, h6,
     font-weight: 800;
 }
 /* ---------- Landing pública ---------- */
-.landing-page main { padding-bottom: 0; }
+.paginaInicio main { padding-bottom: 0; }
 
-.landing-hero {
+.portada {
     padding: 26px 20px 46px;
     background: #fff;
 }
 
-.landing-hero__card {
+.tarjetaPortada {
     position: relative;
     width: min(1180px, 92vw);
     height: 420px;
@@ -1623,20 +1623,20 @@ h1, h2, h3, h4, h5, h6,
     background: #111;
 }
 
-.landing-hero__card > img {
+.tarjetaPortada > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.landing-hero__content {
+.contenidoPortada {
     position: absolute;
     left: 46px;
     bottom: 46px;
     color: #fff;
 }
 
-.landing-hero h1 {
+.portada h1 {
     margin: 0 0 22px;
     font-family: Poppins, var(--font-titulos);
     font-size: clamp(42px, 5vw, 72px);
@@ -1644,9 +1644,9 @@ h1, h2, h3, h4, h5, h6,
     letter-spacing: -3px;
 }
 
-.landing-hero h1 span { color: #f50082; }
+.portada h1 span { color: #f50082; }
 
-.landing-button {
+.botonInicio {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1661,51 +1661,50 @@ h1, h2, h3, h4, h5, h6,
     font-weight: 700;
 }
 
-.landing-button:hover { color: #fff; filter: brightness(.95); }
+.botonInicio:hover { color: #fff; filter: brightness(.95); }
 
-.how-it-works {
+.comoFunciona {
     background: #ffc4a7;
-    padding: 56px 20px 64px;
+    padding: 3%;
 }
 
-.how-it-works__inner {
-    width: min(960px, 88vw);
+.contenedorComoFunciona {
+    width: 58%;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1.05fr;
     align-items: center;
-    gap: 70px;
+    gap: 5%;
 }
 
-.how-it-works h2,
-.why-matchroll h2,
-.landing-cta h2 {
+.comoFunciona h2,
+.porQueUsar h2,
+.llamadaAccion h2 {
     font-family: Poppins, var(--font-titulos);
     font-weight: 800;
 }
 
-.how-it-works h2 {
+.comoFunciona h2 {
     margin: 0 0 18px;
     font-size: 38px;
 }
 
-.how-it-works__steps article {
+.pasosComoFunciona article {
     display: flex;
     align-items: center;
-    gap: 14px;
-    min-height: 78px;
-    margin: 12px 0;
-    padding: 12px 16px;
+    gap: 5%;
+    margin: 2% 0%;
+    padding: 5.5% 3.5%;
     border-radius: 12px;
     background: #fff;
 }
 
-.how-it-works__steps strong,
-.how-it-works__steps small { display: block; }
-.how-it-works__steps strong { font-size: 15px; }
-.how-it-works__steps small { margin-top: 3px; color: #5f5f5f; }
+.pasosComoFunciona strong,
+.pasosComoFunciona small { display: block; }
+.pasosComoFunciona strong { font-size: 15px; }
+.pasosComoFunciona small { margin-top: 3px; color: #5f5f5f; }
 
-.step-icon {
+.iconoPaso {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1718,36 +1717,34 @@ h1, h2, h3, h4, h5, h6,
     font-size: 16px;
 }
 
-.step-icon--heart { background: #ff4d72; }
+.corazonPaso { background: #ff4d72; }
 
-.how-it-works__photo img {
+.fotoComoFunciona img {
     width: 100%;
-    height: 330px;
     border: 2px solid #ec4b99;
     border-radius: 8px;
-    object-fit: cover;
 }
 
-.why-matchroll {
-    padding: 54px 20px 70px;
+.porQueUsar {
+    padding: 3%;
     background: #f5658a;
 }
 
-.why-matchroll h2 {
+.porQueUsar h2 {
     margin: 0 0 42px;
     text-align: center;
     font-size: 38px;
 }
 
-.why-matchroll__cards {
-    width: min(880px, 88vw);
+.tarjetasPorQue {
+    width: 55%;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 70px;
+    gap: 4%;
 }
 
-.why-matchroll__cards article {
+.tarjetasPorQue article {
     min-height: 210px;
     padding: 38px 24px 24px;
     border: 1.5px solid #111;
@@ -1756,31 +1753,31 @@ h1, h2, h3, h4, h5, h6,
     text-align: center;
 }
 
-.why-matchroll__cards strong {
+.tarjetasPorQue strong {
     display: block;
     margin-bottom: 25px;
     color: #f26a91;
     font-size: 24px;
 }
 
-.why-matchroll__cards p {
+.tarjetasPorQue p {
     margin: 0;
     font-size: 21px;
     line-height: 1.42;
 }
 
-.landing-cta {
-    padding: 58px 20px 64px;
+.llamadaAccion {
+    padding: 4%;
     background: #fff;
     text-align: center;
 }
 
-.landing-cta h2 {
+.llamadaAccion h2 {
     margin: 0 0 32px;
     font-size: 38px;
 }
 
-.landing-cta__top {
+.contenidoAccion {
     width: min(900px, 88vw);
     margin: 0 auto 18px;
     display: grid;
@@ -1789,7 +1786,7 @@ h1, h2, h3, h4, h5, h6,
     gap: 60px;
 }
 
-.landing-cta__top > img {
+.contenidoAccion > img {
     width: 100%;
     height: 300px;
     border: 2px solid #6c55ec;
@@ -1797,39 +1794,32 @@ h1, h2, h3, h4, h5, h6,
     object-fit: cover;
 }
 
-.landing-cta__box p {
+.textoAccion p {
     margin: 0 0 22px;
     color: #f04a8a;
     font-size: 23px;
     line-height: 1.25;
 }
 
-.landing-cta__logo {
+.logoFinal {
     width: 230px;
     margin: 0 auto 34px;
 }
 
-.landing-cta__wide {
-    width: min(760px, 82vw);
-    height: 260px;
+.fotoFinal {
+    width: 50%;
+    height: 30vh;
     margin: 0 auto 64px;
     border: 2px solid #5b45c7;
     border-radius: 8px;
     object-fit: cover;
 }
 
-/* Información personalizada del index autenticado */
-.landing-cta--logged {
-    min-height: 300px;
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
-
-.landing-cta--logged h2 {
+.inicioSesion h2 {
     margin-bottom: 36px;
 }
 
-.new-room-card {
+.tarjetaSala {
     width: min(760px, 82vw);
     margin: 0 auto;
     display: grid;
@@ -1839,7 +1829,7 @@ h1, h2, h3, h4, h5, h6,
     text-align: left;
 }
 
-.new-room-card > img {
+.tarjetaSala > img {
     width: 100%;
     height: 210px;
     border: 1px solid #111;
@@ -1847,17 +1837,17 @@ h1, h2, h3, h4, h5, h6,
     object-fit: cover;
 }
 
-.new-room-card__text {
+.textoTarjetaSala {
     max-width: 260px;
 }
 
-.new-room-card__text p {
+.textoTarjetaSala p {
     margin: 0 0 18px;
     font-size: 16px;
     line-height: 1.25;
 }
 
-.new-room-card__place {
+.lugarTarjetaSala {
     display: flex;
     flex-direction: column;
     width: fit-content;
@@ -1869,22 +1859,17 @@ h1, h2, h3, h4, h5, h6,
     line-height: 1.25;
 }
 
-.new-room-card__place b {
-    font-size: 14px;
-}
-
-.new-room-card__place span {
-    font-size: 12px;
-}
+.lugarTarjetaSala b { font-size: 14px; }
+.lugarTarjetaSala span { font-size: 12px; }
 
 @media (max-width: 760px) {
-    .new-room-card {
+    .tarjetaSala {
         width: 88vw;
         grid-template-columns: 1fr;
         gap: 24px;
     }
 
-    .new-room-card > img { height: 250px; }
-    .new-room-card__text { margin: 0 auto; text-align: center; }
-    .new-room-card__place { margin: 0 auto; text-align: left; }
+    .tarjetaSala > img { height: 250px; }
+    .textoTarjetaSala { margin: 0 auto; text-align: center; }
+    .lugarTarjetaSala { margin: 0 auto; text-align: left; }
 }

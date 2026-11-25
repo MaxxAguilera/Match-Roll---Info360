@@ -1,44 +1,44 @@
 @{
     ViewData["Title"] = "Match&Roll";
-    ViewData["BodyClass"] = "landing-page";
+    ViewData["BodyClass"] = "paginaInicio";
 }
-        <section class="landing-hero">
-            <div class="landing-hero__card">
+        <section class="portada">
+            <div class="tarjetaPortada">
                 <img src="~/img/landing1foto.png" alt="Músicos conectándose en Match&Roll" />
-                <div class="landing-hero__content">
+                <div class="contenidoPortada">
                     <h1>Formá tu banda.<br /><span>Matcheá</span></h1>
-                    <a href="@Url.Action("VistaMatch", "Home")" class="landing-button">Empezá ahora</a>
+                    <a href="@Url.Action("VistaMatch", "Home")" class="botonInicio">Empezá ahora</a>
                 </div>
             </div>
         </section>
 
-        <section class="how-it-works">
-            <div class="how-it-works__inner">
-                <div class="how-it-works__steps">
+        <section class="comoFunciona">
+            <div class="contenedorComoFunciona">
+                <div class="pasosComoFunciona">
                     <h2>¿Cómo funciona?</h2>
                     <article>
-                        <span class="step-icon" aria-hidden="true">●</span>
+                        <span class="iconoPaso" aria-hidden="true">●</span>
                         <div><strong>Creá tu perfil</strong><small>Contanos qué música te gusta y qué instrumento tocás.</small></div>
                     </article>
                     <article>
-                        <span class="step-icon step-icon--heart" aria-hidden="true">♥</span>
+                        <span class="iconoPaso corazonPaso" aria-hidden="true">♥</span>
                         <div><strong>Encontrá músicos</strong><small>Conocé otros músicos con los gustos y objetivos que buscás.</small></div>
                     </article>
                     <article>
-                        <span class="step-icon" aria-hidden="true">♥</span>
+                        <span class="iconoPaso" aria-hidden="true">♥</span>
                         <div><strong>¡Hagan match!</strong><small>Conectá, charlá y empezá a formar tu banda.</small></div>
                     </article>
                 </div>
 
-                <div class="how-it-works__photo">
+                <div class="fotoComoFunciona">
                     <img src="~/img/fototano1.JPG" alt="Banda tocando en vivo" />
                 </div>
             </div>
         </section>
 
-        <section class="why-matchroll">
+        <section class="porQueUsar">
             <h2>Por qué deberías usar Match&amp;Roll</h2>
-            <div class="why-matchroll__cards">
+            <div class="tarjetasPorQue">
                 <article>
                     <strong>1.</strong>
                     <p>Somos <b>la única red social</b> para artistas como vos.</p>
@@ -54,13 +54,13 @@
             </div>
         </section>
 
-        <section class="landing-cta landing-cta--logged">
+        <section class="llamadaAccion inicioSesion">
             <h2>Información nueva solamente para ti</h2>
-            <div class="new-room-card">
+            <div class="tarjetaSala">
                 <img src="~/img/ElCaminoSalaDeEnsayo.jpg" alt="Sala de ensayo El Camino" />
-                <div class="new-room-card__text">
+                <div class="textoTarjetaSala">
                     <p><strong>¡Encontramos esta sala de ensayo a tan solo 3km de tu ubicación!</strong></p>
-                    <div class="new-room-card__place">
+                    <div class="lugarTarjetaSala">
                         <b>Roc-A-Fella - Palermo</b>
                         <span>Juan B. Justo 3161</span>
                         <span>4000 p/m</span>
@@ -68,9 +68,11 @@
                 </div>
             </div>
         </section>
-         <img class="landing-cta__logo" src="~/img/logo.png" alt="Match&Roll" />
+        <section>
+            <img class="logoFinal" src="~/img/logo.png" alt="Match&Roll" />
+            <img class="fotoFinal" src="~/img/patioort.JPG" alt="Banda tocando para una audiencia" />
+        </section>
 
-            <img class="landing-cta__wide" src="~/img/patioort.JPG" alt="Banda tocando para una audiencia" />
 
 
 
