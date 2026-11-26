@@ -386,17 +386,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* ---------- Footer ---------- */
-.site-footer {
-    width: 100%;
-    min-height: 218px;
-    box-sizing: border-box;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 32px;
-    padding: 34px 5.625%;
-    background: #b0e3e9;
-}
+
 .site-footer__links {
     width: 100%;
     list-style: none;
@@ -1668,8 +1658,8 @@ h1, h2, h3, h4, h5, h6,
     padding: 3%;
 }
 
-.contenedorComoFunciona {
-    width: 58%;
+.contenedorDosElementosCentrados {
+    width: 66%;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1.05fr;
@@ -1689,7 +1679,7 @@ h1, h2, h3, h4, h5, h6,
     font-size: 38px;
 }
 
-.pasosComoFunciona article {
+.comoFunciona article {
     display: flex;
     align-items: center;
     gap: 5%;
@@ -1699,10 +1689,14 @@ h1, h2, h3, h4, h5, h6,
     background: #fff;
 }
 
-.pasosComoFunciona strong,
-.pasosComoFunciona small { display: block; }
-.pasosComoFunciona strong { font-size: 15px; }
-.pasosComoFunciona small { margin-top: 3px; color: #5f5f5f; }
+.comoFunciona article img {
+    width: 9%;
+}
+
+.comoFunciona strong,
+.comoFunciona small { display: block; }
+.comoFunciona strong { font-size: 15px; }
+.comoFunciona small { margin-top: 3px; color: #5f5f5f; }
 
 .iconoPaso {
     display: flex;
