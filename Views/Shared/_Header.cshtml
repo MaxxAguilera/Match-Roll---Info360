@@ -21,7 +21,10 @@
             <a href="@Url.Action("VistaPerfil", "Home")" class="navbar__avatar" aria-label="Mi perfil">
                 @if (!string.IsNullOrEmpty(ViewBag.fotoPerfilUrl))
                 {
-                    <img src="@ViewBag.fotoPerfilUrl" alt="Foto de perfil" />
+                    <span class="avatar">
+                        <img class="avatar-img" src="@ViewBag.fotoPerfilUrl" alt="mdo">
+                    </span>
+                    Console.WriteLine("Foto de perfil 1");
                 }
                 else
                 {
@@ -29,6 +32,7 @@
                         <circle cx="26" cy="19" r="8" />
                         <path d="M9 52c0-11 7.5-17 17-17s17 6 17 17z" />
                     </svg>
+                    Console.WriteLine("Foto de perfil 2");
                 }
             </a>
         </nav>
